@@ -4,20 +4,14 @@ body {
     background-image: url("/images/dark-green-abstract-paper-texture-background.jpg");
 }
 
-.headerStartseite {
-    margin-top: 5%;
-    margin-bottom: 10%;
-    font-size: 50px;
-    text-decoration: underline;
-    font-weight: bold;
-}
 
 .buttonsStartseite button {
-    margin-top: 2%;
+    margin-top: 3%;
     min-width: 15%;
 }
 
+
 .titleImage {
-    width: 500px; /* Adjust the width as desired */
-    height: auto; /* Maintain the aspect ratio */
+    width: 80%; /* Adjust the width as desired */
+    height: 50%; /* Maintain the aspect ratio */
 }
