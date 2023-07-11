@@ -1,0 +1,38 @@
+﻿body {
+    background-image: url('/Images/dark-green-abstract-paper-texture-background.jpg');
+}
+
+p.a{
+    text-align: left;
+}
+
+p.b{
+    text-align: right;
+}
+
+.displayContainer{
+    position: relative;
+    color: white;
+    height: 100px;
+}
+
+.displayUsername{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.displayMoney{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.divFenster{
+    text-align: center;
+    color:white;
+}
+
+.spielStarten{
+    padding-top: 100px;
+}
