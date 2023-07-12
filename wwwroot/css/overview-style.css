@@ -30,9 +30,6 @@ p.b{
 
 .divFenster{
     text-align: center;
-    color:white;
+    width: 300px;
 }
 
-.spielStarten{
-    padding-top: 100px;
-}
