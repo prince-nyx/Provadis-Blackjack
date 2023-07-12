@@ -64,3 +64,10 @@ body {
     top: 0%;
     transform: translate(-50%, -50%);
 }
+
+
+img {
+    display:inline-block;
+    width:5%;
+    height:auto;
+}

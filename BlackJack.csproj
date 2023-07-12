@@ -13,8 +13,4 @@
     <None Remove="wwwroot\testing\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\images\" />
-  </ItemGroup>
-
 </Project>
