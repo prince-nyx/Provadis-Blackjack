@@ -1,42 +1,4 @@
-/*
-html {
-  font-size: 14px;
-}
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  margin-bottom: 60px;
-}
-*/
-/*
-.displayOwnUsername {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    color: white;
-}
-
-.displayOwnMoney {
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-    color: white;
-}
-*/
 .displayOwnContainer {
     position: relative;
     color: white;
@@ -59,16 +21,42 @@ body {
 }
 
 .BlackJackTable {
-    position: fixed;
-    left: 17%;
+    /*position: fixed;*/
+    left: 15%;
     top: 0%;
     transform: translate(-50%, -50%);
+
+    position:absolute;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
 }
 
+
+.pokerchips {
+    position: fixed;
+    left: 0;
+    bottom: 0%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    /*min-height: 72vh;*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+    background-color: rgba(0, 0, 0, 0.5);
+}
 
 img {
-    display:inline-block;
-    width:5%;
-    height:auto;
-    bottom: 0%;
+    display: inline-block;
+    width: 5%;
+    height: auto;
+    margin: 5px;
 }
+
+
+.pokerchips img {
+    cursor: pointer;
+}
+
+
