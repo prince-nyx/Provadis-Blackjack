@@ -1,22 +1,62 @@
-html {
-  font-size: 14px;
+
+.displayOwnContainer {
+    position: relative;
+    color: white;
+    height: 100px; /* Adjust the height as desired */
+    margin-top: 5%;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+.displayOwnUsername {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 5%;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+.displayOwnMoney {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 5%;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+.BlackJackTable {
+    /*position: fixed;*/
+    left: 15%;
+    top: 0%;
+    transform: translate(-50%, -50%);
+
+    position:absolute;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
 }
 
-body {
-  margin-bottom: 60px;
+
+.pokerchips {
+    position: fixed;
+    left: 0;
+    bottom: 0%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    /*min-height: 72vh;*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+    background-color: rgba(0, 0, 0, 0.5);
 }
+
+img {
+    display: inline-block;
+    width: 5%;
+    height: auto;
+    margin: 5px;
+}
+
+
+.pokerchips img {
+    cursor: pointer;
+}
+
+
