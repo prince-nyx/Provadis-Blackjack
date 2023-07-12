@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BlackJack.Hubs;
+using Microsoft.AspNet.SignalR.Messaging;
+using System;
 
 public class Player
 {
@@ -21,5 +23,12 @@ public class Player
 	}
 
 
-    public void addCard(Card card) { hand.addCard(card); }
+    public void addCard(Card card) {
+		hand.addCard(card);
+    }
+
+	public int getHandSize()
+	{
+		return hand.size();
+	}
 }

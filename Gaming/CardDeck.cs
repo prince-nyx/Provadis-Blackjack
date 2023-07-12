@@ -77,7 +77,10 @@ public class CardDeck
 
 	public void addCard(Card card) { cards.Add(card); }
 
-
+	public int size()
+	{
+		return cards.Count;
+	}
     public string ToString()
 	{ 
 		Console.WriteLine("Heysho");

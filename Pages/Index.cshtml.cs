@@ -7,6 +7,7 @@ namespace BlackJack.Pages
     {
         private readonly ILogger<IndexModel> _logger;
 
+
         public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
@@ -14,6 +15,13 @@ namespace BlackJack.Pages
 
         public void OnGet()
         {
+            Console.WriteLine(this);
+            Console.WriteLine(this.HttpContext);
+            Console.WriteLine(this.HttpContext.Items);
+            foreach(var item in this.HttpContext.Items)
+            {
+                Console.WriteLine(item.Value.ToString());
+            }
 
         }
     }

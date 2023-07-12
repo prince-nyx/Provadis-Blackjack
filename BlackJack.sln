@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projektmappenelemente", "Pr
 	ProjectSection(SolutionItems) = preProject
 		Card.cs = Card.cs
 		Game.cs = Game.cs
+		MeinHub.cs = MeinHub.cs
 		Player.cs = Player.cs
 	EndProjectSection
 EndProject

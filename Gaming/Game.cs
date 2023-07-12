@@ -1,16 +1,18 @@
-﻿using System;
+﻿using BlackJack.Hubs;
+using System;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 
 public class Game
 {
-
+    private GameHub hub;
     private CardDeck deck;
     private Player[] players = new Player[7];
     private CardDeck dealerDeck;
 
-    public Game()
+    public Game(GameHub hub)
     {
+        this.hub = hub;
         dealerDeck = new CardDeck();
         deck = new CardDeck();
         deck.createBlackJackDeck();
@@ -26,7 +28,9 @@ public class Game
         {
             if(player != null)
             {
-                player.addCard(deck.drawCard());
+                Card card = deck.drawCard();
+                player.addCard(card);
+                _ = hub.fireEvent("SetCardImage", player.getHandSize().ToString(), card.ToString());
             }
         }
     }
@@ -43,5 +47,10 @@ public class Game
                 break;
             }
         }
+    }
+
+    public GameHub getHub()
+    {
+        return hub;
     }
 }
