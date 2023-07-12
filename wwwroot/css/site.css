@@ -1,3 +1,4 @@
+/*
 html {
   font-size: 14px;
 }
@@ -9,7 +10,7 @@ html {
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
@@ -19,4 +20,47 @@ html {
 
 body {
   margin-bottom: 60px;
+}
+*/
+/*
+.displayOwnUsername {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    color: white;
+}
+
+.displayOwnMoney {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    color: white;
+}
+*/
+.displayOwnContainer {
+    position: relative;
+    color: white;
+    height: 100px; /* Adjust the height as desired */
+    margin-top: 5%;
+}
+
+.displayOwnUsername {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 5%;
+}
+
+.displayOwnMoney {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 5%;
+}
+
+.BlackJackTable {
+    position: fixed;
+    left: 17%;
+    top: 0%;
+    transform: translate(-50%, -50%);
 }
