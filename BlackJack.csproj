@@ -29,4 +29,7 @@
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.9" />
   </ItemGroup>
 
+	<ItemGroup>
+		<PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+	</ItemGroup>
 </Project>

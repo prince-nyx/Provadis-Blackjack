@@ -1,21 +1,23 @@
 ﻿@page
 @model BlackJack.Pages.LoginModel
 @{
-
-    ViewData["Title"] = "Login";
+	ViewData["Title"] = "21 - Login";
 }
-
-
-<h2>Login</h2>
-
-<form method="post" asp-action="Login" asp-controller="Account">
-    <div class="form-group">
-        <label for="username">Benutzername</label>
-        <input type="text" id="username" name="username" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label for="password">Passwort</label>
-        <input type="password" id="password" name="password" class="form-control" />
-    </div>
-    <button type="submit" class="btn btn-primary">Anmelden</button>
-</form>
+<!doctype html>
+<html>
+<head>
+	<link rel="stylesheet" href="/css/Register.css">
+</head>
+<body>
+	<form id="msform" method="post">
+		<fieldset>
+			<h2 class="fs-title">Login!</h2>
+			<h3 class="fs-subtitle"></h3>
+			<input asp-for="Username" type="text" id="Username" placeholder="Username" />
+			<input asp-for="Password" type="password" id="pass" placeholder="Password" />
+			<input type="submit" id="next" />
+			<a href="Register">No account yet? Register.</a>
+		</fieldset>
+	</form>
+</body>
+</html>

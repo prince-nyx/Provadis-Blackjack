@@ -5,14 +5,6 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlackJack", "BlackJack.csproj", "{A77E7A40-82CB-4082-A65C-71D2FCB29338}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projektmappenelemente", "Projektmappenelemente", "{D07644C0-6B43-4AA6-94CA-88E157FCE00B}"
-	ProjectSection(SolutionItems) = preProject
-		Card.cs = Card.cs
-		Game.cs = Game.cs
-		MeinHub.cs = MeinHub.cs
-		Player.cs = Player.cs
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

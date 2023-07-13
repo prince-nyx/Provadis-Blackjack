@@ -1,0 +1,25 @@
+﻿@page
+@model BlackJack.Pages.RegisterModel
+@{
+	ViewData["Title"] = "21 - Register";
+}
+<!doctype html>
+<html>
+	<head>
+	<link rel="stylesheet" href="/css/Register.css">
+	</head>
+	<body>
+	<form id="msform" method="post">
+		<fieldset>
+			<h2 class="fs-title">Create your account</h2>
+			<h3 class="fs-subtitle"></h3>
+			<input asp-for="Username" type="text" id="Username" placeholder="Username" />
+			<input asp-for="Password" type="password" id="pass" placeholder="Password" />
+			<input asp-for="Cpass" type="password" id="cpass" placeholder="Confirm Password" />
+			<input asp-for="Birth" type="date" id="birthdate" value="1900-01-01"/>
+			<input type="submit" id="next" onclick="location.href = 'Login';" />
+			<a href="Login">Already have an account? Login.</a>
+		</fieldset>
+	</form>
+	</body>
+</html>

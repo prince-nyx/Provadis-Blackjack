@@ -3,20 +3,23 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - BlackJack</title>
+    <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/BlackJack.styles.css" asp-append-version="true" />
-    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BlackJack1.styles.css" asp-append-version="true" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/css/styles.css" />
+
 </head>
 <body>
-
-    <div class="container-fluid">
+    <header>
+    </header>
+    <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
