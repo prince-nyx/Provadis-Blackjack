@@ -27,11 +27,7 @@ namespace BlackJack.Pages
             return rnd;
         }
         
-        private int additionGameID()
-        {
-            
-            return 
-        }
+
     }
 }
 

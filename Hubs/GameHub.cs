@@ -1,5 +1,4 @@
-﻿using CookieManager;
-using Microsoft.AspNet.SignalR.Messaging;
+﻿
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.SignalR;
 using System.Security.Claims;

@@ -1,6 +1,4 @@
 ﻿using BlackJack.Hubs;
-using Microsoft.AspNet.SignalR.Infrastructure;
-using Microsoft.AspNet.SignalR.Messaging;
 using System;
 
 public class Player
