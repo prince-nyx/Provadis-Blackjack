@@ -2,34 +2,44 @@
     background-image: url('/Images/dark-green-abstract-paper-texture-background.jpg');
 }
 
-p.a{
+p.a {
     text-align: left;
 }
 
-p.b{
+p.b {
     text-align: right;
 }
 
-.displayContainer{
+.displayContainer {
     position: relative;
     color: white;
     height: 100px;
 }
 
-.displayUsername{
+.displayUsername {
     position: absolute;
     top: 0;
     left: 0;
 }
 
-.displayMoney{
+.displayMoney {
     position: absolute;
     top: 0;
     right: 0;
 }
 
-.divFenster{
+.divFenster {
     text-align: center;
-    width: 300px;
+    color: white;
+    align-content: center;
+    align-items: center;
 }
 
+.divBox {
+    text-align: center;
+    width: 300px;
+    height: 180px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(255, 255, 255, 1.0);
+    margin: 0 auto;
+}
