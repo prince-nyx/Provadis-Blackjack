@@ -12,21 +12,43 @@ namespace BlackJack.Pages
         private SqlCommand? cmd;
         private SqlDataReader? reader;
         private readonly SqlDataAdapter? adapter = new SqlDataAdapter();
-        
+
         public void OnPost()
         {
+            code = Request.Form["code"];
+            GameID = Request.Form["GameID"];
             int.Parse(code);
-            int.Parse(GameID);
-
-            
         }
-        private Random randomZahl()
+        public int randomZahl()
         {
             var rnd = new Random();
-            rnd.Next();
-            return rnd;
+            this.code = rnd.Next(1,100000);
+            return code;
         }
-        
+        public void CreateNewGameCode()
+        {
+            try
+            {
+                Encrypt encrypt = new();
+
+                string sql = "INSERT INTO Game(Code,GameID) VALUES('" + this.code + ", '" + this.GameID + "')";
+
+                this.conn.Open();
+                this.cmd = new SqlCommand(sql, this.conn);
+                this.adapter.UpdateCommand = new SqlCommand(sql, this.conn);
+
+                this.adapter.UpdateCommand.ExecuteNonQuery();
+
+                this.cmd.Dispose();
+                this.conn.Close();
+
+                Console.WriteLine("INSERT SUCCESS");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
 
     }
 }
