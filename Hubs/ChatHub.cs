@@ -9,5 +9,12 @@ namespace BlackJack.Hubs
 
             await Clients.All.SendAsync("ReceiveMessage", user, message);
         }
+
+        public override async Task OnConnectedAsync()
+        {
+            string connectionId = Context.ConnectionId;
+            Console.WriteLine("Neue Verbindung: " + connectionId);
+            await base.OnConnectedAsync();
+        }
     }
 }

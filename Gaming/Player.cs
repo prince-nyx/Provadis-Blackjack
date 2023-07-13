@@ -1,16 +1,21 @@
 ﻿using BlackJack.Hubs;
+using Microsoft.AspNet.SignalR.Infrastructure;
 using Microsoft.AspNet.SignalR.Messaging;
 using System;
 
 public class Player
 {
-	String anzeigename;
-	CardDeck hand = new CardDeck();
+	private String currentGameId;
+    private String username;
+	private int wallet;
+    private CardDeck hand = new CardDeck();
 
-	public Player(String anzeigename)
+	public Player(String username, String currentGameId, int wallet)
 	{
-		this.anzeigename = anzeigename;
-	}
+		this.username = username;
+        this.currentGameId = currentGameId;
+		this.wallet = wallet;
+    }
 
 	public int getPoints()
 	{
@@ -19,7 +24,7 @@ public class Player
 
 	public String ToString()
 	{
-		return anzeigename + " - Karten ("+hand.ToString()+") Punkte: "+getPoints();
+		return username + " - Karten ("+hand.ToString()+") Punkte: "+getPoints();
 	}
 
 
@@ -31,4 +36,5 @@ public class Player
 	{
 		return hand.size();
 	}
+
 }

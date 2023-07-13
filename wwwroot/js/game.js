@@ -6,18 +6,15 @@ console.log("Verbindung wird aufgebaut");
 var connection = new signalR.HubConnectionBuilder().withUrl("/GameHub").build();
 
 
+connection.onclose(() => {
+    connection.start().then(() => {
+        console.log("Setze userid.")
+        connection.invoke("SetUserIdentifier", userId); // Setze den UserIdentifier
+    });
+});
 //Die Verbindung wurde aufgebaut und ruft nun diese Funktion auf:
 connection.start().then(function () {
-    console.log("Verbindung wurde erfolgreich aufgebaut");
-
-    connection
-        //Name muss wieder gleich wie die Methode im zugehörigen Hub sein
-        .invoke("StartGame")
-        //falls fehler passieren
-        .catch(function (err) {
-            return console.error(err.toString());
-        });
-
+    console.log("Verbindung erfolgreich.")
 }).catch(function (err) {
     console.log("Verbindung fehlgeschlagen");
 
@@ -26,15 +23,26 @@ connection.start().then(function () {
 
 });
 
-
-
-// Ein Event welches aus dem Backend aufgerufen wird:
-//Der Name muss genauso im Backend geschrieben sein!
 connection.on("SetCardImage", function (args) {
 
-    //javascript Code der dann passieren soll
     var image = document.getElementById("Spieler1_Card_"+args[0]);
     image.src = "/images/card/" + args[1] +".png";
 
+});
+
+connection.on("SetCurrentPlayer", function (args) {
+
+    Console.log(args[0]);
 
 });
+
+
+document.getElementById("startButton").addEventListener("click", function (event) {
+
+        console.log("Game wird gestartet");
+        connection
+            .invoke("StartGame")
+            .catch(function (err) {
+                return console.error(err.toString());
+            });
+    });

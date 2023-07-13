@@ -5,27 +5,31 @@ namespace BlackJack.Hubs
 {
     public class GameHub : Hub
     {
-        Game game;
         public async Task StartGame()
         {
-            Console.WriteLine("GAME STARTET");
-            game = new Game(this);
-            Player hans = new Player("Hans");
-            game.addPlayer(hans);
-
-            Console.WriteLine(hans.ToString());
+            Game game = new Game(this);
             Console.WriteLine("SPIEL GESTARTET");
             game.dealCard();
             game.dealCard();
-            Console.WriteLine(hans.ToString());
+            //games.Add("test", game);
         }
 
         public async Task fireEvent(String eventname, params String[] args)
         {
             Console.WriteLine("[EVENTS] "+eventname+" [ "+args.ToString()+" ]");
+            
             await Clients.All.SendAsync(eventname, args);
         }
 
+
+        public override async Task OnConnectedAsync()
+        {
+            string connectionId = Context.ConnectionId;
+            Console.WriteLine(Context.User.Identity.IsAuthenticated);
+            Console.WriteLine("user identifier: "+Context.UserIdentifier);
+
+            await base.OnConnectedAsync();
+        }
 
 
 
