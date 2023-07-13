@@ -21,13 +21,9 @@
 }
 
 .BlackJackTable {
-    /*position: fixed;*/
-    left: 15%;
-    top: 0%;
-    transform: translate(-50%, -50%);
-
-    position:absolute;
-    display: inline-block;
+    width: 100%; /* Set the width of the parent container */
+    height: 100vh; /* Set the height of the parent container */
+    display: flex;
     justify-content: center;
     align-items: center;
 }
@@ -47,7 +43,17 @@
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-img {
+/*img {
+    display: inline-block;
+    width: 5%;
+    height: auto;
+    margin: 5px;
+}*/
+
+
+.pokerchips img {
+    cursor: pointer;
+
     display: inline-block;
     width: 5%;
     height: auto;
@@ -55,8 +61,244 @@ img {
 }
 
 
-.pokerchips img {
-    cursor: pointer;
+
+
+
+/*Übertragung des CSS vom Tisch*/
+.Group9 {
+    width: 1072px;
+    height: 441px;
+    left: 184px;
+    top: 291px;
+    position: fixed;
+}
+
+.Ellipse2 {
+    width: 1072px;
+    height: 378.57px;
+    left: 0px;
+    top: 62.43px;
+    background: #00460B;
+    border-radius: 9999px
+}
+
+.Rectangle1 {
+    width: 60px;
+    height: 87.12px;
+    left: 13px;
+    top: 0px;
 }
 
 
+.Ellipse1 {
+    width: 1072px;
+    height: 412.26px;
+    left: 0px;
+    top: 0px;
+    background: #008B27;
+    border-radius: 9999px;
+    position: absolute;
+    
+}
+
+.Spieler7 {
+    width: 214px;
+    height: 87.12px;
+    left: 291px;
+    top: 277px;
+    
+    position: fixed;
+}
+
+.OfClubs#Spieler7 {
+    width: 60px;
+    height: 87.12px;
+    left: 13px;
+    top: 0px;
+}
+
+.OfClubs2#Spieler7 {
+    width: 60px;
+    height: 87.12px;
+    left: 26px;
+    top: 0px;
+    position: absolute;
+}
+
+.OfClubs3#Spieler7 {
+    width: 60px;
+    height: 87.12px;
+    left: 39px;
+    top: 0px;
+}
+
+
+.OfClubs4#Spieler7 {
+    width: 60px;
+    height: 87.12px;
+    left: 52px;
+    top: 0px;
+}
+
+.OfClubs5#Spieler7 {
+    width: 60px;
+    height: 87.12px;
+    left: 65px;
+    top: 0px;
+}
+
+
+.OfClubs6#Spieler7 {
+    width: 60px;
+    height: 87.12px;
+    left: 78px;
+    top: 0px;
+}
+
+.OfClubs7#Spieler7 {
+    width: 60px;
+    height: 87.12px;
+    left: 91px;
+    top: 0px;
+}
+
+
+.OfClubs8#Spieler7 {
+    width: 60px;
+    height: 87.12px;
+    left: 104px;
+    top: 0px;
+}
+
+
+.OfClubs9#Spieler7 {
+    width: 60px;
+    height: 87.12px;
+    left: 116px;
+    top: 0px;
+}
+
+
+.OfClubs10#Spieler7 {
+    width: 60px;
+    height: 87.12px;
+    left: 129px;
+    top: 0px;
+}
+
+
+.OfClubs11#Spieler7 {
+    width: 60px;
+    height: 87.12px;
+    left: 142px;
+    top: 0px;
+}
+
+
+.Rectangle3#Spieler7 {
+    width: 214px;
+    height: 50px;
+    left: 0px;
+    top: 37px;
+    background: #A0D2FF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) inset;
+    border-radius: 95px;
+    border: 0.50px black solid;
+    position: absolute;
+}
+
+.TextSpieler7#Spieler7 {
+    width: 178px;
+    height: 50px;
+    left: 11px;
+    top: 37px;
+    text-align: center;
+    color: black;
+    font-size: 24px;
+    font-family: Inter;
+    font-weight: 400;
+    word-wrap: break-word;
+    position: absolute;
+}
+
+/*
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.BlackJackTable {
+    width: 800px;
+    height: 400px;
+    background-color: green;
+}
+
+.Group9 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.Ellipse2 {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: blue;
+}
+
+.Rectangle1 {
+    width: 100px;
+    height: 50px;
+    background-color: red;
+}
+
+.Ellipse1 {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: yellow;
+}
+
+.Spieler7,
+.Spieler6,
+.Spieler5,
+.Spieler4,
+.Spieler3,
+.Spieler2 {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.OfClubs1,
+.OfClubs2,
+.OfClubs3,
+.OfClubs4,
+.OfClubs5,
+.OfClubs6,
+.OfClubs7,
+.OfClubs8,
+.OfClubs9,
+.OfClubs10,
+.OfClubs11 {
+    width: 100px;
+    height: 150px;
+    background-color: gray;
+    margin-right: 10px;
+}
+
+.Rectangle3 {
+    width: 100px;
+    height: 20px;
+    background-color: brown;
+}
+
+.Spieler1 {
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+}
+*/
