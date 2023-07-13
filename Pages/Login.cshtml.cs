@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
 
@@ -21,8 +22,9 @@ namespace BlackJack.Pages
                 if (this.IsLoginValid())
                 {
                     Console.WriteLine("Valid");
-                    //TODO: Session
-                }
+                    Response.Redirect("/overview");
+					//TODO: Session
+				}
                 else { Console.WriteLine("Invalid"); }
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
@@ -39,7 +41,7 @@ namespace BlackJack.Pages
             this.cmd = new SqlCommand(sql, this.conn);
             this.reader = this.cmd.ExecuteReader();
 
-            while (this.reader.Read()) { isValid = Convert.ToInt32(this.reader.GetValue(0)) == 1 ? true : false; Console.WriteLine(this.reader.GetValue(0)); }
+            while (this.reader.Read()) { isValid = Convert.ToInt32(this.reader.GetValue(0)) == 1 ? true : false; }
 
             this.reader.Close();
             this.cmd.Dispose();
