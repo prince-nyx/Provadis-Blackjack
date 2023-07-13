@@ -14,20 +14,35 @@ namespace BlackJack
     {
         public static Program program;
         private Dictionary<string, Game> games;
-        private List<Player> players;
-
+        private Dictionary<string, Player> players;
+        private const string Characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         public Program(string[] args)
         {
             games = new Dictionary<string, Game>();
-            players = new List<Player>();
+            players = new Dictionary<string, Player>();
             start(args);
         }
 
-        public int loginPlayer(String username, String currentGameId, int wallet)
+        public String loginPlayer(String username, String currentGameId, int wallet)
         {
-            Player player = new Player(username, "", 0);
-            players.Add(player);
-            return players.Count();
+            Player player = new Player(GenerateRandomString(8),username, wallet, currentGameId);
+            players.Add(player.id, player);
+            return player.id;
+        }
+
+        public string GenerateRandomString(int length)
+        {
+            Random random = new Random();
+            StringBuilder stringBuilder = new StringBuilder();
+
+            for (int i = 0; i < length; i++)
+            {
+                int randomIndex = random.Next(0, Characters.Length);
+                char randomChar = Characters[randomIndex];
+                stringBuilder.Append(randomChar);
+            }
+
+            return stringBuilder.ToString();
         }
 
         public void start(string[] args)
@@ -93,7 +108,6 @@ namespace BlackJack
 
             app.Run();
         }
-
 
         public static void Main(string[] args)
         {

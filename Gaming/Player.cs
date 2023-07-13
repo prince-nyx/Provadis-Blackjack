@@ -5,16 +5,18 @@ using System;
 
 public class Player
 {
-	private String currentGameId;
-    private String username;
-	private int wallet;
+	public String id { get; }
+    public String currentGameId { get; set; }
+    public int wallet { get; set; }
+    public String username { get; }
     private CardDeck hand = new CardDeck();
 
-	public Player(String username, String currentGameId, int wallet)
-	{
-		this.username = username;
-        this.currentGameId = currentGameId;
+	public Player(String id, String username, int wallet, String currentGameId)
+    {
+        this.id = id;
+        this.username = username;
 		this.wallet = wallet;
+        this.currentGameId = currentGameId;
     }
 
 	public int getPoints()
