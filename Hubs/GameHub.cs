@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNet.SignalR.Messaging;
+﻿using CookieManager;
+using Microsoft.AspNet.SignalR.Messaging;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.SignalR;
+using System.Security.Claims;
 
 namespace BlackJack.Hubs
 {
@@ -27,7 +30,6 @@ namespace BlackJack.Hubs
             string connectionId = Context.ConnectionId;
             Console.WriteLine(Context.User.Identity.IsAuthenticated);
             Console.WriteLine("user identifier: "+Context.UserIdentifier);
-
             await base.OnConnectedAsync();
         }
 

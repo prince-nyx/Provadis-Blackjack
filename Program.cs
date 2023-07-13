@@ -1,15 +1,18 @@
 using BlackJack.Hubs;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Hosting;
 
 namespace BlackJack
 {
     public class Program
     {
         public static Program program;
-        private ProgramController controller;
         private Dictionary<string, Game> games;
         private List<Player> players;
 
@@ -17,7 +20,6 @@ namespace BlackJack
         {
             games = new Dictionary<string, Game>();
             players = new List<Player>();
-            controller = new ProgramController();
             start(args);
         }
 
@@ -36,14 +38,31 @@ namespace BlackJack
             builder.Services.AddRazorPages();
             builder.Services.AddSignalR();
             builder.Services.AddControllersWithViews();
-            
+           // builder.Services.AddCookieManager();
+
+            // or
+            /*
+            // Add CookieManager with options
+            builder.Services.AddCookieManager(options =>
+            {
+                // Allow cookie data to encrypt by default it allow encryption
+                options.AllowEncryption = false;
+                // Throw if not all chunks of a cookie are available on a request for re-assembly.
+                options.ThrowForPartialCookies = true;
+                // Set null if not allow to devide in chunks
+                options.ChunkSize = null;
+                // Default Cookie expire time if expire time set to null of cookie
+                // Default time is 1 day to expire cookie 
+                options.DefaultExpireTimeInDays = 10;
+            });
+
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-           .AddCookie(options =>
-           {
-               options.LoginPath = "/Account/Login"; // Pfad zum Login-Endpunkt
-               options.LogoutPath = "/Account/Logout"; // Pfad zum Logout-Endpunkt
-           });
-            
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/Account/Login";
+                });
+            */
+            builder.Services.AddRazorPages();
 
 
 
@@ -58,12 +77,13 @@ namespace BlackJack
                 app.UseHsts();
             }
 
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            
+
             app.UseAuthentication();
-            app.UseRouting();
             app.UseAuthorization();
+            app.UseRouting();
 
             app.MapRazorPages();
 
@@ -78,6 +98,7 @@ namespace BlackJack
         public static void Main(string[] args)
         {
             program = new Program(args);
+
         }
     }
 }

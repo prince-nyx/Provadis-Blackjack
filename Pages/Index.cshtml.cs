@@ -15,6 +15,8 @@ namespace BlackJack.Pages
 
         public void OnGet()
         {
+
+            Response.Cookies.Append("test", "jo");
             Console.WriteLine(this);
             Console.WriteLine(this.HttpContext);
             Console.WriteLine(this.HttpContext.Items);
