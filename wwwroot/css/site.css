@@ -1,22 +1,68 @@
-html {
-  font-size: 14px;
+/* Style the video: 100% width and height to cover the entire window */
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+/* Add some content at the bottom of the video/page */
+.content {
+    position: relative;
+    bottom: 0;
+    color: #f1f1f1;
+    width: 100%;
+
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
 
-html {
-  position: relative;
-  min-height: 100%;
-}
 
-body {
-  margin-bottom: 60px;
+#Registrieren {
+    width: 300px;
+    font-size: 18px;
+    padding-block: 30px;
+    border: none;
+    background: #000;
+    color: #fff;
+    cursor: pointer;
+    margin: 0 auto;
+    flex-direction: column;
+    margin-top: 400px;
+    align-items: center;
+    border: solid;
+    border-color: white;
+    border-width: 5px;
+}
+#Anmelden {
+    width: 300px;
+    font-size: 18px;
+    padding-block: 30px;
+    align-items: center;
+    border: none;
+    background: #000;
+    color: #fff;
+    cursor: pointer;
+    margin: 0 auto;
+    flex-direction: column;
+    margin-block: 30px;
+    border: solid;
+    border-color: white;
+    border-width: 5px;
+}
+#Logo {
+    width: 300px;
+    font-size: 18px;
+    padding-block: 30px;
+    align-items: center;
+    margin: 0 auto;
+    flex-direction: column;
+}
+#Registrieren:hover {
+        background: #ddd;
+        color: black;
+}
+#Anmelden:hover{
+        background: #ddd;
+        color: black;
 }

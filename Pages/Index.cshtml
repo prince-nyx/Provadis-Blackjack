@@ -1,10 +1,25 @@
 ﻿@page
 @model IndexModel
+
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "BlackJack";
+    Layout = "_Layout";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+
+<h1 class="headerStartseite">
+    <video autoplay muted loop id="myVideo">
+    <source src="images/Playing Cards Falling - HD Video Background Loop.webm" type="video/webm">
+    </video>
+</h1>
+
+<div class="content">
+        <h2><img id="Logo" src="/images/LuigisBlackjackOhneBackground.png" alt="Flowers in Chania"style="display:flex"value=""></h2>
+    <button id="Registrieren" style="display:flex" value="registrationButton" onclick="location.href = 'Register';">Registrieren</button>
+    <button id="Anmelden" style="display:flex" value="loginButton" onclick="location.href = 'Login';">Anmelden</button>
+
+    <p></p>
 </div>
+
+
