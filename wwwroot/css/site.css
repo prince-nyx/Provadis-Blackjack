@@ -20,6 +20,18 @@
     margin-right: 5%;
 }
 
+.TableContainer {
+    position: fixed;
+    top: 60%;
+    left: 65%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    width: 80%;
+/*    position: fixed;
+    display: flex;*/
+
+}
+
 .BlackJackTable {
     width: 100%; /* Set the width of the parent container */
     height: 100vh; /* Set the height of the parent container */
@@ -57,7 +69,7 @@
     display: inline-block;
     width: 5%;
     height: auto;
-    margin: 5px;
+    margin: 1%;
 }
 
 
