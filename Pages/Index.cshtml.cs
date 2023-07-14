@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Globalization;
 
 namespace BlackJack.Pages
 {
@@ -15,16 +16,18 @@ namespace BlackJack.Pages
 
         public void OnGet()
         {
-
-            Response.Cookies.Append("test", "jo");
-            Console.WriteLine(this);
-            Console.WriteLine(this.HttpContext);
-            Console.WriteLine(this.HttpContext.Items);
-            foreach(var item in this.HttpContext.Items)
+            //START ACCESS CHECK
+            String userid = Request.Cookies["userid"];
+            String result = Program.app.checkAccess(userid);
+            if (result.Equals("/index"))
             {
-                Console.WriteLine(item.Value.ToString());
+                Response.Cookies.Delete("userid");
             }
-
+            else
+            {
+                Response.Redirect(result);
+            }
+            //END ACCESS CHECK
         }
     }
 }

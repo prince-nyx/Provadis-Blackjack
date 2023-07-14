@@ -1,20 +1,21 @@
-﻿using BlackJack.Hubs;
+﻿using BlackJack;
+using BlackJack.Hubs;
 using System;
 
 public class Player
 {
 	public String id { get; }
     public String currentGameId { get; set; }
-    public int wallet { get; set; }
+    public double wallet { get; set; }
     public String username { get; }
     private CardDeck hand = new CardDeck();
 
-	public Player(String id, String username, int wallet, String currentGameId)
+	public Player(String username, double wallet)
     {
-        this.id = id;
+        this.id = Program.GenerateRandomString(8);
         this.username = username;
 		this.wallet = wallet;
-        this.currentGameId = currentGameId;
+        this.currentGameId = "";
     }
 
 	public int getPoints()
@@ -36,5 +37,17 @@ public class Player
 	{
 		return hand.size();
 	}
+
+    public override bool Equals(object obj)
+    { 
+        if (obj == null || !(obj is Player))
+        {
+            return false;
+        }
+        Player otherPlayer = (Player)obj;
+
+        return this.username == otherPlayer.username;
+    }
+
 
 }
