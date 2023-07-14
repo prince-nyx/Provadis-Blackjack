@@ -514,8 +514,8 @@
 
 
 
-/*Spieler4*/
-.Spieler4 {
+/*Benutzer*/
+.Benutzer {
     width: 309.50px;
     height: 126px;
     left: 579px;
@@ -523,7 +523,7 @@
     position: fixed;
 }
 
-.OfClubs1#Spieler4 {
+.OfClubs1#Benutzer {
     width: 86.78px;
     height: 126px;
     left: 18.80px;
@@ -531,7 +531,7 @@
     position: absolute;
 }
 
-.OfClubs2#Spieler4 {
+.OfClubs2#Benutzer {
     width: 86.78px;
     height: 126px;
     left: 37.60px;
@@ -539,7 +539,7 @@
     position: absolute;
 }
 
-.OfClubs3#Spieler4 {
+.OfClubs3#Benutzer {
     width: 86.78px;
     height: 126px;
     left: 56.41px;
@@ -548,7 +548,7 @@
 }
 
 
-.OfClubs4#Spieler4 {
+.OfClubs4#Benutzer {
     width: 86.78px;
     height: 126px;
     left: 75.21px;
@@ -556,7 +556,7 @@
     position: absolute;
 }
 
-.OfClubs5#Spieler4 {
+.OfClubs5#Benutzer {
     width: 86.78px;
     height: 126px;
     left: 94.01px;
@@ -565,7 +565,7 @@
 }
 
 
-.OfClubs6#Spieler4 {
+.OfClubs6#Benutzer {
     width: 86.78px;
     height: 126px;
     left: 112.81px;
@@ -573,7 +573,7 @@
     position: absolute;
 }
 
-.OfClubs7#Spieler4 {
+.OfClubs7#Benutzer {
     width: 86.78px;
     height: 126px;
     left: 131.61px;
@@ -582,7 +582,7 @@
 }
 
 
-.OfClubs8#Spieler4 {
+.OfClubs8#Benutzer {
     width: 86.78px;
     height: 126px;
     left: 150.41px;
@@ -591,7 +591,7 @@
 }
 
 
-.OfClubs9#Spieler4 {
+.OfClubs9#Benutzer {
     width: 86.78px;
     height: 126px;
     left: 167.77px;
@@ -600,7 +600,7 @@
 }
 
 
-.OfClubs10#Spieler4 {
+.OfClubs10#Benutzer {
     width: 86.78px;
     height: 126px;
     left: 186.57px;
@@ -609,7 +609,7 @@
 }
 
 
-.OfClubs11#Spieler4 {
+.OfClubs11#Benutzer {
     width: 86.78px;
     height: 126px;
     left: 205.37px;
@@ -618,7 +618,7 @@
 }
 
 
-.Rectangle3#Spieler4 {
+.Rectangle3#Benutzer {
     width: 309.50px;
     height: 72.31px;
     left: 0px;
@@ -630,7 +630,7 @@
     border: 0.50px black solid
 }
 
-.TextSpieler4#Spieler4 {
+.TextBenutzer#Benutzer {
     width: 257.44px;
     height: 72.31px;
     left: 26.03px;
