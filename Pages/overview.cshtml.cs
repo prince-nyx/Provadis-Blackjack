@@ -20,48 +20,10 @@ namespace BlackJack.Pages
             String result = Program.app.checkAccess(userid);
             if (!result.Equals("/overview"))
             {
-                Response.Redirect(result);
+                //Response.Redirect(result);
             }
             //END ACCESS CHECK
         }
-        public void OnPost()
-        {
-            code = Request.Form["code"];
-            GameID = Request.Form["GameID"];
-            int.Parse(code);
-        }
-        public int randomZahl()
-        {
-            var rnd = new Random();
-            this.code = rnd.Next(1,100000);
-            return code;
-        }
-        public void CreateNewGameCode()
-        {
-            try
-            {
-                Encrypt encrypt = new();
-
-                string sql = "INSERT INTO Game(Code,GameID) VALUES('" + this.code + ", '" + this.GameID + "')";
-
-                this.conn.Open();
-                this.cmd = new SqlCommand(sql, this.conn);
-                this.adapter.UpdateCommand = new SqlCommand(sql, this.conn);
-
-                this.adapter.UpdateCommand.ExecuteNonQuery();
-
-            Console.WriteLine(Program.app.playerManager.getPlayer(Request.Cookies["userid"]).username);
-            Console.WriteLine();
-
-
-        }
-        private Random randomZahl()
-        {
-            var rnd = new Random();
-            rnd.Next();
-            return rnd;
-        }
-
     }
 }
 
