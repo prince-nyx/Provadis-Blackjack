@@ -42,4 +42,14 @@ document.getElementById("endTurn").addEventListener("click", function (event) {
             return console.error(err.toString());
         });
 });
+document.getElementById("standButton").addEventListener("click", function (event) {
+
+    console.log("Spieler zieht keine Karte");
+    connection
+        .invoke("stand", slotid)
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
+});
+
 

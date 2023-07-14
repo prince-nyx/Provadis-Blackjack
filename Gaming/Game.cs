@@ -34,7 +34,7 @@ public class Game
 
     public void start()
     {
-
+        
     }
 
     public void dealCard()
@@ -100,6 +100,16 @@ public class Game
            }
         
     }
+    public void stand(int slotid)
+
+    {
+        Player player = players[slots[slotid]];
+        if (player != null)
+        {
+
+        }
+    }
+
     public void startGame()
     {
 
