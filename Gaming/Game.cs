@@ -88,6 +88,16 @@ public class Game
     {
         foreach (Player player in slots)
         {
+            if (player != null)
+            {
+                Card card = deck.drawCard();
+                player.addCard(card);
+                _ = hub.fireEvent("hitButton", player.getHandSize().ToString(), card.ToString());
+            }
         }
+    }
+    public void startGame()
+    {
+
     }
 }

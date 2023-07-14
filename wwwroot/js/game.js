@@ -64,3 +64,4 @@ document.getElementById("endTurn").addEventListener("click", function (event) {
             return console.error(err.toString());
         });
 });
+
