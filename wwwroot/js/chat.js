@@ -3,7 +3,7 @@
 //Baue die Connection auf zu Chathub.
 //Wichtig dass /chatHub genauso geschrieben ist wie in der Program.cs registiert
 var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
-
+console.log("test1");
 
 //Die Verbindung wurde aufgebaut und ruft nun diese Funktion auf:
 connection.start().then(function () {
@@ -23,12 +23,29 @@ connection.start().then(function () {
 // Ein Event welches aus dem Backend aufgerufen wird:
 //Der Name muss genauso im Backend geschrieben sein!
 connection.on("ReceiveMessage", function (user, message) {
+    try {
+        sendMessage(user, message);
+    }
+    catch (err) {
+        console.log("ERROR " + err.message);
+    }
+});
+
+function sendMessage(user, message) {
+    console.log("test2");
+
+    console.log("test4" + message);
 
     //javascript Code der dann passieren soll
     var li = document.createElement("li");
     document.getElementById("messagesList").appendChild(li);
-    li.textContent = `${user} says ${message}`;
+    li.textContent = `${user} sayed ${message}`;
+}
 
+connection.on("Console", function (args) {
+
+
+    console.log(args);
 
 });
 

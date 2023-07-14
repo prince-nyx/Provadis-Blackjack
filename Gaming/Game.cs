@@ -1,18 +1,22 @@
-﻿using BlackJack.Hubs;
+﻿using BlackJack;
+using BlackJack.Hubs;
 using System;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 
 public class Game
 {
-    private GameHub hub;
+    private String id;
     private CardDeck deck;
-    private Player[] players = new Player[7];
+    private String[] slots = new String[7];
+    private String host;
+    private Dictionary<string, Player> players = new Dictionary<string, Player>(); 
     private CardDeck dealerDeck;
 
-    public Game(GameHub hub)
+    public Game()
     {
-        this.hub = hub;
+        this.id = Program.GenerateRandomString(4).ToUpper();
         dealerDeck = new CardDeck();
         deck = new CardDeck();
         deck.createBlackJackDeck();
@@ -24,13 +28,16 @@ public class Game
 
     public void dealCard()
     {
-        foreach(Player player in players)
+        Card card = deck.drawCard();
+        dealerDeck.addCard(card);
+        for (int i = 0; i < slots.Length; i++)
         {
+            Player player = players[slots[i]];
             if(player != null)
             {
-                Card card = deck.drawCard();
+                card = deck.drawCard();
                 player.addCard(card);
-                _ = hub.fireEvent("SetCardImage", player.getHandSize().ToString(), card.ToString());
+                _ = getHub().addCardToPlayer(i, card.getName());
             }
         }
     }
@@ -39,18 +46,33 @@ public class Game
 
     public void addPlayer(Player player)
     {
-        for(int i = 0; i < players.Length;i++)
+        
+        for(int i = 0; i < slots.Length;i++)
         {
-            if(players[i] == null)
+            if(slots[i] == null)
             {
-                players[i] = player;
+                slots[i] = player.id;
+                players.Add(player.id, player);
+                if (players.Count == 1)
+                    host = player.id;
                 break;
             }
         }
     }
 
+    public Boolean containsPlayer(String id)
+    {
+       return players.ContainsKey(id);
+    }
+
+    public override String ToString()
+    {
+        return "Game(id:" + id + " / players:" + players.Count + ")";
+    }
+
+
     public GameHub getHub()
     {
-        return hub;
+        return players[host].hub;
     }
 }

@@ -15,12 +15,13 @@ namespace BlackJack
     public class Program
     {
         public static Program app;
+        public static GameHub gamehub;
         public PlayerManager playerManager;
-        private Dictionary<string, Game> games;
+        public GameManger gameManager;
         private const string Characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         public Program()
         {
-            games = new Dictionary<string, Game>();
+            gameManager= new GameManger();
             playerManager = new PlayerManager();
         }
 
@@ -43,16 +44,16 @@ namespace BlackJack
 
         public String checkAccess(String userid)
         {
-            Console.WriteLine("[ACCESS] (ID:" + userid + ") requests");
+            Console.WriteLine("[ACCESS] (id:" + userid + ") requests");
             if (userid != null)
             {
                 Player player = Program.app.playerManager.getPlayer(userid);
                 if (player != null)
                 {
-                    Console.WriteLine("[ACCESS] (ID:" + userid + ") " + player.username + " logged in");
+                    Console.WriteLine("[ACCESS] " + player.ToString() + " logged in");
                     if (player.currentGameId != null && player.currentGameId != "")
                     {
-                        Console.WriteLine("[ACCESS] (ID:" + userid + ") " + player.username + " in Game "+ player.currentGameId);
+                        Console.WriteLine("[ACCESS] " + player.ToString() + " logged in and is in Game " + player.currentGameId);
                         return "/game";
 
                     } else
@@ -61,12 +62,12 @@ namespace BlackJack
                     }
                 } else
                 {
-                    Console.WriteLine("[ACCESS] (ID:" + userid + ") outdated");
+                    Console.WriteLine("[ACCESS] (id:" + userid + ") outdated");
                     return "/index";
 
                 }
             }
-            Console.WriteLine("[ACCESS] (ID:" + userid + ") not registered");
+            Console.WriteLine("[ACCESS] (id:" + userid + ") not registered");
             return "/index";
         }
 

@@ -20,7 +20,7 @@ public class Card
         return wert < 10 ? wert : 10;
     }
 
-    public string ToString()
+    public string getName()
     {
         string swert;
         switch (wert)
