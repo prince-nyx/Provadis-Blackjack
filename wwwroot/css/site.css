@@ -1,4 +1,4 @@
-﻿
+
 .displayOwnContainer {
     position: relative;
     color: white;
@@ -27,7 +27,7 @@
     transform: translate(-50%, -50%);
     width: 80%;
     width: 80%;
-    /*    position: fixed;
+/*    position: fixed;
     display: flex;*/
 }
 
@@ -55,18 +55,19 @@
 }
 
 
-    .pokerchips img {
-        cursor: pointer;
-        display: inline-block;
-        width: 5%;
-        height: auto;
-        margin: 1%;
-    }
+.pokerchips img {
+    cursor: pointer;
+
+    display: inline-block;
+    width: 5%;
+    height: auto;
+    margin: 1%;
+}
 
 
 
 
-/*Übertragung des CSS vom Tisch*/
+/*�bertragung des CSS vom Tisch*/
 .Group9 {
     width: 1072px;
     height: 441px;
@@ -99,6 +100,7 @@
     background: #008B27;
     border-radius: 9999px;
     position: absolute;
+    
 }
 
 /*Spieler7*/
@@ -107,6 +109,7 @@
     height: 87.12px;
     left: 291px;
     top: 277px;
+    
     position: fixed;
 }
 
@@ -1176,3 +1179,8 @@
     font-weight: 400;
     word-wrap: break-word
 }
+
+
+
+
+
