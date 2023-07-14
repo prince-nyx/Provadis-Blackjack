@@ -12,13 +12,27 @@ namespace BlackJack.Pages
         private SqlCommand? cmd;
         private SqlDataReader? reader;
         private readonly SqlDataAdapter? adapter = new SqlDataAdapter();
-        
+
+        public void OnGet()
+        {
+            //START ACCESS CHECK
+            String userid = Request.Cookies["userid"];
+            String result = Program.app.checkAccess(userid);
+            if (!result.Equals("/overview"))
+            {
+                Response.Redirect(result);
+            }
+            //END ACCESS CHECK
+        }
         public void OnPost()
         {
             int.Parse(code);
             int.Parse(GameID);
 
-            
+            Console.WriteLine(Program.app.playerManager.getPlayer(Request.Cookies["userid"]).username);
+            Console.WriteLine();
+
+
         }
         private Random randomZahl()
         {
