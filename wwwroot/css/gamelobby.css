@@ -29,7 +29,6 @@
     width: 80%;
 /*    position: fixed;
     display: flex;*/
-
 }
 
 .BlackJackTable {
@@ -55,13 +54,6 @@
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-/*img {
-    display: inline-block;
-    width: 5%;
-    height: auto;
-    margin: 5px;
-}*/
-
 
 .pokerchips img {
     cursor: pointer;
@@ -71,7 +63,6 @@
     height: auto;
     margin: 1%;
 }
-
 
 
 
@@ -1067,13 +1058,6 @@
     position: fixed;
 }
 
-/*.Karten#Spieler1 {
-    width: 189px;
-    height: 87.12px;
-    left: 18px;
-    top: 0px;
-    position: absolute;
-}*/
 
 .OfClubs1#Dealer {
     width: 60px;
