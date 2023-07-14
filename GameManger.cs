@@ -16,7 +16,7 @@
             if (games.ContainsKey(gameid))
             {
                 Game game = games[gameid];
-                if(game.containsPlayer(player))
+                if(game.containsPlayer(player.id))
                 {
                     game.addPlayer(player);
                     player.currentGameId = gameid;

@@ -10,11 +10,11 @@ public class Player
     public String username { get; }
     private CardDeck hand = new CardDeck();
 
-    private GameHub hub { get; set; }
+    public GameHub hub { get; set; }
+    public String connectionId { get; set; }
 
 	public Player(String username, double wallet)
     {
-        hub = null;
         this.id = Program.GenerateRandomString(8);
         this.username = username;
 		this.wallet = wallet;
