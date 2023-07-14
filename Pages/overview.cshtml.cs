@@ -24,41 +24,7 @@ namespace BlackJack.Pages
             }
             //END ACCESS CHECK
         }
-        public void OnPost()
-        {
-            code = Request.Form["code"];
-<<<<<<< HEAD
-            GameID = Request.Form["GameID"];
-            int.Parse(code);
-        }
-        public void CreateNewGameCode()
-        {
-            try
-            {
-                Encrypt encrypt = new();
-
-                string sql = "INSERT INTO Game(Code,GameID) VALUES('" + this.code + ", '" + this.GameID + "')";
-
-                this.conn.Open();
-                this.cmd = new SqlCommand(sql, this.conn);
-                this.adapter.UpdateCommand = new SqlCommand(sql, this.conn);
-
-                this.adapter.UpdateCommand.ExecuteNonQuery();
-
-                this.cmd.Dispose();
-                this.conn.Close();
-
-                Console.WriteLine("INSERT SUCCESS");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-=======
-            Console.WriteLine(code);
->>>>>>> origin/rebase-master-lewnox
-        }
-
+        
     }
 }
 

@@ -27,9 +27,9 @@ namespace BlackJack.Hubs
 
         public override async Task OnConnectedAsync()
         {
-            string connectionId = Context.ConnectionId;
-            Response.
-            await base.OnConnectedAsync();
+            //string connectionId = Context.ConnectionId;
+            //Response.
+            //await base.OnConnectedAsync();
         }
 
 
