@@ -28,7 +28,7 @@ document.getElementById("hitButton").addEventListener("click", function (event) 
 
     console.log("Spieler drückt hitButton");
     connection
-        .invoke("hitButton")
+        .invoke("hit",slotid)
         .catch(function (err) {
             return console.error(err.toString());
         });

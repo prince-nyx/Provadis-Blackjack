@@ -77,17 +77,18 @@ public class Game
         return players[host].hub;
     }
     
-    public void hitButton()
+    public void hit(int slotid)
     {
-        foreach (Player player in slots)
-        {
-            if (player != null)
+        Player player = players[slots[slotid]];
+
+        if (player != null)
             {
+                
                 Card card = deck.drawCard();
                 player.addCard(card);
-                _ = hub.fireEvent("hitButton", player.getHandSize().ToString(), card.ToString());
-            }
-        }
+            getHub().addCardToPlayer(slotid,card.getName()); 
+           }
+        
     }
     public void startGame()
     {
