@@ -14,13 +14,14 @@
 </head>
 <body>
     <header>
-        <script src="~/js/signalr/dist/browser/signalr.js"></script>
     </header>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/hubConnection.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>

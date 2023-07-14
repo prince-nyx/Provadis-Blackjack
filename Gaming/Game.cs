@@ -9,15 +9,15 @@ using System.Security.Cryptography.X509Certificates;
 public class Game
 {
     private String id;
-    private GameHub hub;
     private CardDeck deck;
-    private Player[] slots = new Player[7];
+    private String[] slots = new String[7];
+    private String host;
+    private Dictionary<string, Player> players = new Dictionary<string, Player>(); 
     private CardDeck dealerDeck;
 
-    public Game(GameHub hub)
+    public Game()
     {
         this.id = Program.GenerateRandomString(4).ToUpper();
-        this.hub = hub;
         dealerDeck = new CardDeck();
         deck = new CardDeck();
         deck.createBlackJackDeck();
@@ -29,13 +29,16 @@ public class Game
 
     public void dealCard()
     {
-        foreach(Player player in slots)
+        Card card = deck.drawCard();
+        dealerDeck.addCard(card);
+        for (int i = 0; i < slots.Length; i++)
         {
+            Player player = players[slots[i]];
             if(player != null)
             {
-                Card card = deck.drawCard();
+                card = deck.drawCard();
                 player.addCard(card);
-                _ = hub.fireEvent("SetCardImage", player.getHandSize().ToString(), card.ToString());
+                _ = getHub().addCardToPlayer(i, card.getName());
             }
         }
     }
@@ -44,44 +47,34 @@ public class Game
 
     public void addPlayer(Player player)
     {
+        
         for(int i = 0; i < slots.Length;i++)
         {
             if(slots[i] == null)
             {
-                slots[i] = player;
+                slots[i] = player.id;
+                players.Add(player.id, player);
+                if (players.Count == 1)
+                    host = player.id;
                 break;
             }
         }
     }
 
-    public Boolean containsPlayer(Player player)
+    public Boolean containsPlayer(String id)
     {
-
-        foreach (Player p in slots)
-            if (p.Equals(player))
-                return true;
-        return false;
-    }
-
-    public int getPlayerSize()
-    {
-        int amount = 0;
-        foreach(Player player in slots)
-            if (player != null)
-                amount++;
-        return amount;
-           
+       return players.ContainsKey(id);
     }
 
     public override String ToString()
     {
-        return "Game(id:" + id + " / players:" + getPlayerSize() + ")";
+        return "Game(id:" + id + " / players:" + players.Count + ")";
     }
 
 
     public GameHub getHub()
     {
-        return hub;
+        return players[host].hub;
     }
     
     public void hitButton()
