@@ -1,17 +1,20 @@
-﻿using BlackJack.Hubs;
+﻿using BlackJack;
+using BlackJack.Hubs;
 using System;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 
 public class Game
 {
+    private String id;
     private GameHub hub;
     private CardDeck deck;
-    private Player[] players = new Player[7];
+    private Player[] slots = new Player[7];
     private CardDeck dealerDeck;
 
     public Game(GameHub hub)
     {
+        this.id = Program.GenerateRandomString(4).ToUpper();
         this.hub = hub;
         dealerDeck = new CardDeck();
         deck = new CardDeck();
@@ -24,7 +27,7 @@ public class Game
 
     public void dealCard()
     {
-        foreach(Player player in players)
+        foreach(Player player in slots)
         {
             if(player != null)
             {
@@ -39,15 +42,40 @@ public class Game
 
     public void addPlayer(Player player)
     {
-        for(int i = 0; i < players.Length;i++)
+        for(int i = 0; i < slots.Length;i++)
         {
-            if(players[i] == null)
+            if(slots[i] == null)
             {
-                players[i] = player;
+                slots[i] = player;
                 break;
             }
         }
     }
+
+    public Boolean containsPlayer(Player player)
+    {
+
+        foreach (Player p in slots)
+            if (p.Equals(player))
+                return true;
+        return false;
+    }
+
+    public int getPlayerSize()
+    {
+        int amount = 0;
+        foreach(Player player in slots)
+            if (player != null)
+                amount++;
+        return amount;
+           
+    }
+
+    public override String ToString()
+    {
+        return "Game(id:" + id + " / players:" + getPlayerSize() + ")";
+    }
+
 
     public GameHub getHub()
     {

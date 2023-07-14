@@ -23,9 +23,9 @@ public class Player
 		return hand.BlackJackSum();
 	}
 
-	public String ToString()
+	public override String ToString()
 	{
-		return username + " - Karten ("+hand.ToString()+") Punkte: "+getPoints();
+		return "Player(id:"+id+" / u:"+username+")";
 	}
 
 
