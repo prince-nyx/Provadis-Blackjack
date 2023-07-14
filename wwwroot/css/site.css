@@ -13,7 +13,6 @@
     bottom: 0;
     color: #f1f1f1;
     width: 100%;
-
 }
 
 
@@ -34,6 +33,7 @@
     border-color: white;
     border-width: 5px;
 }
+
 #Anmelden {
     width: 300px;
     font-size: 18px;
@@ -50,6 +50,7 @@
     border-color: white;
     border-width: 5px;
 }
+
 #Logo {
     width: 300px;
     font-size: 18px;
@@ -58,11 +59,13 @@
     margin: 0 auto;
     flex-direction: column;
 }
+
 #Registrieren:hover {
-        background: #ddd;
-        color: black;
+    background: #ddd;
+    color: black;
 }
-#Anmelden:hover{
-        background: #ddd;
-        color: black;
+
+#Anmelden:hover {
+    background: #ddd;
+    color: black;
 }

@@ -19,8 +19,27 @@ document.getElementById("startButton").addEventListener("click", function (event
 
         console.log("Game wird gestartet");
         connection
-            .invoke("StartGame")
+            .invoke("start")
             .catch(function (err) {
                 return console.error(err.toString());
             });
     });
+document.getElementById("hitButton").addEventListener("click", function (event) {
+
+    console.log("Spieler drückt hitButton");
+    connection
+        .invoke("hit",slotid)
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
+});
+document.getElementById("endTurn").addEventListener("click", function (event) {
+
+    console.log("Spieler beendet seinen Zug");
+    connection
+        .invoke("endTurn",slotid)
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
+});
+
