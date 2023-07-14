@@ -3,6 +3,7 @@ using BlackJack.Hubs;
 using System;
 using System.Numerics;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 
 public class Game
@@ -74,5 +75,23 @@ public class Game
     public GameHub getHub()
     {
         return players[host].hub;
+    }
+    
+    public void hit(int slotid)
+    {
+        Player player = players[slots[slotid]];
+
+        if (player != null)
+            {
+                
+                Card card = deck.drawCard();
+                player.addCard(card);
+            getHub().addCardToPlayer(slotid,card.getName()); 
+           }
+        
+    }
+    public void startGame()
+    {
+
     }
 }

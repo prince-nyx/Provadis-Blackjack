@@ -24,12 +24,7 @@ namespace BlackJack.Pages
             }
             //END ACCESS CHECK
         }
-        public void OnPost()
-        {
-            code = Request.Form["code"];
-            Console.WriteLine(code);
-        }
-
+        
     }
 }
 
