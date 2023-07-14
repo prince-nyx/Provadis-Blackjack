@@ -46,3 +46,12 @@ document.getElementById("startButton").addEventListener("click", function (event
                 return console.error(err.toString());
             });
     });
+document.getElementById("hitButton").addEventListener("click", function (event) {
+
+    console.log("Spieler drückt hitButton");
+    connection
+        .invoke("hit")
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
+});

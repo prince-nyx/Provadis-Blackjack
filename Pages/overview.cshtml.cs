@@ -19,12 +19,6 @@ namespace BlackJack.Pages
             GameID = Request.Form["GameID"];
             int.Parse(code);
         }
-        public int randomZahl()
-        {
-            var rnd = new Random();
-            this.code = rnd.Next(1,100000);
-            return code;
-        }
         public void CreateNewGameCode()
         {
             try
