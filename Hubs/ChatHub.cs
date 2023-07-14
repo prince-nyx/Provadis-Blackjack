@@ -1,5 +1,4 @@
-﻿using BlackJack.Gaming;
-using Microsoft.AspNet.SignalR.Messaging;
+﻿using Microsoft.AspNet.SignalR.Messaging;
 using Microsoft.AspNetCore.SignalR;
 
 namespace BlackJack.Hubs

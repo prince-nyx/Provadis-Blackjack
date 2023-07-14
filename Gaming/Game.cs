@@ -2,9 +2,11 @@
 using BlackJack.Hubs;
 using System;
 using System.Numerics;
+using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
+
 
 public class Game
 {
@@ -18,8 +20,9 @@ public class Game
 
     private int currentSlotsTurn = -1;
 
+    private int total = 0; // Total betting amount
 
-    public Game(String hostid)
+    public Game()
     {
         this.hostid = hostid;
         this.id = Program.GenerateRandomString(4).ToUpper();
@@ -117,4 +120,10 @@ public class Game
            }
         
     }
+    public void startGame()
+    {
+
+    }
+
+*/
 }
