@@ -6,30 +6,26 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Hosting;
+using Azure;
+using Azure.Core;
+using System.Numerics;
 
 namespace BlackJack
 {
     public class Program
     {
-        public static Program program;
-        private Dictionary<string, Game> games;
-        private Dictionary<string, Player> players;
+        public static Program app;
+        public PlayerManager playerManager;
+        public GameManger gameManager;
         private const string Characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        public Program(string[] args)
+        public Program()
         {
-            games = new Dictionary<string, Game>();
-            players = new Dictionary<string, Player>();
-            start(args);
+            gameManager= new GameManger();
+            playerManager = new PlayerManager();
         }
 
-        public String loginPlayer(String username, String currentGameId, int wallet)
-        {
-            Player player = new Player(GenerateRandomString(8),username, wallet, currentGameId);
-            players.Add(player.id, player);
-            return player.id;
-        }
 
-        public string GenerateRandomString(int length)
+        public static string GenerateRandomString(int length)
         {
             Random random = new Random();
             StringBuilder stringBuilder = new StringBuilder();
@@ -42,6 +38,36 @@ namespace BlackJack
             }
 
             return stringBuilder.ToString();
+        }
+
+
+        public String checkAccess(String userid)
+        {
+            Console.WriteLine("[ACCESS] (id:" + userid + ") requests");
+            if (userid != null)
+            {
+                Player player = Program.app.playerManager.getPlayer(userid);
+                if (player != null)
+                {
+                    Console.WriteLine("[ACCESS] " + player.ToString() + " logged in");
+                    if (player.currentGameId != null && player.currentGameId != "")
+                    {
+                        Console.WriteLine("[ACCESS] " + player.ToString() + " logged in and is in Game " + player.currentGameId);
+                        return "/game";
+
+                    } else
+                    {
+                        return "/overview";
+                    }
+                } else
+                {
+                    Console.WriteLine("[ACCESS] (id:" + userid + ") outdated");
+                    return "/index";
+
+                }
+            }
+            Console.WriteLine("[ACCESS] (id:" + userid + ") not registered");
+            return "/index";
         }
 
         public void start(string[] args)
@@ -110,8 +136,8 @@ namespace BlackJack
 
         public static void Main(string[] args)
         {
-            program = new Program(args);
-
+            app = new Program();
+            app.start(args);
         }
     }
 }

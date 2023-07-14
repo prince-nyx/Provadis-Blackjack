@@ -1,4 +1,5 @@
 ﻿
+using Azure;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.SignalR;
 using System.Security.Claims;
@@ -27,8 +28,7 @@ namespace BlackJack.Hubs
         public override async Task OnConnectedAsync()
         {
             string connectionId = Context.ConnectionId;
-            Console.WriteLine(Context.User.Identity.IsAuthenticated);
-            Console.WriteLine("user identifier: "+Context.UserIdentifier);
+            Response.
             await base.OnConnectedAsync();
         }
 

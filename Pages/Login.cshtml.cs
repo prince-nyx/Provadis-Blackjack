@@ -1,6 +1,9 @@
+using Azure;
+using Microsoft.AspNet.SignalR.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
+using System.Globalization;
 
 namespace BlackJack.Pages
 {
@@ -12,42 +15,68 @@ namespace BlackJack.Pages
 		private SqlCommand? cmd;
 		private SqlDataReader? reader;
 
-		public void OnPost()
+        public void OnGet()
+        {
+            //START ACCESS CHECK
+            String userid = Request.Cookies["userid"];
+            String result = Program.app.checkAccess(userid);
+            if (result.Equals("/index"))
+            {
+                Response.Cookies.Delete("userid");
+            }
+            else
+            {
+                Response.Redirect(result);
+            }
+            //END ACCESS CHECK
+        }
+
+        public void OnPost()
         {
 			this.Username = Request.Form["username"];
 			this.Password = Request.Form["password"];
 
 			try
             {
-                if (this.IsLoginValid())
+                Player player = selectPlayer();
+                if (player != null)
                 {
-                    Console.WriteLine("Valid");
-                    Response.Redirect("/overview");
-					//TODO: Session
+                    if(Program.app.playerManager.login(player))
+                    {
+                        Console.WriteLine("Valid");
+                        Response.Cookies.Append("userid", player.id);
+                        Response.Redirect("/overview");
+                    }
 				}
                 else { Console.WriteLine("Invalid"); }
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
         }
 
-        private bool IsLoginValid()
+        private Player selectPlayer()
         {
             Encrypt encrypt = new();
 
             bool isValid = false;
-            string sql = "SELECT COUNT(*) FROM Benutzer WHERE Username ='" + this.Username + "' AND Passwort='" + encrypt.GetHashedPassword(this.Password) + "'";
+            string sql = "SELECT DISTINCT Username, GeldAnzahl FROM Benutzer WHERE Username ='" + this.Username + "' AND Passwort='" + encrypt.GetHashedPassword(this.Password) + "'";
             
             this.conn.Open();
             this.cmd = new SqlCommand(sql, this.conn);
             this.reader = this.cmd.ExecuteReader();
+            Player player = null;
+            while (this.reader.Read()) {
 
-            while (this.reader.Read()) { isValid = Convert.ToInt32(this.reader.GetValue(0)) == 1 ? true : false; }
+                string username = reader.GetString(0);
+                double wallet = reader.GetDouble(1);
+                Console.WriteLine(username + "" + wallet);
+                player = new Player(username, wallet);
+            }
 
             this.reader.Close();
             this.cmd.Dispose();
             this.conn.Close();
 
-            return isValid;
+            return player;
         }
     }
 }

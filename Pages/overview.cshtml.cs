@@ -13,9 +13,21 @@ namespace BlackJack.Pages
         private SqlDataReader? reader;
         private readonly SqlDataAdapter? adapter = new SqlDataAdapter();
 
+        public void OnGet()
+        {
+            //START ACCESS CHECK
+            String userid = Request.Cookies["userid"];
+            String result = Program.app.checkAccess(userid);
+            if (!result.Equals("/overview"))
+            {
+                Response.Redirect(result);
+            }
+            //END ACCESS CHECK
+        }
         public void OnPost()
         {
             code = Request.Form["code"];
+<<<<<<< HEAD
             GameID = Request.Form["GameID"];
             int.Parse(code);
         }
@@ -42,6 +54,9 @@ namespace BlackJack.Pages
             {
                 Console.WriteLine(ex);
             }
+=======
+            Console.WriteLine(code);
+>>>>>>> origin/rebase-master-lewnox
         }
 
     }
