@@ -7,16 +7,21 @@ using System.Security.Cryptography.X509Certificates;
 
 public class Game
 {
-    private String id;
+    public String id { get; }
     private CardDeck deck;
     private String[] slots = new String[7];
     private String host;
     private Dictionary<string, Player> players = new Dictionary<string, Player>(); 
     private CardDeck dealerDeck;
 
+    private int currentSlotsTurn = 0;
+
+
     public Game()
     {
+        host = string.Empty;
         this.id = Program.GenerateRandomString(4).ToUpper();
+        Console.WriteLine("Game erstellt mit Code "+id);
         dealerDeck = new CardDeck();
         deck = new CardDeck();
         deck.createBlackJackDeck();
@@ -25,6 +30,11 @@ public class Game
         Console.WriteLine("Deck gemischt");
     }
 
+
+    public void start()
+    {
+
+    }
 
     public void dealCard()
     {
@@ -46,7 +56,6 @@ public class Game
 
     public void addPlayer(Player player)
     {
-        
         for(int i = 0; i < slots.Length;i++)
         {
             if(slots[i] == null)
@@ -60,9 +69,10 @@ public class Game
         }
     }
 
-    public Boolean containsPlayer(String id)
+    public Boolean containsPlayer(String playerid)
     {
-       return players.ContainsKey(id);
+        Console.WriteLine("gameid contains  " + playerid + ": " + players.ContainsKey(playerid));
+       return players.ContainsKey(playerid);
     }
 
     public override String ToString()

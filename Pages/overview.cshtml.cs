@@ -6,8 +6,6 @@ namespace BlackJack.Pages
 {
     public class Index1Model : PageModel
     {
-        public string? code { get; set; }
-        public string? GameID { get; set; }
         private readonly SqlConnection conn = new("Server=provadis-it-ausbildung.de;Database=BlackJack02;UID=BlackJackUser02;PWD=Pr@vadis_188_Pta;");
         private SqlCommand? cmd;
         private SqlDataReader? reader;
@@ -26,8 +24,25 @@ namespace BlackJack.Pages
         }
         public void OnPost()
         {
-            code = Request.Form["code"];
-            Console.WriteLine(code);
+
+            String userid = Request.Cookies["userid"];
+            String gamecode = Request.Form["code"];
+            GameManger manager = Program.app.gameManager;
+
+            if (gamecode == null || !manager.exist(gamecode.ToUpper()))
+                gamecode = manager.createGame();
+            Player player = Program.app.playerManager.getPlayer(userid);
+            if(player != null)
+            {
+                if(manager.join(player, gamecode))
+                    Response.Redirect("Game");
+                else
+                    Response.Redirect("Error");
+            } else
+            {
+                Response.Redirect("Error");
+            }
+
         }
 
     }

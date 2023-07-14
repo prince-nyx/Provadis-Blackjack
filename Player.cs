@@ -28,7 +28,7 @@ public class Player
 
 	public override String ToString()
 	{
-		return "Player(id:"+id+" / u:"+username+")";
+		return "Player(id:"+id+" / u:"+username+" / game: "+currentGameId+")";
 	}
 
 

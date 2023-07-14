@@ -16,7 +16,7 @@
             if (games.ContainsKey(gameid))
             {
                 Game game = games[gameid];
-                if(game.containsPlayer(player.id))
+                if(!game.containsPlayer(player.id))
                 {
                     game.addPlayer(player);
                     player.currentGameId = gameid;
@@ -25,8 +25,8 @@
                 else
                     Console.WriteLine("[GAMEMANAGER] " + player.ToString() + " is already in " + game.ToString());
                 return true;
-            }
-            return false;
+            } else
+                return false;
         }
 
         public Boolean exist(String gameid)
@@ -34,10 +34,11 @@
             return games.ContainsKey(gameid);
         }
 
-        public void createGame()
+        public String createGame()
         {
-            //Game game = new Game();
-            //games.
+            Game game = new Game();
+            games.Add(game.id, game);
+            return game.id;
         }
     }
 }

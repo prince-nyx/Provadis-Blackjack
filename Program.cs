@@ -44,16 +44,16 @@ namespace BlackJack
 
         public String checkAccess(String userid)
         {
-            Console.WriteLine("[ACCESS] (id:" + userid + ") requests");
+            Console.WriteLine("[ACCESS] (id:" + userid + ") requests access");
             if (userid != null)
             {
                 Player player = Program.app.playerManager.getPlayer(userid);
                 if (player != null)
                 {
-                    Console.WriteLine("[ACCESS] " + player.ToString() + " logged in");
+                    Console.WriteLine("[ACCESS] " + player.ToString() + " has access");
                     if (player.currentGameId != null && player.currentGameId != "")
                     {
-                        Console.WriteLine("[ACCESS] " + player.ToString() + " logged in and is in Game " + player.currentGameId);
+                        Console.WriteLine("[ACCESS] " + player.ToString() + " is in Game " + player.currentGameId);
                         return "/game";
 
                     } else
@@ -62,12 +62,12 @@ namespace BlackJack
                     }
                 } else
                 {
-                    Console.WriteLine("[ACCESS] (id:" + userid + ") outdated");
+                    Console.WriteLine("[ACCESS] (id:" + userid + ") is outdated");
                     return "/index";
 
                 }
             }
-            Console.WriteLine("[ACCESS] (id:" + userid + ") not registered");
+            Console.WriteLine("[ACCESS] (id:" + userid + ") has no access");
             return "/index";
         }
 
