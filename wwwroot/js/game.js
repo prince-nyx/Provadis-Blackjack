@@ -49,5 +49,11 @@ function disableBet() {
 
 
 function enableBet() {
-    document.getElementById("chipsDiv").style.display = "inline-block";
+    document.getElementById("chipsDiv").style.display = "flex";
+}
+
+function setBalance(_double amount) {
+    if (amount > 0.0) {
+        document.getElementById("money").innerHTML = "Guthaben: " + amount.toString();
+    }
 }
