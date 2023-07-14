@@ -8,6 +8,8 @@
 
     string user = "Manfred";
     int money = 1000;
+
+    //int totalAmount = Game.setBet();
 }
 
 <style>
@@ -177,14 +179,15 @@
 
 
 
-<div class="pokerchips" id="chipsDiv">
-    <img src="/images/pokerchips/Pokerchip1.png" onclick="showMessageBox('You clicked on Pokerchip 1!')" />
-    <img src="/images/pokerchips/Pokerchip5.png" />
-    <img src="/images/pokerchips/Pokerchip10.png" />
-    <img src="/images/pokerchips/Pokerchip20.png" />
-    <img src="/images/pokerchips/Pokerchip25.png" />
+<div class="pokerchips">
+    <img src="/images/pokerchips/Pokerchip1.png" onclick="setBet(1)" />
+    <img src="/images/pokerchips/Pokerchip5.png" onclick="setBet(5)" />
+    <img src="/images/pokerchips/Pokerchip10.png" onclick="setBet(10)" />
+    <img src="/images/pokerchips/Pokerchip20.png" onclick="setBet(20)" />
+    <img src="/images/pokerchips/Pokerchip25.png" onclick="setBet(25)" />
 </div>
 
+<h1>Total Betting Amount: @totalAmount</h1>
 
 <script>
     function showMessageBox(message) {
