@@ -1,7 +1,9 @@
 ﻿using BlackJack;
 using BlackJack.Hubs;
 using System;
+using System.Numerics;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 
 public class Game
@@ -80,5 +82,12 @@ public class Game
     public GameHub getHub()
     {
         return hub;
+    }
+    
+    public void hitButton()
+    {
+        foreach (Player player in slots)
+        {
+        }
     }
 }
