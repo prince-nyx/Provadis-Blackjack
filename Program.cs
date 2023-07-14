@@ -1,13 +1,10 @@
 using BlackJack.Hubs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
 using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Hosting;
-using Azure;
-using Azure.Core;
 using System.Numerics;
 
 namespace BlackJack

@@ -53,3 +53,11 @@ document.getElementById("standButton").addEventListener("click", function (event
 });
 
 
+function disableBet() {
+    document.getElementById("chipsDiv").style.display = "none";
+}
+
+
+function enableBet() {
+    document.getElementById("chipsDiv").style.display = "inline-block";
+}

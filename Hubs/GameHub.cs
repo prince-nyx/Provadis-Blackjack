@@ -1,7 +1,4 @@
-﻿
-using Azure;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 using System.Formats.Asn1;
 using System.Numerics;
 using System.Security.Claims;
