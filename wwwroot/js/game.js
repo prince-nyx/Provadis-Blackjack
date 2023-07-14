@@ -43,14 +43,11 @@ document.getElementById("endTurn").addEventListener("click", function (event) {
         });
 });
 
-
-
-let total = 0;
-const totalAmountElement = document.getElementById('totalAmount');
-console.log("Spieler setzt die folgende Anzahl:")
-connection
-    .invoke("setBet", totalAmount)
-    .catch(function (err)) {
-        return console.error(err.toString())
+function disableBet() {
+    document.getElementById("chipsDiv").style.display = "none";
 }
 
+
+function enableBet() {
+    document.getElementById("chipsDiv").style.display = "inline-block";
+}
