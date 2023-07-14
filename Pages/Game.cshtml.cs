@@ -15,6 +15,10 @@ namespace BlackJack.Pages
                // Response.Redirect(result);
             }
             //END ACCESS CHECK
+
+
+
+
         }
     }
 }

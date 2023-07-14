@@ -2,9 +2,11 @@
 using BlackJack.Hubs;
 using System;
 using System.Numerics;
+using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
+
 
 public class Game
 {
@@ -16,6 +18,8 @@ public class Game
     private CardDeck dealerDeck;
 
     private int currentSlotsTurn = 0;
+
+    private int total = 0; // Total betting amount
 
 
     public Game()
@@ -102,6 +106,74 @@ public class Game
     }
     public void startGame()
     {
-
     }
+
+
+    public int GetChipAmount(string chipName)
+    {
+        switch (chipName)
+        {
+            case "Pokerchip1.png":
+                return 1;
+            case "Pokerchip5.png":
+                return 5;
+            case "Pokerchip10.png":
+                return 10;
+            case "Pokerchip20.png":
+                return 20;
+            case "Pokerchip25.png":
+                return 25;
+            default:
+                return 0;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*    public void setBet(int amount)
+    {
+        total += amount;
+        Console.WriteLine("Total amount: " + total); // Display the total amount
+    }
+
+*/
 }
