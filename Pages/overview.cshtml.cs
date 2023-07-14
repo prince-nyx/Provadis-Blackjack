@@ -26,8 +26,29 @@ namespace BlackJack.Pages
         }
         public void OnPost()
         {
+            code = Request.Form["code"];
+            GameID = Request.Form["GameID"];
             int.Parse(code);
-            int.Parse(GameID);
+        }
+        public int randomZahl()
+        {
+            var rnd = new Random();
+            this.code = rnd.Next(1,100000);
+            return code;
+        }
+        public void CreateNewGameCode()
+        {
+            try
+            {
+                Encrypt encrypt = new();
+
+                string sql = "INSERT INTO Game(Code,GameID) VALUES('" + this.code + ", '" + this.GameID + "')";
+
+                this.conn.Open();
+                this.cmd = new SqlCommand(sql, this.conn);
+                this.adapter.UpdateCommand = new SqlCommand(sql, this.conn);
+
+                this.adapter.UpdateCommand.ExecuteNonQuery();
 
             Console.WriteLine(Program.app.playerManager.getPlayer(Request.Cookies["userid"]).username);
             Console.WriteLine();
@@ -40,7 +61,6 @@ namespace BlackJack.Pages
             rnd.Next();
             return rnd;
         }
-        
 
     }
 }
