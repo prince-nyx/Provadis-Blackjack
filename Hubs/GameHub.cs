@@ -114,7 +114,7 @@ namespace BlackJack.Hubs
         //client
         public async Task setbBalance(Player player, int amount)
         {
-            await Clients.Client(player.connectionId).SendAsync("console", "[EVENT] setbBalance(" + amount + " )");
+            await Clients.Client(player.connectionId).SendAsync("console", "[EVENT] setBalance(" + amount + " )");
         }
 
         //client
