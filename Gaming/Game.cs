@@ -1,6 +1,8 @@
 ﻿using BlackJack;
 using BlackJack.Hubs;
+using Microsoft.AspNet.SignalR.Messaging;
 using System;
+using System.Linq;
 using System.Numerics;
 using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
@@ -16,7 +18,7 @@ public class Game
     public String hostid { get; set; }
     private Dictionary<string, Player> players = new Dictionary<string, Player>(); 
     private CardDeck dealerDeck;
-    public GameHub hub { get; set; }
+    //public GameHub hub { get; set; }
 
     private int currentSlotsTurn = -1;
 
@@ -51,7 +53,7 @@ public class Game
         Console.WriteLine("Start turn");
         if (slots[currentSlotsTurn] != null && players.ContainsKey(slots[currentSlotsTurn]))
         {
-            _ = getHub().startTurn(players[slots[currentSlotsTurn]], 20);
+            startTurn(players[slots[currentSlotsTurn]], 20);
         }
         else
             nextPlayer();
@@ -61,7 +63,7 @@ public class Game
     {
         Card card = deck.drawCard();
         dealerDeck.addCard(card);
-        _ = getHub().addDealerCard(card.getName(),hidden);
+        addDealerCard(card.getName(),hidden);
 
         for (int i = 0; i < slots.Length; i++)
         {
@@ -70,14 +72,14 @@ public class Game
                 Player player = players[slots[i]];
                 card = deck.drawCard();
                 player.addCard(card);
-                _ = getHub().addCardToPlayer(i, card.getName());
+                addCardToPlayer(i, card.getName());
             }
         }
     }
 
 
 
-    public void addPlayer(Player player)
+    public void addPlayerToGame(Player player)
     {
         for(int i = 0; i < slots.Length;i++)
         {
@@ -85,9 +87,17 @@ public class Game
             {
                 slots[i] = player.id;
                 players.Add(player.id, player);
-                _ = getHub().assignPlayer(i, player.username);
                 break;
             }
+        }
+    }
+
+    public void PlayerJoined(Player player)
+    {
+        if (slots.Contains(player.id))
+        {
+            int slotid = Array.IndexOf(slots, player.id);
+            assignPlayer(slotid, player.username);
         }
     }
 
@@ -102,28 +112,19 @@ public class Game
         return "Game(id:" + id + " / players:" + players.Count + ")";
     }
 
-    public GameHub getHub()
-    {
-        return hub;
-    }
     
     public void hit(int slotid)
     {
         Player player = players[slots[slotid]];
 
         if (player != null)
-            {
+        {
                 
                 Card card = deck.drawCard();
                 player.addCard(card);
-            getHub().addCardToPlayer(slotid,card.getName()); 
+                addCardToPlayer(slotid,card.getName()); 
            }      
 
-
-        Player player = players[slots[slotid]];
-        if (player != null)
-        {
-        }
     }
 
 
@@ -133,10 +134,11 @@ public class Game
 
 
 
-    
+
     public int GetChipAmount(string chipName)
     {
-        switch (chipName) { 
+        switch (chipName)
+        {
             case "Pokerchip1.png":
                 return 1;
             case "Pokerchip5.png":
@@ -151,23 +153,123 @@ public class Game
                 return 0;
         }
     
+    }
+
+
+    //test
+    public void console(String message)
+    {
+        foreach (Player player in players.Values)
+        {
+            player.registerEvent(new FrontendEvent("console", message));
+        }
+
+    }
+
+    //all
+    public void addCardToPlayer(int slotid, String cardname)
+    {
+        foreach (Player player in players.Values)
+        {
+            player.registerEvent(new FrontendEvent("addCardToPlayer", slotid.ToString(),  cardname));
+        }
+    }
+
+    //all
+    public void setCardSum(int slotid, int amount)
+    {
+        foreach (Player player in players.Values)
+        {
+            player.registerEvent(new FrontendEvent("setCardSum", slotid.ToString(), amount.ToString()));
+        }
+    }
+
+    //all
+    public void assignPlayer(int slotid, String username)
+    {
+        foreach (Player player in players.Values)
+        {
+            player.registerEvent(new FrontendEvent("assignPlayer", slotid.ToString(), username));
+        }
+    }
+
+    //all
+    public void unassignPlayer(int slotid)
+    {
+        foreach (Player player in players.Values)
+        {
+            player.registerEvent(new FrontendEvent("unassignPlayer", slotid.ToString()));
+        }
+    }
+
+    //all
+    public void setBet(int slotid, double amount)
+    {
+        foreach (Player player in players.Values)
+        {
+            player.registerEvent(new FrontendEvent("setBet", slotid.ToString(), amount.ToString()));
+        }
+    }
+
+    //all
+    public void addDealerCard(String cardname, Boolean hidden)
+    {
+        foreach (Player player in players.Values)
+        {
+            player.registerEvent(new FrontendEvent("addDealerCard", cardname, hidden.ToString()));
+        }
+    }
+
+    //client
+    public void endTurn(Player player, int slotid)
+    {
+        player.registerEvent(new FrontendEvent("endTurn", slotid.ToString()));
+    }
+
+    //client
+    public void startTurn(Player player, int time)
+    {
+        player.registerEvent(new FrontendEvent("startTurn", time.ToString()));
+    }
+
+    //client
+    public void setbBalance(Player player, int amount)
+    {
+        player.registerEvent(new FrontendEvent("setbBalance", amount.ToString()));
+    }
+
+    //client
+    public void enableBet(Player player)
+    {
+        player.registerEvent(new FrontendEvent("enableBet"));
+    }
+
+    //client
+    public void disableBet(Player player)
+    {
+        player.registerEvent(new FrontendEvent("disableBet"));
+    }
+
+
+    //client
+    public void showResult(Player player, int amount, String result)
+    {
+        player.registerEvent(new FrontendEvent("showResult",  amount.ToString(), result));
+        totalBet += amount;
+    }
+
+    //client
+    public void showStartButton(Player player)
+    {
+        player.registerEvent(new FrontendEvent("showStartButton"));
+    }
 
     //Chipauswahl abrufen un den return Wert aufaddieren
-    public void setBet(string chipName)
+    public void setBetBackend(string chipName)
     {
         int amount = GetChipAmount(chipName);
 
         totalBet += amount;
     }
-
- 
-
-
-
-
-
-
-
-
 
 }

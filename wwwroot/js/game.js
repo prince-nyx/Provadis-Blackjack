@@ -21,6 +21,20 @@ connection.on("console", function (message) {
 });
 
 
+function updateTask() {
+    connection
+        .invoke("update", getCookie("userid"))
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
+}
+setInterval(updateTask, 500);
+
+connection.on("updated", function (message) {
+    console.log(message);
+});
+
+
 
 function getCookie(cname) {
     let name = cname + "=";
@@ -74,6 +88,17 @@ document.getElementById("hitButton").addEventListener("click", function (event) 
             return console.error(err.toString());
         });
 });
+
+document.getElementById("endTurn").addEventListener("click", function (event) {
+
+    console.log("Spieler beendet seinen Zug");
+    connection
+        .invoke("endTurn",slotid)
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
+});
+
 document.getElementById("standButton").addEventListener("click", function (event) {
 
     console.log("Spieler zieht keine Karte");
@@ -122,4 +147,12 @@ function showResult(amount, resultType) {
             document.getElementById("resultScreen").innerHTML = "Sie haben verloren!";
             document.getElementById("resultScreen").style.visibility = "visible";
     }
+}
+
+function startTurn() {
+    enableBet();
+}
+
+function endTurn() {
+    disableBet();
 }
