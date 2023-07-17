@@ -38,6 +38,13 @@ public class Game
 
     public void startGame()
     {
+        currentSlotsTurn = -1;
+        Console.WriteLine("SPIEL GESTARTET");
+        dealCard(true);
+        dealCard(false);
+        nextPlayer();
+    }
+
 <<<<<<< HEAD
         
 =======
@@ -47,8 +54,19 @@ public class Game
         dealCard(false);
         nextPlayer();
 >>>>>>> 7b2ccdf6dfdb4264506879384732910d54840a1d
+    public void nextPlayer()
+    {
+        currentSlotsTurn++;
+        Console.WriteLine("Start turn");
+        if (slots[currentSlotsTurn] != null && players.ContainsKey(slots[currentSlotsTurn]))
+        {
+            _ = getHub().startTurn(players[slots[currentSlotsTurn]], 20);
+        }
+        else
+            nextPlayer();
     }
 
+    public void dealCard(Boolean hidden)
     public void nextPlayer()
     {
         currentSlotsTurn++;
@@ -124,6 +142,9 @@ public class Game
            }
         
     }
+    public void startGame()
+    {
+
     public void stand(int slotid)
 
     {
