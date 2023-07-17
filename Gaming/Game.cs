@@ -122,7 +122,7 @@ public class Game
                 
                 Card card = deck.drawCard();
                 player.addCard(card);
-            getHub().addCardToPlayer(slotid,card.getName()); 
+                addCardToPlayer(slotid,card.getName()); 
            }      
 
     }
@@ -152,15 +152,7 @@ public class Game
             default:
                 return 0;
         }
-    }
-
-    //Chipauswahl abrufen un den return Wert aufaddieren
-    public void setBet(string chipName)
-    {
-        Card card = deck.drawCard();
-        player.addCard(card);
-        addCardToPlayer(slotid,card.getName()); 
-        
+    
     }
 
 
