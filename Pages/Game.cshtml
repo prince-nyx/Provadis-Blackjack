@@ -11,13 +11,14 @@
 
     //int totalAmount = Game.setBet();
 }
-<body onload="load()">
+<head>
 <style>
     body {
        background-image: url("/images/GameLobbyBackground.png");
     }
 </style>
-
+</head>
+<body onload="load()">
 <div class="displayOwnContainer">
     <h1 class="displayOwnUsername" id="username">Viel Erfolg @user !</h1>
     <button id="startButton">Spiel starten</button>
@@ -27,6 +28,7 @@
     <button id="standButton">Stand</button>
     <br />
     <button id="endTurn">Zug beenden</button>
+    
 </div>
 
 
@@ -178,7 +180,7 @@
 </div>
 
 <div class="winnerScreen" id="resultScreen"></div>
-
+<button id="startTurn">Zug starten</button>
 <div class="pokerchips" id="chipsDiv">
     <img src="/images/pokerchips/Pokerchip1.png" onclick="setBet(1)" />
     <img src="/images/pokerchips/Pokerchip5.png" onclick="setBet(5)" />
