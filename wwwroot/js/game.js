@@ -134,3 +134,45 @@ function showResult(amount, resultType) {
             document.getElementById("resultScreen").style.visibility = "visible";
     }
 }
+
+
+
+
+
+
+
+
+//Einsatz bei drücken der Chips hochzählen und nur die nutzbaren Chip anzeigen lassen.
+let playerCurrency = 12;
+let totalBet = 0;
+const totalAmountElement = document.getElementById('totalAmount');
+const chipImages = document.querySelectorAll('.pokerchips img');
+
+function hideChipImages() {
+    chipImages.forEach(chipImage => {
+        const chipValue = parseInt(chipImage.getAttribute('onclick').match(/\d+/)[0]);
+        if (playerCurrency < chipValue || playerCurrency < totalBet + chipValue) {
+            chipImage.style.display = 'none';
+            chipImage.removeAttribute('onclick');
+        }
+    });
+}
+hideChipImages();
+
+
+function addToTotal(amount) {
+    if (playerCurrency >= totalBet + amount) {
+        totalBet += amount;
+        totalAmountElement.textContent = totalBet;
+        hideChipImages();
+        return totalBet
+    }
+}
+
+
+function setBet(totalBet) {
+    // Add your setBet functionality here
+    console.log(totalBet);
+}
+
+
