@@ -3,11 +3,15 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
     <title>@ViewData["Title"] - BlackJack</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BlackJack.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/gamelobby.css" asp-append-version="true" />
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
 </head>
 <body>
     <div class="container">
@@ -15,8 +19,6 @@
             @RenderBody()
         </main>
     </div>
-    <script src="~/js/signalr/dist/browser/signalr.js"></script>
-    <script src="~/js/hubConnection.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

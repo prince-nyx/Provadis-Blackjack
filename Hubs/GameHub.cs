@@ -21,7 +21,7 @@ namespace BlackJack.Hubs
             connectionId = Context.ConnectionId;
             Player player = Program.app.playerManager.getPlayer(cookie);
             if (player == null)
-                await Clients.Client(connectionId).SendAsync("updated", "Kein Login vorhanden");
+                await Clients.Client(connectionId).SendAsync("console", "Kein Login vorhanden");
             else
             {
                 player.connectionId = connectionId;
@@ -31,7 +31,7 @@ namespace BlackJack.Hubs
                     await Clients.Client(connectionId).SendAsync("console", frontendEvent.eventName+"("+ string.Join(",", frontendEvent.args) + ")");
                 }
                 player.events.Clear();
-                await Clients.Client(connectionId).SendAsync("updated", "connected als " + player.username);
+                await Clients.Client(connectionId).SendAsync("console", "connected als " + player.username);
 
             }
         }

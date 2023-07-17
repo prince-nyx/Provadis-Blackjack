@@ -1,4 +1,4 @@
-﻿console.log("Verbindung wird aufgebaut");
+﻿console.log("Verbindung wird aufgebaut ...");
 var connection = new signalR.HubConnectionBuilder().withUrl("/GameHub").build();
 
 //Die Verbindung wurde aufgebaut und ruft nun diese Funktion auf:
@@ -9,6 +9,7 @@ connection.start().then(function () {
         .catch(function (err) {
             return console.error(err.toString());
         });
+    setInterval(updateTask, 500);
 }).catch(function (err) {
     console.log("Verbindung fehlgeschlagen");
 
@@ -28,11 +29,6 @@ function updateTask() {
             return console.error(err.toString());
         });
 }
-setInterval(updateTask, 500);
-
-connection.on("updated", function (message) {
-    console.log(message);
-});
 
 
 
