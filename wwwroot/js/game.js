@@ -30,7 +30,27 @@ function updateTask() {
         });
 }
 
+function addCardToPlayer(slotID, card) {
+    let slot = null;
+    let doc = null;
 
+    switch (slotID) {
+        case 4:
+            doc = document.getElementById("Benutzer");
+            break;
+        default:
+            doc = document.getElementById(`Spieler${slotID+1}`);
+            break;
+    }
+
+    for (let i = 1; i <= 11; i++) {
+        slot = doc.getElementsByClassName(`OfClubs${i}`)[0];
+        if (slot.src == "") {
+            slot.src = `/images/card/${card}.png`;
+            break;
+        }
+    }
+}
 
 function getCookie(cname) {
     let name = cname + "=";
