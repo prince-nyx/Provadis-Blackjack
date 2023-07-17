@@ -9,12 +9,14 @@ public class Player
     public String currentGameId { get; set; }
     public double wallet { get; set; }
     public String username { get; }
-    private CardDeck hand = new CardDeck();
+    public CardDeck hand { get; }
 
     public GameHub hub { get; set; }
     public String connectionId { get; set; }
 
     public List<FrontendEvent> events = new List<FrontendEvent>();
+
+    public double bet;
 
 	public Player(String username, double wallet)
     {
@@ -59,6 +61,28 @@ public class Player
     {
         Console.WriteLine("[EVENTS] "+username.ToUpper()+" registers "+ frontend.eventName+ "(" + string.Join(",", frontend.args) + ");");
         events.Add(frontend);
+    }
+
+    public double getBet()
+    {
+        return bet;
+    }
+
+
+    public void AddBet(double amount)
+    {
+        this.bet += amount;
+        this.wallet -= bet;
+    }
+
+    public void resetBet()
+    {
+        bet = 0;
+    }
+
+    public void AddWallet(double amount)
+    {
+        this.wallet += amount;
     }
 
 

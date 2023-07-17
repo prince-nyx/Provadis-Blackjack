@@ -4,7 +4,7 @@
 
 
 @{
-    
+
     ViewData["Title"] = "BlackJack";
     Layout = "_LayoutGame";
 
@@ -18,220 +18,220 @@
 
 
 <head>
-<style>
-    body {
-       background-image: url("/images/GameLobbyBackground.png");
-    }
-</style>
+    <style>
+        body {
+            background-image: url("/images/GameLobbyBackground.png");
+        }
+    </style>
 </head>
 <body onload="load()">
-<div class="displayOwnContainer">
-    <h1 class="displayOwnUsername" id="username">Viel Erfolg @user !</h1>
-    <button id="startButton">Spiel starten</button>
-    <h1 class="displayOwnMoney" id="money">Guthaben: @money €</h1>
-    <br />
-    <button id="hitButton">Hit</button>
-    <button id="standButton">Stand</button>
-    <br />
-    <button id="endTurn">Zug beenden</button>
-    
-</div>
+    <div class="displayOwnContainer">
+        <h1 class="displayOwnUsername" id="username">Viel Erfolg @user !</h1>
+        <button id="startButton">Spiel starten</button>
+        <h1 class="displayOwnMoney" id="money">Guthaben: @money €</h1>
+        <br />
+        <button id="hitButton">Hit</button>
+        <button id="standButton">Stand</button>
+        <br />
+        <button id="endTurn">Zug beenden</button>
+
+    </div>
 
 
 
-<div class="TableContainer">
-    <div class="BlackJackTable">
-        <div class="Group9">
-            <div class="Ellipse2"></div>
-            <div class="Rectangle1"></div>
-            <div class="Ellipse1"></div>
-        </div>
-        <div id="Spieler7" class="Spieler7">
-            <div id="Spieler1" class="Karten">
-                <img id="Spieler7" class="OfClubs1" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler7" class="OfClubs2" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler7" class="OfClubs3" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler7" class="OfClubs4" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler7" class="OfClubs5" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler7" class="OfClubs6" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler7" class="OfClubs7" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler7" class="OfClubs8" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler7" class="OfClubs9" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler7" class="OfClubs10" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler7" class="OfClubs11" src="https://via.placeholder.com/60x87" />
+    <div class="TableContainer">
+        <div class="BlackJackTable">
+            <div class="Group9">
+                <div class="Ellipse2"></div>
+                <div class="Rectangle1"></div>
+                <div class="Ellipse1"></div>
             </div>
-            <div id="Spieler7" class="Rectangle3"></div>
-            <div id="Spieler7" class="TextSpieler7">Spieler7</div>
-        </div>
-        <div id="Spieler6" class="Spieler6">
-            <div id="Spieler6" class="Karten">
-                <img id="Spieler6" class="OfClubs1" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler6" class="OfClubs2" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler6" class="OfClubs3" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler6" class="OfClubs4" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler6" class="OfClubs5" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler6" class="OfClubs6" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler6" class="OfClubs7" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler6" class="OfClubs8" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler6" class="OfClubs9" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler6" class="OfClubs10" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler6" class="OfClubs11" src="https://via.placeholder.com/60x87" />
+            <div id="Spieler7" class="Spieler7">
+                <div id="Spieler7" class="Karten">
+                    <img id="Spieler7" class="card1" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler7" class="card2" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler7" class="card3" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler7" class="card4" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler7" class="card5" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler7" class="card6" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler7" class="card7" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler7" class="card8" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler7" class="card9" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler7" class="card10" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler7" class="card11" src="https://via.placeholder.com/60x87" />
+                </div>
+                <div id="Spieler7" class="Rectangle3"></div>
+                <div id="Spieler7" class="TextSpieler7">Spieler7</div>
             </div>
-            <div id="Spieler6" class="Rectangle4"></div>
-            <div id="Spieler6" class="TextSpieler6">Spieler6</div>
-        </div>
-        <div class="Spieler5">
-            <div id="Spieler5" class="Karten">
-                <img id="Spieler5" class="OfClubs1" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler5" class="OfClubs2" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler5" class="OfClubs3" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler5" class="OfClubs4" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler5" class="OfClubs5" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler5" class="OfClubs6" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler5" class="OfClubs7" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler5" class="OfClubs8" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler5" class="OfClubs9" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler5" class="OfClubs10" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler5" class="OfClubs11" src="https://via.placeholder.com/60x87" />
+            <div id="Spieler6" class="Spieler6">
+                <div id="Spieler6" class="Karten">
+                    <img id="Spieler6" class="card1" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler6" class="card2" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler6" class="card3" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler6" class="card4" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler6" class="card5" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler6" class="card6" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler6" class="card7" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler6" class="card8" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler6" class="card9" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler6" class="card10" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler6" class="card11" src="https://via.placeholder.com/60x87" />
+                </div>
+                <div id="Spieler6" class="Rectangle4"></div>
+                <div id="Spieler6" class="TextSpieler6">Spieler6</div>
             </div>
-            <div id="Spieler5" class="Rectangle5"></div>
-            <div id="Spieler5" class="TextSpieler5">Spieler5</div>
-        </div>
-        <div class="Benutzer">
-            <div id="Benutzer" class="Karten">
-                <img id="Benutzer" class="OfClubs1" src="https://via.placeholder.com/87x126" />
-                <img id="Benutzer" class="OfClubs2" src="https://via.placeholder.com/87x126" />
-                <img id="Benutzer" class="OfClubs3" src="https://via.placeholder.com/87x126" />
-                <img id="Benutzer" class="OfClubs4" src="https://via.placeholder.com/87x126" />
-                <img id="Benutzer" class="OfClubs5" src="https://via.placeholder.com/87x126" />
-                <img id="Benutzer" class="OfClubs6" src="https://via.placeholder.com/87x126" />
-                <img id="Benutzer" class="OfClubs7" src="https://via.placeholder.com/87x126" />
-                <img id="Benutzer" class="OfClubs8" src="https://via.placeholder.com/87x126" />
-                <img id="Benutzer" class="OfClubs9" src="https://via.placeholder.com/87x126" />
-                <img id="Benutzer" class="OfClubs10" src="https://via.placeholder.com/87x126" />
-                <img id="Benutzer" class="OfClubs11" src="https://via.placeholder.com/87x126" />
+            <div class="Spieler5">
+                <div id="Spieler5" class="Karten">
+                    <img id="Spieler5" class="card1" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler5" class="card2" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler5" class="card3" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler5" class="card4" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler5" class="card5" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler5" class="card6" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler5" class="card7" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler5" class="card8" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler5" class="card9" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler5" class="card10" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler5" class="card11" src="https://via.placeholder.com/60x87" />
+                </div>
+                <div id="Spieler5" class="Rectangle5"></div>
+                <div id="Spieler5" class="TextSpieler5">Spieler5</div>
             </div>
-            <div id="Benutzer" class="Rectangle3"></div>
-            <div id="Benutzer" class="TextBenutzer">SpielerBenutzer</div>
-        </div>
-        <div class="Spieler3">
-            <div id="Spieler3" class="Karten">
-                <img id="Spieler3" class="OfClubs1" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler3" class="OfClubs2" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler3" class="OfClubs3" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler3" class="OfClubs4" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler3" class="OfClubs5" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler3" class="OfClubs6" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler3" class="OfClubs7" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler3" class="OfClubs8" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler3" class="OfClubs9" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler3" class="OfClubs10" src="https://via.placeholder.com/60x87" />
-                <img id="Spieler3" class="OfClubs11" src="https://via.placeholder.com/60x87" />
+            <div class="Spieler4" >
+                <div id="Spieler4" class="Karten">
+                    <img id="Spieler4" class="card1" src="https://via.placeholder.com/87x126" />
+                    <img id="Spieler4" class="card2" src="https://via.placeholder.com/87x126" />
+                    <img id="Spieler4" class="card3" src="https://via.placeholder.com/87x126" />
+                    <img id="Spieler4" class="card4" src="https://via.placeholder.com/87x126" />
+                    <img id="Spieler4" class="card5" src="https://via.placeholder.com/87x126" />
+                    <img id="Spieler4" class="card6" src="https://via.placeholder.com/87x126" />
+                    <img id="Spieler4" class="card7" src="https://via.placeholder.com/87x126" />
+                    <img id="Spieler4" class="card8" src="https://via.placeholder.com/87x126" />
+                    <img id="Spieler4" class="card9" src="https://via.placeholder.com/87x126" />
+                    <img id="Spieler4" class="card10" src="https://via.placeholder.com/87x126" />
+                    <img id="Spieler4" class="card11" src="https://via.placeholder.com/87x126" />
+                </div>
+                <div id="Spieler4" class="Rectangle3"></div>
+                <div id="Spieler4" class="TextBenutzer">SpielerBenutzer</div>
             </div>
-            <div id="Spieler3" class="Rectangle2"></div>
-            <div id="Spieler3" class="TextSpieler3">Spieler3</div>
-        </div>
-        <div class="Spieler2">
+            <div class="Spieler3">
+                <div id="Spieler3" class="Karten">
+                    <img id="Spieler3" class="card1" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler3" class="card2" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler3" class="card3" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler3" class="card4" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler3" class="card5" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler3" class="card6" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler3" class="card7" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler3" class="card8" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler3" class="card9" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler3" class="card10" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler3" class="card11" src="https://via.placeholder.com/60x87" />
+                </div>
+                <div id="Spieler3" class="Rectangle2"></div>
+                <div id="Spieler3" class="TextSpieler3">Spieler3</div>
+            </div>
+            <div class="Spieler2">
                 <div id="Spieler2" class="Karten">
-                    <img id="Spieler2" class="OfClubs1" src="https://via.placeholder.com/60x87" />
-                    <img id="Spieler2" class="OfClubs2" src="https://via.placeholder.com/60x87" />
-                    <img id="Spieler2" class="OfClubs3" src="https://via.placeholder.com/60x87" />
-                    <img id="Spieler2" class=" OfClubs4" src="https://via.placeholder.com/60x87" />
-                    <img id="Spieler2" class="OfClubs5" src="https://via.placeholder.com/60x87" />
-                    <img id="Spieler2" class="OfClubs6" src="https://via.placeholder.com/60x87" />
-                    <img id="Spieler2" class="OfClubs7" src="https://via.placeholder.com/60x87" />
-                    <img id="Spieler2" class="OfClubs8" src="https://via.placeholder.com/60x87" />
-                    <img id="Spieler2" class="OfClubs9" src="https://via.placeholder.com/60x87" />
-                    <img id="Spieler2" class="OfClubs10" src="https://via.placeholder.com/60x87" />
-                    <img id="Spieler2" class="OfClubs11" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler2" class="card1" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler2" class="card2" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler2" class="card3" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler2" class="card4" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler2" class="card5" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler2" class="card6" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler2" class="card7" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler2" class="card8" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler2" class="card9" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler2" class="card10" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler2" class="card11" src="https://via.placeholder.com/60x87" />
                 </div>
                 <div id="Spieler2" class="Rectangle2"></div>
                 <div id="Spieler2" class="TextSpieler2">Spieler2</div>
-        </div>
-        <div class="Spieler1">
-                <div id="Spieler1" class="Karten">
-                    <img id="Spieler1" class="OfClubs1" src="https://via.placeholder.com/60x87" />
-                    <img id="Spieler1" class="OfClubs2" src="https://via.placeholder.com/60x87" />
-                    <img id="Spieler1" class="OfClubs3" src="https://via.placeholder.com/60x87" />
-                    <img id="Spieler1" class="OfClubs4" src="https://via.placeholder.com/60x87" />
-                    <img id="Spieler1" class="OfClubs5" src="https://via.placeholder.com/60x87" />
-                    <img id="Spieler1" class="OfClubs6" src="https://via.placeholder.com/60x87" />
-                    <img id="Spieler1" class="OfClubs7" src="https://via.placeholder.com/60x87" />
-                    <img id="Spieler1" class="OfClubs8" src="https://via.placeholder.com/60x87" />
-                    <img id="Spieler1" class="OfClubs9" src="https://via.placeholder.com/60x87" />
-                    <img id="Spieler1" class="OfClubs10" src="https://via.placeholder.com/60x87" />
-                    <img id="Spieler1" class="OfClubs11" src="https://via.placeholder.com/60x87" />
             </div>
+            <div class="Spieler1">
+                <div id="Spieler1" class="Karten">
+                    <img id="Spieler1" class="card1" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler1" class="card2" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler1" class="card3" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler1" class="card4" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler1" class="card5" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler1" class="card6" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler1" class="card7" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler1" class="card8" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler1" class="card9" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler1" class="card10" src="https://via.placeholder.com/60x87" />
+                    <img id="Spieler1" class="card11" src="https://via.placeholder.com/60x87" />
+                </div>
                 <div id="Spieler1" class="Rectangle6"></div>
                 <div id="Spieler1" class="TextSpieler1">Spieler1</div>
-        </div>
-        <div class="Dealer">
+            </div>
+            <div class="Dealer">
                 <div id="Dealer" class="Karten">
-                    <img id="Dealer" class="OfClubs1" src="https://via.placeholder.com/60x87" />
-                    <img id="Dealer" class="OfClubs2" src="https://via.placeholder.com/60x87" />
-                    <img id="Dealer" class="OfClubs3" src="https://via.placeholder.com/60x87" />
-                    <img id="Dealer" class="OfClubs4" src="https://via.placeholder.com/60x87" />
-                    <img id="Dealer" class="OfClubs5" src="https://via.placeholder.com/60x87" />
-                    <img id="Dealer" class="OfClubs6" src="https://via.placeholder.com/60x87" />
-                    <img id="Dealer" class="OfClubs7" src="https://via.placeholder.com/60x87" />
-                    <img id="Dealer" class="OfClubs8" src="https://via.placeholder.com/60x87" />
-                    <img id="Dealer" class="OfClubs9" src="https://via.placeholder.com/60x87" />
-                    <img id="Dealer" class="OfClubs10" src="https://via.placeholder.com/60x87" />
-                    <img id="Dealer" class="OfClubs11" src="https://via.placeholder.com/60x87" />
+                    <img id="Dealer" class="card1" src="https://via.placeholder.com/60x87" />
+                    <img id="Dealer" class="card2" src="https://via.placeholder.com/60x87" />
+                    <img id="Dealer" class="card3" src="https://via.placeholder.com/60x87" />
+                    <img id="Dealer" class="card4" src="https://via.placeholder.com/60x87" />
+                    <img id="Dealer" class="card5" src="https://via.placeholder.com/60x87" />
+                    <img id="Dealer" class="card6" src="https://via.placeholder.com/60x87" />
+                    <img id="Dealer" class="card7" src="https://via.placeholder.com/60x87" />
+                    <img id="Dealer" class="card8" src="https://via.placeholder.com/60x87" />
+                    <img id="Dealer" class="card9" src="https://via.placeholder.com/60x87" />
+                    <img id="Dealer" class="card10" src="https://via.placeholder.com/60x87" />
+                    <img id="Dealer" class="card11" src="https://via.placeholder.com/60x87" />
                 </div>
                 <div id="Dealer" class="Rectangle3"></div>
                 <div id="Dealer" class="TextDealer">Dealer</div>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="pokerchips" id="chipsDiv">
-    <img src="/images/pokerchips/Pokerchip1.png" onclick="setBet(1)" />
-    <img src="/images/pokerchips/Pokerchip5.png" onclick="setBet(5)" />
-    <img src="/images/pokerchips/Pokerchip10.png" onclick="setBet(10)" />
-    <img src="/images/pokerchips/Pokerchip20.png" onclick="setBet(20)" />
-    <img src="/images/pokerchips/Pokerchip25.png" onclick="setBet(25)" />
-</div>
-
+    <div class="pokerchips" id="chipsDiv">
+        <img src="/images/pokerchips/Pokerchip1.png" onclick="setBet(1)" />
+        <img src="/images/pokerchips/Pokerchip5.png" onclick="setBet(5)" />
+        <img src="/images/pokerchips/Pokerchip10.png" onclick="setBet(10)" />
+        <img src="/images/pokerchips/Pokerchip20.png" onclick="setBet(20)" />
+        <img src="/images/pokerchips/Pokerchip25.png" onclick="setBet(25)" />
+    </div>
 
 
-<div class="pokerchips">
-    <img src="/images/pokerchips/Pokerchip1.png" onclick="addToTotal(1)" />
-    <img src="/images/pokerchips/Pokerchip5.png" onclick="addToTotal(5)" />
-    <img src="/images/pokerchips/Pokerchip10.png" onclick="addToTotal(10)" />
-    <img src="/images/pokerchips/Pokerchip20.png" onclick="addToTotal(20)" />
-    <img src="/images/pokerchips/Pokerchip25.png" onclick="addToTotal(25)" />
-</div>
 
-<p>Total: <span id="totalAmount">0</span></p>
+    <div class="pokerchips">
+        <img src="/images/pokerchips/Pokerchip1.png" onclick="addToTotal(1)" />
+        <img src="/images/pokerchips/Pokerchip5.png" onclick="addToTotal(5)" />
+        <img src="/images/pokerchips/Pokerchip10.png" onclick="addToTotal(10)" />
+        <img src="/images/pokerchips/Pokerchip20.png" onclick="addToTotal(20)" />
+        <img src="/images/pokerchips/Pokerchip25.png" onclick="addToTotal(25)" />
+    </div>
+
+    <p>Total: <span id="totalAmount">0</span></p>
 
 
-<script>
-    let playerCurrency = 22;
-    let totalBet = 0;
-    const totalAmountElement = document.getElementById('totalAmount');
-    const chipImages = document.querySelectorAll('.pokerchips img');
+    <script>
+        let playerCurrency = 22;
+        let totalBet = 0;
+        const totalAmountElement = document.getElementById('totalAmount');
+        const chipImages = document.querySelectorAll('.pokerchips img');
 
-    function hideChipImages() {
-        chipImages.forEach(chipImage => {
-            const chipValue = parseInt(chipImage.getAttribute('onclick').match(/\d+/)[0]);
-            if (playerCurrency < chipValue || playerCurrency < totalBet + chipValue) {
-                chipImage.style.display = 'none';
-                chipImage.removeAttribute('onclick');
-            }
-        });
-    }
-
-    hideChipImages();
-
-    function addToTotal(amount) {
-        if (playerCurrency >= totalBet + amount) {
-            totalBet += amount;
-            totalAmountElement.textContent = totalBet;
-            hideChipImages();
+        function hideChipImages() {
+            chipImages.forEach(chipImage => {
+                const chipValue = parseInt(chipImage.getAttribute('onclick').match(/\d+/)[0]);
+                if (playerCurrency < chipValue || playerCurrency < totalBet + chipValue) {
+                    chipImage.style.display = 'none';
+                    chipImage.removeAttribute('onclick');
+                }
+            });
         }
-    }
-</script>
 
-<script src="~/js/game.js"></script>
+        hideChipImages();
+
+        function addToTotal(amount) {
+            if (playerCurrency >= totalBet + amount) {
+                totalBet += amount;
+                totalAmountElement.textContent = totalBet;
+                hideChipImages();
+            }
+        }
+    </script>
+
+    <script src="~/js/game.js"></script>
 </body>

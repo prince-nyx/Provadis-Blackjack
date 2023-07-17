@@ -6,18 +6,10 @@ namespace BlackJack.Hubs
     public class GameHub : Hub
     {
 
-        public String connectionId { get; set; }
-
-
-        public String getConnectionID() { return connectionId; }    
-        public GameHub()
-        {
-            Console.WriteLine("GameHub");
-        }
 
         public async Task update(String cookie)
         {
-            connectionId = Context.ConnectionId;
+            String connectionId = Context.ConnectionId;
             Player player = Program.app.playerManager.getPlayer(cookie);
             if (player == null)
                 await Clients.Client(connectionId).SendAsync("console", "Kein Login vorhanden");
@@ -37,7 +29,7 @@ namespace BlackJack.Hubs
 
         public async Task onConnection(String cookie)
         {
-            connectionId = Context.ConnectionId;
+            String connectionId = Context.ConnectionId;
             Player player = Program.app.playerManager.getPlayer(cookie);
             if(player == null)
                 await Clients.Client(connectionId).SendAsync("console", "Kein Login vorhanden");
@@ -45,9 +37,7 @@ namespace BlackJack.Hubs
             {
                 player.hub = this;
                 player.connectionId = connectionId;
-                //player.hub = this;
-                
-                player.connectionId = Context.ConnectionId;
+           
                 Game game = Program.app.gameManager.getGame(player.currentGameId);
                 game.PlayerJoined(player);
                 
@@ -59,18 +49,103 @@ namespace BlackJack.Hubs
 
         public async Task startGame(String cookie)
         {
+            String connectionId = Context.ConnectionId;
             Player player = Program.app.playerManager.getPlayer(cookie);
             if (player == null)
-                await Clients.All.SendAsync("console", "Kein Login vorhanden");
+                await Clients.Client(connectionId).SendAsync("console", "Kein Login vorhanden");
             else
             {
                 Game game = Program.app.gameManager.getGame(player.currentGameId);
                 if(game == null)        
-                    await Clients.All.SendAsync("console", "Game nicht gefunden");
+                    await Clients.Client(connectionId).SendAsync("console", "Game nicht gefunden");
                 else
                 {
-                    game.startGame();
-                    await Clients.All.SendAsync("console", "Game gestartet");
+                    if(game.hostid!= null && game.hostid.Equals(player.id))
+                    {
+                        game.startGame();
+                        await Clients.Client(connectionId).SendAsync("console", "Game gestartet");
+                    } else
+                    {
+                        await Clients.Client(connectionId).SendAsync("console", "Du bist nicht der Host");
+                    }
+                }
+            }
+        }
+
+        public async Task hit(String cookie)
+        {
+            String connectionId = Context.ConnectionId;
+            Player player = Program.app.playerManager.getPlayer(cookie);
+            if (player == null)
+                await Clients.Client(connectionId).SendAsync("console", "Kein Login vorhanden");
+            else
+            {
+                Game game = Program.app.gameManager.getGame(player.currentGameId);
+                if (game == null)
+                    await Clients.Client(connectionId).SendAsync("console", "Game nicht gefunden");
+                else
+                {
+                    if (game.hostid != null && game.hostid.Equals(player.id))
+                    {
+                        game.startGame();
+                        await Clients.Client(connectionId).SendAsync("console", "Game gestartet");
+                    }
+                    else
+                    {
+                        await Clients.Client(connectionId).SendAsync("console", "Du bist nicht der Host");
+                    }
+                }
+            }
+        }
+
+        public async Task stand(String cookie)
+        {
+            String connectionId = Context.ConnectionId;
+            Player player = Program.app.playerManager.getPlayer(cookie);
+            if (player == null)
+                await Clients.Client(connectionId).SendAsync("console", "Kein Login vorhanden");
+            else
+            {
+                Game game = Program.app.gameManager.getGame(player.currentGameId);
+                if (game == null)
+                    await Clients.Client(connectionId).SendAsync("console", "Game nicht gefunden");
+                else
+                {
+                    if (game.hostid != null && game.hostid.Equals(player.id))
+                    {
+                        game.startGame();
+                        await Clients.Client(connectionId).SendAsync("console", "Game gestartet");
+                    }
+                    else
+                    {
+                        await Clients.Client(connectionId).SendAsync("console", "Du bist nicht der Host");
+                    }
+                }
+            }
+        }
+
+        public async Task setBet(String cookie)
+        {
+            String connectionId = Context.ConnectionId;
+            Player player = Program.app.playerManager.getPlayer(cookie);
+            if (player == null)
+                await Clients.Client(connectionId).SendAsync("console", "Kein Login vorhanden");
+            else
+            {
+                Game game = Program.app.gameManager.getGame(player.currentGameId);
+                if (game == null)
+                    await Clients.Client(connectionId).SendAsync("console", "Game nicht gefunden");
+                else
+                {
+                    if (game.hostid != null && game.hostid.Equals(player.id))
+                    {
+                        game.startGame();
+                        await Clients.Client(connectionId).SendAsync("console", "Game gestartet");
+                    }
+                    else
+                    {
+                        await Clients.Client(connectionId).SendAsync("console", "Du bist nicht der Host");
+                    }
                 }
             }
         }

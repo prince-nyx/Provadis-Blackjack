@@ -1,6 +1,7 @@
 ﻿using BlackJack;
 using BlackJack.Hubs;
 using Microsoft.AspNet.SignalR.Messaging;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using System;
 using System.Linq;
 using System.Numerics;
@@ -8,26 +9,35 @@ using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
+using System.Timers;
 
 
 public class Game
 {
+    private Timer timer;
     public String id { get; }
     private CardDeck deck;
     private String[] slots = new String[7];
     public String hostid { get; set; }
-    private Dictionary<string, Player> players = new Dictionary<string, Player>(); 
+    private Dictionary<string, Player> players = new Dictionary<string, Player>();
     private CardDeck dealerDeck;
     //public GameHub hub { get; set; }
 
-    private int currentSlotsTurn = -1;
+    public int currentSlotsTurn{get; set;}
 
     private int totalBet = 0; // Total betting amount
 
-    public Game()
+    public GamePhase phase { get; set; }
+
+    private int betTime = 20;
+    private int turnTime = 20;
+    
+
+
+    public Game(string hostid)
     {
         this.hostid = hostid;
-        this.id = Program.GenerateRandomString(4).ToUpper();
+        this.id = Program.app.GenerateRandomString(4).ToUpper();
         Console.WriteLine("Game erstellt mit Code "+id+" und host "+hostid);
         dealerDeck = new CardDeck();
         deck = new CardDeck();
@@ -35,42 +45,151 @@ public class Game
         Console.WriteLine("Deck erstellt");
         deck.shuffle();
         Console.WriteLine("Deck gemischt");
+        currentSlotsTurn = -1;
+        phase = GamePhase.WAITING_FOR_PLAYERS;
+        timer = new System.Timers.Timer();
     }
 
 
     public void startGame()
     {
-        currentSlotsTurn = -1;
         Console.WriteLine("SPIEL GESTARTET");
-        dealCard(true);
-        dealCard(false);
-        nextPlayer();
+        DealerDrawsCard(true);
+        dealCardsToPlayer();
+        DealerDrawsCard(false);
+        dealCardsToPlayer();
+        phase = GamePhase.BETTING;
+        enableBet();
+
+        timer = new System.Timers.Timer(betTime * 1000);
+        timer.Elapsed += new System.Timers.ElapsedEventHandler(stopBet);
+        timer.Start();
+
     }
 
-    public void nextPlayer()
+    private void stopBet(object source, System.Timers.ElapsedEventArgs e)
+    {
+        timer.stop();
+        disableBet();
+        phase = GamePhase.PLAYING;
+        nextPlayerTurn();
+    }
+
+    private void nextPlayerTurn()
     {
         currentSlotsTurn++;
-        Console.WriteLine("Start turn");
-        if (slots[currentSlotsTurn] != null && players.ContainsKey(slots[currentSlotsTurn]))
+        if (currentSlotsTurn >= slots.Length)
         {
-            startTurn(players[slots[currentSlotsTurn]], 20);
+            showDealerCards(dealerDeck.getCard(0).getName());
+            DealerThinking();
+        }
+        else if (slots[currentSlotsTurn] != null && players.ContainsKey(slots[currentSlotsTurn]))
+        {
+            startTurn(players[slots[currentSlotsTurn]], turnTime);
+
+            timer = new System.Timers.Timer(turnTime* 1000);
+            timer.Elapsed += new System.Timers.ElapsedEventHandler(endPlayerTurn);
+            timer.Start();
         }
         else
-            nextPlayer();
+            nextPlayerTurn();
     }
 
-    public void dealCard(Boolean hidden)
+    private void endPlayerTurn(object source, System.Timers.ElapsedEventArgs e)
+    {
+        timer.Stop();
+        if (slots[currentSlotsTurn] != null && players.ContainsKey(slots[currentSlotsTurn]))
+        {
+            endTurn(players[slots[currentSlotsTurn]], 20);
+        }
+        nextPlayerTurn();
+    }
+    private void DealerThinking()
+    {
+        Task.Factory.StartNew(() =>
+        {
+            System.Threading.Thread.Sleep(2000);
+            if (dealerDeck.BlackJackSum() >= 17)
+                endGame();
+            else
+            {
+                DealerDrawsCard(false);
+                DealerThinking();
+            }
+        });
+    }
+
+    private void endGame()
+    {
+        int dealerPoints = dealerDeck.BlackJackSum();
+        Boolean dealerBlackJack = dealerDeck.isBlackJack();
+
+        for(int i = 0; i < slots.Length; i++)
+        {
+            Player player = players[slots[i]];
+            String headline = "";
+            String result = "";
+            int playerPoints = player.hand.BlackJackSum();
+
+            if(player.hand.isLuckySeven())
+            {
+                player.AddWallet(player.bet * 3);
+                headline = "LUCKY 7";
+                result = (player.bet*3) + "€ gewonnen";
+            } 
+            else if(dealerDeck.isBlackJack())
+            {
+                if (player.hand.isBlackJack())
+                {
+                    player.AddWallet(player.bet);
+                    headline = "Dealer und du habt einen BlackJack";
+                    result = "Einsatz von " + player.bet + "€ zurück";
+                }
+                else
+                {
+                    result = "Dealer hat einen Blackjack";
+                    result = "Einsatz von " + player.bet + "€ verloren";
+                }
+            }
+            else if(dealerPoints > 21)
+            {
+                if(playerPoints < 21)
+                {
+                    player.AddWallet(player.bet * 2);
+                    headline = "Dealer überkauft";
+                    result = (player.bet * 2) + "€ gewonnen";
+                } else
+                {
+                    player.AddWallet(player.bet * 2);
+                    headline = "Du hast dich überkauft";
+                    result = player.bet  + "€ verloren";
+                }
+            }
+
+            player.hand.clear();
+            player.resetBet();
+            setBet(i, 0);
+            showResult(player, headline, result);
+        }
+    }
+
+    
+
+    private void DealerDrawsCard(Boolean hidden)
     {
         Card card = deck.drawCard();
         dealerDeck.addCard(card);
-        addDealerCard(card.getName(),hidden);
+        addDealerCard(card.getName(), hidden);
+    }
 
+    public void dealCardsToPlayer()
+    {
         for (int i = 0; i < slots.Length; i++)
         {
             if(slots[i] != null && players.ContainsKey(slots[i]))
             {
                 Player player = players[slots[i]];
-                card = deck.drawCard();
+                Card card = deck.drawCard();
                 player.addCard(card);
                 addCardToPlayer(i, card.getName());
             }
@@ -98,6 +217,8 @@ public class Game
         {
             int slotid = Array.IndexOf(slots, player.id);
             assignPlayer(slotid, player.username);
+            if(player.id.Equals(hostid))
+                showStartButton(player);
         }
     }
 
@@ -123,7 +244,13 @@ public class Game
                 Card card = deck.drawCard();
                 player.addCard(card);
                 addCardToPlayer(slotid,card.getName()); 
-           }      
+           }
+        endPlayerTurn();
+    }
+
+    public void stand()
+    {
+        endPlayerTurn();
 
     }
 
@@ -220,6 +347,28 @@ public class Game
         }
     }
 
+    //all
+    public void enableBet()
+    {
+        foreach (Player player in players.Values)
+            player.registerEvent(new FrontendEvent("enableBet"));
+    }
+
+    //all
+    public void disableBet()
+    {
+        foreach (Player player in players.Values)
+            player.registerEvent(new FrontendEvent("disableBet"));
+    }
+
+    //all
+    public void showDealerCards(String cardname)
+    {
+        foreach (Player player in players.Values)
+            player.registerEvent(new FrontendEvent("showDealerCards"), cardname);
+    }
+
+
     //client
     public void endTurn(Player player, int slotid)
     {
@@ -238,24 +387,11 @@ public class Game
         player.registerEvent(new FrontendEvent("setbBalance", amount.ToString()));
     }
 
-    //client
-    public void enableBet(Player player)
-    {
-        player.registerEvent(new FrontendEvent("enableBet"));
-    }
 
     //client
-    public void disableBet(Player player)
+    public void showResult(Player player,String headline, String result)
     {
-        player.registerEvent(new FrontendEvent("disableBet"));
-    }
-
-
-    //client
-    public void showResult(Player player, int amount, String result)
-    {
-        player.registerEvent(new FrontendEvent("showResult",  amount.ToString(), result));
-        totalBet += amount;
+        player.registerEvent(new FrontendEvent("showResult", headline, result));
     }
 
     //client
