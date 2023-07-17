@@ -13,20 +13,20 @@ public class Game
     public String id { get; }
     private CardDeck deck;
     private String[] slots = new String[7];
-    private String host;
+    public String hostid { get; set; }
     private Dictionary<string, Player> players = new Dictionary<string, Player>(); 
     private CardDeck dealerDeck;
+    public GameHub hub { get; set; }
 
-    private int currentSlotsTurn = 0;
+    private int currentSlotsTurn = -1;
 
     private int totalBet = 0; // Total betting amount
 
-
     public Game()
     {
-        host = string.Empty;
+        this.hostid = hostid;
         this.id = Program.GenerateRandomString(4).ToUpper();
-        Console.WriteLine("Game erstellt mit Code "+id);
+        Console.WriteLine("Game erstellt mit Code "+id+" und host "+hostid);
         dealerDeck = new CardDeck();
         deck = new CardDeck();
         deck.createBlackJackDeck();
@@ -36,20 +36,38 @@ public class Game
     }
 
 
-    public void start()
+    public void startGame()
     {
-
+        currentSlotsTurn = -1;
+        Console.WriteLine("SPIEL GESTARTET");
+        dealCard(true);
+        dealCard(false);
+        nextPlayer();
     }
 
-    public void dealCard()
+    public void nextPlayer()
+    {
+        currentSlotsTurn++;
+        Console.WriteLine("Start turn");
+        if (slots[currentSlotsTurn] != null && players.ContainsKey(slots[currentSlotsTurn]))
+        {
+            _ = getHub().startTurn(players[slots[currentSlotsTurn]], 20);
+        }
+        else
+            nextPlayer();
+    }
+
+    public void dealCard(Boolean hidden)
     {
         Card card = deck.drawCard();
         dealerDeck.addCard(card);
+        _ = getHub().addDealerCard(card.getName(),hidden);
+
         for (int i = 0; i < slots.Length; i++)
         {
-            Player player = players[slots[i]];
-            if(player != null)
+            if(slots[i] != null && players.ContainsKey(slots[i]))
             {
+                Player player = players[slots[i]];
                 card = deck.drawCard();
                 player.addCard(card);
                 _ = getHub().addCardToPlayer(i, card.getName());
@@ -67,8 +85,7 @@ public class Game
             {
                 slots[i] = player.id;
                 players.Add(player.id, player);
-                if (players.Count == 1)
-                    host = player.id;
+                _ = getHub().assignPlayer(i, player.username);
                 break;
             }
         }
@@ -85,10 +102,9 @@ public class Game
         return "Game(id:" + id + " / players:" + players.Count + ")";
     }
 
-
     public GameHub getHub()
     {
-        return players[host].hub;
+        return hub;
     }
     
     public void hit(int slotid)
@@ -101,12 +117,14 @@ public class Game
                 Card card = deck.drawCard();
                 player.addCard(card);
             getHub().addCardToPlayer(slotid,card.getName()); 
-           }
-        
+           }      
+
+
+        Player player = players[slots[slotid]];
+        if (player != null)
+        {
+        }
     }
-    public void startGame()
-    {
-    }
 
 
 
@@ -115,11 +133,10 @@ public class Game
 
 
 
-    //Information über Pokerchip Auswahl holen
+    
     public int GetChipAmount(string chipName)
     {
-        switch (chipName)
-        {
+        switch (chipName) { 
             case "Pokerchip1.png":
                 return 1;
             case "Pokerchip5.png":
@@ -133,7 +150,7 @@ public class Game
             default:
                 return 0;
         }
-    }
+    
 
     //Chipauswahl abrufen un den return Wert aufaddieren
     public void setBet(string chipName)

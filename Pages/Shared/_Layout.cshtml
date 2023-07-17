@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="~/css/styles.css" />
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
 
 </head>
 <body>
@@ -20,8 +21,6 @@
             @RenderBody()
         </main>
     </div>
-    <script src="~/js/signalr/dist/browser/signalr.js"></script>
-    <script src="~/js/hubConnection.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>

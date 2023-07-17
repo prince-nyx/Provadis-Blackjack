@@ -27,14 +27,14 @@ namespace BlackJack.Pages
 
             String userid = Request.Cookies["userid"];
             String gamecode = Request.Form["code"];
-            GameManger manager = Program.app.gameManager;
-
-            if (gamecode == null || !manager.exist(gamecode.ToUpper()))
-                gamecode = manager.createGame();
+            GameManger gameManager = Program.app.gameManager;
             Player player = Program.app.playerManager.getPlayer(userid);
             if(player != null)
             {
-                if(manager.join(player, gamecode))
+                if (gamecode == null || !gameManager.exist(gamecode.ToUpper()))
+                    gamecode = gameManager.createGame(player.id);
+
+                if (gameManager.join(player, gamecode))
                     Response.Redirect("Game");
                 else
                     Response.Redirect("Error");
