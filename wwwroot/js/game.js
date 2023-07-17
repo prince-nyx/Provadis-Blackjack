@@ -113,17 +113,24 @@ function setName(name) {
     document.getElementById("username").innerHTML = "Viel Erfolg " + name;
 }
 
-function load() {
-    setBalance(100);
-    setName("Rico");
+function load(amount, name) {
+    setBalance(amount);
+    setName(name);
     disableBet();
 }
 
-function startTurn(slotid, time) {
-    document.getElementById("startTurn").style.display = "flex";
-    document.getElementById("chipsDiv").style.display = "flex";
-}
-function endTurn(slotid) {
-    document.getElementById("startTurn").style.display = "none";
-    document.getElementById("chipsDiv").style.display = "none";
+function showResult(amount, resultType) {
+    switch (resultType) {
+        case 0:
+            document.getElementById("resultScreen").innerHTML = "Sie haben " + amount + "€ per Blackjack gewonnen!";
+            document.getElementById("resultScreen").style.visibility = "visible";
+            break;
+        case 1:
+            document.getElementById("resultScreen").innerHTML = "Sie haben " + amount + "€ gewonnen!";
+            document.getElementById("resultScreen").style.visibility = "visible";
+            break;
+        case 2:
+            document.getElementById("resultScreen").innerHTML = "Sie haben verloren!";
+            document.getElementById("resultScreen").style.visibility = "visible";
+    }
 }
