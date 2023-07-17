@@ -275,7 +275,7 @@ public class Game
         }
     }
 
-    //Chipauswahl abrufen un den return Wert aufaddieren
+    //Chipauswahl abrufen und den return Wert aufaddieren
     public void setBet(string chipName)
     {
         Card card = deck.drawCard();
