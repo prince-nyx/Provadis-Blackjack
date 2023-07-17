@@ -148,3 +148,11 @@ function showResult(amount, resultType) {
             document.getElementById("resultScreen").style.visibility = "visible";
     }
 }
+
+function startTurn() {
+    enableBet();
+}
+
+function endTurn() {
+    disableBet();
+}
