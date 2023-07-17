@@ -234,9 +234,9 @@ public class Game
     }
 
     
-    public void hit(int slotid)
+    public void hit(String playerid)
     {
-        Player player = players[slots[slotid]];
+        Player player = players[playerid];
 
         if (player != null)
         {
@@ -279,7 +279,15 @@ public class Game
             default:
                 return 0;
         }
-    
+    }
+
+    //Chipauswahl abrufen un den return Wert aufaddieren
+    public void setBet(string chipName)
+    {
+        Card card = deck.drawCard();
+        //player.addCard(card);
+        //addCardToPlayer(slotid,card.getName()); 
+        
     }
 
 

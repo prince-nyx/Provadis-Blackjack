@@ -1,4 +1,4 @@
-﻿console.log("Verbindung wird aufgebaut ...");
+﻿console.log("Verbindung wird aufgebaut");
 var connection = new signalR.HubConnectionBuilder().withUrl("/GameHub").build();
 
 //Die Verbindung wurde aufgebaut und ruft nun diese Funktion auf:
@@ -9,7 +9,6 @@ connection.start().then(function () {
         .catch(function (err) {
             return console.error(err.toString());
         });
-    setInterval(updateTask, 500);
 }).catch(function (err) {
     console.log("Verbindung fehlgeschlagen");
 
@@ -29,8 +28,58 @@ function updateTask() {
             return console.error(err.toString());
         });
 }
+setInterval(updateTask, 500);
 
+connection.on("updated", function (message) {
+    console.log(message);
+});
 
+function addCardToPlayer(slotID, card) {
+    let slot = null;
+    let cardSlot = null;
+
+    switch (slotID) {
+        case 4:
+            slot = document.getElementById("Benutzer");
+            break;
+        default:
+            slot = document.getElementById(`Spieler${slotID + 1}`);
+            break;
+    }
+
+    for (let i = 1; i <= 11; i++) {
+        cardSlot = slot.getElementsByClassName(`OfClubs${i}`)[0];
+        if (cardSlot.src == "") {
+            cardSlot.src = `/images/card/${card}.png`;
+            break;
+        }
+    }
+}
+
+function addDealerCard(card, isHidden) {
+    let slot = document.getElementById("Dealer");
+    let cardSlot = null;
+
+    for (let i = 1; i <= 11; i++) {
+        cardSlot = slot.getElementsByClassName(`OfClubs${i}`)[0];
+        if (cardSlot.src == "") {
+            if (!isHidden) {
+                cardSlot.src = `/images/card/${card}.png`;
+                break;
+            }
+            else {
+                cardSlot.src = `/images/design rueckseite.png`;
+                cardSlot.alt = card;
+                break;
+            }
+        }
+    }
+}
+
+function showDealerCards() {
+    let hiddenCard = document.getElementById("Dealer").getElementsByClassName(`OfClubs1`)[0];
+    hiddenCard.src = `/images/card/${hiddenCard.alt}.png`;
+}
 
 function getCookie(cname) {
     let name = cname + "=";
@@ -98,11 +147,7 @@ document.getElementById("endTurn").addEventListener("click", function (event) {
 document.getElementById("standButton").addEventListener("click", function (event) {
 
     console.log("Spieler zieht keine Karte");
-    connection
-        .invoke("stand", slotid)
-        .catch(function (err) {
-            return console.error(err.toString());
-        });
+    endTurn();
 });
 
 
@@ -129,20 +174,9 @@ function load(amount, name) {
     disableBet();
 }
 
-function showResult(amount, resultType) {
-    switch (resultType) {
-        case 0:
-            document.getElementById("resultScreen").innerHTML = "Sie haben " + amount + "€ per Blackjack gewonnen!";
-            document.getElementById("resultScreen").style.visibility = "visible";
-            break;
-        case 1:
-            document.getElementById("resultScreen").innerHTML = "Sie haben " + amount + "€ gewonnen!";
-            document.getElementById("resultScreen").style.visibility = "visible";
-            break;
-        case 2:
-            document.getElementById("resultScreen").innerHTML = "Sie haben verloren!";
-            document.getElementById("resultScreen").style.visibility = "visible";
-    }
+function showResult(result) {
+    document.getElementById("resultScreen").innerHTML = result;
+    document.getElementById("resultScreen").style.visibility = "visible";
 }
 
 function startTurn() {
@@ -151,4 +185,38 @@ function startTurn() {
 
 function endTurn() {
     disableBet();
+
+}
+
+
+function assignPlayerToSlot() {
+
+}
+
+//Einsatz bei drücken der Chips hochzählen und nur die nutzbaren Chip anzeigen lassen.
+let playerCurrency = 12;
+let totalBet = 0;
+const totalAmountElement = document.getElementById('totalAmount');
+const chipImages = document.querySelectorAll('.pokerchips img');
+
+function hideChipImages() {
+    chipImages.forEach(chipImage => {
+        const chipValue = parseInt(chipImage.getAttribute('onclick').match(/\d+/)[0]);
+        if (playerCurrency < chipValue || playerCurrency < totalBet + chipValue) {
+            chipImage.style.display = 'none';
+            chipImage.removeAttribute('onclick');
+        }
+    });
+}
+
+hideChipImages();
+
+
+function setBet(amount) {
+    if (playerCurrency >= totalBet + amount) {
+        totalBet += amount;
+        totalAmountElement.textContent = totalBet;
+        hideChipImages();
+        return totalBet
+    }
 }
