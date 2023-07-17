@@ -7,7 +7,6 @@ namespace BlackJack.Hubs
     {
         public async Task SendMessage(string user, string message)
         {
-            Test test = new Test(this);
 
             await Clients.All.SendAsync("ReceiveMessage", user, message);
         }
