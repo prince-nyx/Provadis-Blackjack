@@ -177,9 +177,9 @@
     </div>
 </div>
 
+<div class="winnerScreen" id="resultScreen"></div>
 
-
-<div class="pokerchips">
+<div class="pokerchips" id="chipsDiv">
     <img src="/images/pokerchips/Pokerchip1.png" onclick="setBet(1)" />
     <img src="/images/pokerchips/Pokerchip5.png" onclick="setBet(5)" />
     <img src="/images/pokerchips/Pokerchip10.png" onclick="setBet(10)" />
@@ -187,12 +187,11 @@
     <img src="/images/pokerchips/Pokerchip25.png" onclick="setBet(25)" />
 </div>
 
-
-
 <script>
     function showMessageBox(message) {
         alert(message);
     }
 </script>
 
-<script src="~/js/game.js" type="module"></script>
+<script src="~/js/game.js"></script>
+</body>

@@ -111,8 +111,8 @@ function setName(name) {
     document.getElementById("username").innerHTML = "Viel Erfolg " + name;
 }
 
-function load() {
-    setBalance(100);
-    setName("Rico");
+function load(amount, name) {
+    setBalance(amount);
+    setName(name);
     disableBet();
 }
