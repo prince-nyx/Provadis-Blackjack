@@ -168,8 +168,9 @@ function load(amount, name) {
     disableBet();
 }
 
-function showResult(result) {
-    document.getElementById("resultScreen").innerHTML = result;
+function showResult(headline, result) {
+    document.getElementById("resultHeadline").innerHTML = headline;
+    document.getElementById("resultAmount").innerHTML = result;
     document.getElementById("resultScreen").style.visibility = "visible";
 }
 
