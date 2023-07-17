@@ -157,10 +157,11 @@ function hideChipImages() {
         }
     });
 }
+
 hideChipImages();
 
 
-function addToTotal(amount) {
+function setBet(amount) {
     if (playerCurrency >= totalBet + amount) {
         totalBet += amount;
         totalAmountElement.textContent = totalBet;
@@ -170,9 +171,5 @@ function addToTotal(amount) {
 }
 
 
-function setBet(totalBet) {
-    // Add your setBet functionality here
-    console.log(totalBet);
-}
 
 
