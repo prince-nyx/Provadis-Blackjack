@@ -19,7 +19,7 @@ public class Game
 
     private int currentSlotsTurn = 0;
 
-    private int total = 0; // Total betting amount
+    private int totalBet = 0; // Total betting amount
 
 
     public Game()
@@ -109,6 +109,13 @@ public class Game
     }
 
 
+
+
+
+
+
+
+    //Information über Pokerchip Auswahl holen
     public int GetChipAmount(string chipName)
     {
         switch (chipName)
@@ -128,52 +135,22 @@ public class Game
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*    public void setBet(int amount)
+    //Chipauswahl abrufen un den return Wert aufaddieren
+    public void setBet(string chipName)
     {
-        total += amount;
-        Console.WriteLine("Total amount: " + total); // Display the total amount
+        int amount = GetChipAmount(chipName);
+
+        totalBet += amount;
     }
 
-*/
+ 
+
+
+
+
+
+
+
+
+
 }

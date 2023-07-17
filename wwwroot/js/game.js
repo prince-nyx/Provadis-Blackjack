@@ -51,3 +51,35 @@ function disableBet() {
 function enableBet() {
     document.getElementById("chipsDiv").style.display = "inline-block";
 }
+
+
+
+
+
+
+
+/*let playerCurrency = 22;
+let totalBet = 0;
+const totalAmountElement = document.getElementById('totalAmount');
+const chipImages = document.querySelectorAll('.pokerchips img');
+
+function hideChipImages() {
+    chipImages.forEach(chipImage => {
+        const chipValue = parseInt(chipImage.getAttribute('onclick').match(/\d+/)[0]);
+        if (playerCurrency < chipValue || playerCurrency < totalBet + chipValue) {
+            chipImage.style.display = 'none';
+            chipImage.removeAttribute('onclick');
+        }
+    });
+}
+
+hideChipImages();
+
+function addToTotal(amount) {
+    if (playerCurrency >= totalBet + amount) {
+        totalBet += amount;
+        totalAmountElement.textContent = totalBet;
+        hideChipImages();
+    }
+}
+*/
