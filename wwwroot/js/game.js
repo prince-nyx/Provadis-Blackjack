@@ -69,10 +69,16 @@ function addDealerCard(card, isHidden) {
             }
             else {
                 cardSlot.src = `/images/design rueckseite.png`;
+                cardSlot.alt = card;
                 break;
             }
         }
     }
+}
+
+function showDealerCards() {
+    let hiddenCard = document.getElementById("Dealer").getElementsByClassName(`OfClubs1`)[0];
+    hiddenCard.src = `/images/card/${hiddenCard.alt}.png`;
 }
 
 function getCookie(cname) {
