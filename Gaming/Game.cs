@@ -119,11 +119,6 @@ public class Game
             getHub().addCardToPlayer(slotid,card.getName()); 
            }      
 
-
-        Player player = players[slots[slotid]];
-        if (player != null)
-        {
-        }
     }
 
 
@@ -133,10 +128,11 @@ public class Game
 
 
 
-    
+
     public int GetChipAmount(string chipName)
     {
-        switch (chipName) { 
+        switch (chipName)
+        {
             case "Pokerchip1.png":
                 return 1;
             case "Pokerchip5.png":
@@ -150,7 +146,7 @@ public class Game
             default:
                 return 0;
         }
-    
+    }
 
     //Chipauswahl abrufen un den return Wert aufaddieren
     public void setBet(string chipName)
