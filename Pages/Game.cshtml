@@ -11,13 +11,14 @@
 
     //int totalAmount = Game.setBet();
 }
-<body onload="load()">
+<head>
 <style>
     body {
        background-image: url("/images/GameLobbyBackground.png");
     }
 </style>
-
+</head>
+<body onload="load()">
 <div class="displayOwnContainer">
     <h1 class="displayOwnUsername" id="username">Viel Erfolg @user !</h1>
     <button id="startButton">Spiel starten</button>
@@ -27,6 +28,7 @@
     <button id="standButton">Stand</button>
     <br />
     <button id="endTurn">Zug beenden</button>
+    
 </div>
 
 
@@ -177,17 +179,16 @@
     </div>
 </div>
 
-
-
-<div class="pokerchips">
-    <img src="/images/pokerchips/Pokerchip1.png" onclick="setBet(1)" />
-    <img src="/images/pokerchips/Pokerchip5.png" onclick="setBet(5)" />
-    <img src="/images/pokerchips/Pokerchip10.png" onclick="setBet(10)" />
-    <img src="/images/pokerchips/Pokerchip20.png" onclick="setBet(20)" />
-    <img src="/images/pokerchips/Pokerchip25.png" onclick="setBet(25)" />
-</div>
-
-
+<div class="startTurn">
+<button id="startTurn">Zug starten</button>
+    <div class="pokerchips" id="chipsDiv">
+        <img src="/images/pokerchips/Pokerchip1.png" onclick="setBet(1)" />
+        <img src="/images/pokerchips/Pokerchip5.png" onclick="setBet(5)" />
+        <img src="/images/pokerchips/Pokerchip10.png" onclick="setBet(10)" />
+        <img src="/images/pokerchips/Pokerchip20.png" onclick="setBet(20)" />
+        <img src="/images/pokerchips/Pokerchip25.png" onclick="setBet(25)" />
+    </div>
+</body>
 
 <script>
     function showMessageBox(message) {
@@ -195,4 +196,4 @@
     }
 </script>
 
-<script src="~/js/game.js" type="module"></script>
+<script src="~/js/game.js"></script>
