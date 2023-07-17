@@ -4,7 +4,7 @@
 
 
 @{
-    
+
     ViewData["Title"] = "BlackJack";
     Layout = "_LayoutGame";
 
@@ -18,13 +18,13 @@
 
 
 <head>
-<style>
-    body {
-       background-image: url("/images/GameLobbyBackground.png");
-    }
-</style>
+    <style>
+        body {
+            background-image: url("/images/GameLobbyBackground.png");
+        }
+    </style>
 </head>
-<body>
+<body onload="load()">
 <div class="displayOwnContainer">
     <h1 class="displayOwnUsername" id="username">Viel Erfolg @user !</h1>
     <button id="startButton">Spiel starten</button>
@@ -147,8 +147,8 @@
                 </div>
                 <div id="Spieler2" class="Rectangle2"></div>
                 <div id="Spieler2" class="TextSpieler2">Spieler2</div>
-        </div>
-        <div class="Spieler1">
+            </div>
+            <div class="Spieler1">
                 <div id="Spieler1" class="Karten">
                     <img id="Spieler1" class="OfClubs1" />
                     <img id="Spieler1" class="OfClubs2" />
@@ -164,8 +164,8 @@
             </div>
                 <div id="Spieler1" class="Rectangle6"></div>
                 <div id="Spieler1" class="TextSpieler1">Spieler1</div>
-        </div>
-        <div class="Dealer">
+            </div>
+            <div class="Dealer">
                 <div id="Dealer" class="Karten">
                     <img id="Dealer" class="OfClubs1" />
                     <img id="Dealer" class="OfClubs2" />
@@ -181,27 +181,25 @@
                 </div>
                 <div id="Dealer" class="Rectangle3"></div>
                 <div id="Dealer" class="TextDealer">Dealer</div>
+            </div>
         </div>
     </div>
+
+<div class="winnerScreen" id="resultScreen">
+    <h1 class="resultHeadline" id="resultHeadline"></h1>
+    <h2 class="resultAmount" id="resultAmount"></h2>
+</div>
+<div class="pokerchips" id="chipsDiv">
+    <img src="/images/pokerchips/Pokerchip1.png" onclick="setBet(1)" />
+    <img src="/images/pokerchips/Pokerchip5.png" onclick="setBet(5)" />
+    <img src="/images/pokerchips/Pokerchip10.png" onclick="setBet(10)" />
+    <img src="/images/pokerchips/Pokerchip20.png" onclick="setBet(20)" />
+    <img src="/images/pokerchips/Pokerchip25.png" onclick="setBet(25)" />
 </div>
 
 
-<div class="winnerScreen" id="resultScreen"></div>
 
-<button id="startTurn">Zug starten</button>
-
-
-    <div class="pokerchips" id="chipsDiv">
-        <img src="/images/pokerchips/Pokerchip1.png" onclick="setBet(1)" />
-        <img src="/images/pokerchips/Pokerchip5.png" onclick="setBet(5)" />
-        <img src="/images/pokerchips/Pokerchip10.png" onclick="setBet(10)" />
-        <img src="/images/pokerchips/Pokerchip20.png" onclick="setBet(20)" />
-        <img src="/images/pokerchips/Pokerchip25.png" onclick="setBet(25)" />
-    </div>
-
-
-
-<p>Total: <span id="totalAmount">0</span></p>
+    <p>Total: <span id="totalAmount">0</span></p>
 
 
 
