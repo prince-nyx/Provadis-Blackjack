@@ -1,4 +1,4 @@
-﻿console.log("Verbindung wird aufgebaut ...");
+﻿console.log("Verbindung wird aufgebaut");
 var connection = new signalR.HubConnectionBuilder().withUrl("/GameHub").build();
 
 //Die Verbindung wurde aufgebaut und ruft nun diese Funktion auf:
@@ -9,7 +9,6 @@ connection.start().then(function () {
         .catch(function (err) {
             return console.error(err.toString());
         });
-    setInterval(updateTask, 500);
 }).catch(function (err) {
     console.log("Verbindung fehlgeschlagen");
 
@@ -29,6 +28,11 @@ function updateTask() {
             return console.error(err.toString());
         });
 }
+setInterval(updateTask, 500);
+
+connection.on("updated", function (message) {
+    console.log(message);
+});
 
 function addCardToPlayer(slotID, card) {
     let slot = null;
@@ -118,7 +122,7 @@ document.getElementById("hitButton").addEventListener("click", function (event) 
 
     console.log("Spieler " + getCookie("userid") +" drückt hitButton");
     connection
-        .invoke("hit", getCookie("userid"))
+        .invoke("hitButtonCS", getCookie("userid"))
         .catch(function (err) {
             return console.error(err.toString());
         });
@@ -137,11 +141,7 @@ document.getElementById("endTurn").addEventListener("click", function (event) {
 document.getElementById("standButton").addEventListener("click", function (event) {
 
     console.log("Spieler zieht keine Karte");
-    connection
-        .invoke("stand", slotid)
-        .catch(function (err) {
-            return console.error(err.toString());
-        });
+    endTurn();
 });
 
 
@@ -179,6 +179,12 @@ function startTurn() {
 
 function endTurn() {
     disableBet();
+
+}
+
+
+function assignPlayerToSlot() {
+
 }
 
 //Einsatz bei drücken der Chips hochzählen und nur die nutzbaren Chip anzeigen lassen.

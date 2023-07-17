@@ -34,7 +34,7 @@ namespace BlackJack.Pages
                 if (gamecode == null || !gameManager.exist(gamecode.ToUpper()))
                     gamecode = gameManager.createGame(player.id);
 
-                if (gameManager.join(player, gamecode))
+                if (gameManager.join(player, gamecode.ToUpper()))
                     Response.Redirect("Game");
                 else
                     Response.Redirect("Error");
