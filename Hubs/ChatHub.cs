@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNet.SignalR.Messaging;
+using Microsoft.AspNetCore.SignalR;
 
 namespace BlackJack.Hubs
 {
@@ -6,9 +7,13 @@ namespace BlackJack.Hubs
     {
         public async Task SendMessage(string user, string message)
         {
-            await Clients.All.SendAsync("Console", "backend event");
 
             await Clients.All.SendAsync("ReceiveMessage", user, message);
+        }
+
+        public async Task test()
+        {
+            await Clients.All.SendAsync("Console", "backend event");
         }
 
         public override async Task OnConnectedAsync()

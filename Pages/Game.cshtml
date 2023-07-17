@@ -8,6 +8,8 @@
 
     string user = "Manfred";
     int money = 1000;
+
+    //int totalAmount = Game.setBet();
 }
 <body onload="load()">
 <style>
@@ -22,6 +24,7 @@
     <h1 class="displayOwnMoney" id="money">Guthaben: @money €</h1>
     <br />
     <button id="hitButton">Hit</button>
+    <button id="standButton">Stand</button>
     <br />
     <button id="endTurn">Zug beenden</button>
 </div>
@@ -176,13 +179,14 @@
 
 
 
-<div class="pokerchips" id="chipsDiv">
-    <img src="/images/pokerchips/Pokerchip1.png" onclick="showMessageBox('You clicked on Pokerchip 1!')" />
-    <img src="/images/pokerchips/Pokerchip5.png" />
-    <img src="/images/pokerchips/Pokerchip10.png" />
-    <img src="/images/pokerchips/Pokerchip20.png" />
-    <img src="/images/pokerchips/Pokerchip25.png" />
+<div class="pokerchips">
+    <img src="/images/pokerchips/Pokerchip1.png" onclick="setBet(1)" />
+    <img src="/images/pokerchips/Pokerchip5.png" onclick="setBet(5)" />
+    <img src="/images/pokerchips/Pokerchip10.png" onclick="setBet(10)" />
+    <img src="/images/pokerchips/Pokerchip20.png" onclick="setBet(20)" />
+    <img src="/images/pokerchips/Pokerchip25.png" onclick="setBet(25)" />
 </div>
+
 
 
 <script>
@@ -191,5 +195,4 @@
     }
 </script>
 
-<script src="~/js/game.js"></script>
-</body>
+<script src="~/js/game.js" type="module"></script>

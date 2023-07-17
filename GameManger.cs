@@ -18,7 +18,8 @@
                 Game game = games[gameid];
                 if(!game.containsPlayer(player.id))
                 {
-                    game.addPlayer(player);
+                    if(game.hostid != player.id)
+                        game.addPlayer(player);
                     player.currentGameId = gameid;
                     Console.WriteLine("[GAMEMANAGER] " + player.ToString() + " joined " + game.ToString());
                 }
@@ -34,11 +35,16 @@
             return games.ContainsKey(gameid);
         }
 
-        public String createGame()
+        public String createGame(String hostid)
         {
             Game game = new Game();
             games.Add(game.id, game);
             return game.id;
+        }
+
+        public Game getGame(String gameid)
+        {
+            return games.ContainsKey(gameid) ? games[gameid] : null;
         }
     }
 }

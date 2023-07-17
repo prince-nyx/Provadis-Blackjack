@@ -16,7 +16,7 @@ html {
 
 body {
     font-family: montserrat, arial, verdana;
-    background: #212121
+    background-image: url('/Images/GameLobbyBackground.png');
 }
 /*form styles*/
 #msform {
