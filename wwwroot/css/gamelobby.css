@@ -88,25 +88,24 @@
 .pokerchips {
     position: fixed;
     left: 0;
-    bottom: 0%;
+    bottom: 0;
     display: flex;
     justify-content: center;
     align-items: flex-end;
     margin-bottom: 20px;
-    /*min-height: 72vh;*/
-    /*margin: 0;*/
-    /*padding: 0;*/
     background-color: rgba(0, 0, 0, 0.5);
+    width: 100vw; /* Extend from the left side to the right side of the screen */
 }
 
 
 .pokerchips img {
-    cursor: pointer;
-    display: inline-block;
-    width: 5%;
-    height: auto;
-    margin: 1%;
+   cursor: pointer;
+   display: inline-block;
+   width: 160px;
+   height: auto;
+   margin: 10px;
 }
+
 
 /*Übertragung des CSS vom Tisch*/
 .Group9 {

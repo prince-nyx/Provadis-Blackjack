@@ -1,4 +1,4 @@
-﻿console.log("Verbindung wird aufgebaut ...");
+﻿console.log("Verbindung wird aufgebaut");
 var connection = new signalR.HubConnectionBuilder().withUrl("/GameHub").build();
 
 //Die Verbindung wurde aufgebaut und ruft nun diese Funktion auf:
@@ -9,7 +9,6 @@ connection.start().then(function () {
         .catch(function (err) {
             return console.error(err.toString());
         });
-    setInterval(updateTask, 500);
 }).catch(function (err) {
     console.log("Verbindung fehlgeschlagen");
 
@@ -29,6 +28,11 @@ function updateTask() {
             return console.error(err.toString());
         });
 }
+setInterval(updateTask, 500);
+
+connection.on("updated", function (message) {
+    console.log(message);
+});
 
 function addCardToPlayer(slotID, card) {
     let slot = null;
@@ -65,10 +69,16 @@ function addDealerCard(card, isHidden) {
             }
             else {
                 cardSlot.src = `/images/design rueckseite.png`;
+                cardSlot.alt = card;
                 break;
             }
         }
     }
+}
+
+function showDealerCards() {
+    let hiddenCard = document.getElementById("Dealer").getElementsByClassName(`OfClubs1`)[0];
+    hiddenCard.src = `/images/card/${hiddenCard.alt}.png`;
 }
 
 function getCookie(cname) {
@@ -137,11 +147,7 @@ document.getElementById("endTurn").addEventListener("click", function (event) {
 document.getElementById("standButton").addEventListener("click", function (event) {
 
     console.log("Spieler zieht keine Karte");
-    connection
-        .invoke("stand", slotid)
-        .catch(function (err) {
-            return console.error(err.toString());
-        });
+    endTurn();
 });
 
 
@@ -180,4 +186,38 @@ function startTurn() {
 
 function endTurn() {
     disableBet();
+
+}
+
+
+function assignPlayerToSlot() {
+
+}
+
+//Einsatz bei drücken der Chips hochzählen und nur die nutzbaren Chip anzeigen lassen.
+let playerCurrency = 12;
+let totalBet = 0;
+const totalAmountElement = document.getElementById('totalAmount');
+const chipImages = document.querySelectorAll('.pokerchips img');
+
+function hideChipImages() {
+    chipImages.forEach(chipImage => {
+        const chipValue = parseInt(chipImage.getAttribute('onclick').match(/\d+/)[0]);
+        if (playerCurrency < chipValue || playerCurrency < totalBet + chipValue) {
+            chipImage.style.display = 'none';
+            chipImage.removeAttribute('onclick');
+        }
+    });
+}
+
+hideChipImages();
+
+
+function setBet(amount) {
+    if (playerCurrency >= totalBet + amount) {
+        totalBet += amount;
+        totalAmountElement.textContent = totalBet;
+        hideChipImages();
+        return totalBet
+    }
 }
