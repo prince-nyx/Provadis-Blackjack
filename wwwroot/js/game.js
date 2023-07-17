@@ -32,22 +32,41 @@ function updateTask() {
 
 function addCardToPlayer(slotID, card) {
     let slot = null;
-    let doc = null;
+    let cardSlot = null;
 
     switch (slotID) {
         case 4:
-            doc = document.getElementById("Benutzer");
+            slot = document.getElementById("Benutzer");
             break;
         default:
-            doc = document.getElementById(`Spieler${slotID+1}`);
+            slot = document.getElementById(`Spieler${slotID + 1}`);
             break;
     }
 
     for (let i = 1; i <= 11; i++) {
-        slot = doc.getElementsByClassName(`OfClubs${i}`)[0];
-        if (slot.src == "") {
-            slot.src = `/images/card/${card}.png`;
+        cardSlot = slot.getElementsByClassName(`OfClubs${i}`)[0];
+        if (cardSlot.src == "") {
+            cardSlot.src = `/images/card/${card}.png`;
             break;
+        }
+    }
+}
+
+function addDealerCard(card, isHidden) {
+    let slot = document.getElementById("Dealer");
+    let cardSlot = null;
+
+    for (let i = 1; i <= 11; i++) {
+        cardSlot = slot.getElementsByClassName(`OfClubs${i}`)[0];
+        if (cardSlot.src == "") {
+            if (!isHidden) {
+                cardSlot.src = `/images/card/${card}.png`;
+                break;
+            }
+            else {
+                cardSlot.src = `/images/design rueckseite.png`;
+                break;
+            }
         }
     }
 }
