@@ -20,7 +20,7 @@ public class Player
 
 	public Player(String username, double wallet)
     {
-        this.id = Program.GenerateRandomString(8);
+        this.id = Program.app.GenerateRandomString(8);
         this.username = username;
 		this.wallet = wallet;
         this.currentGameId = "";
@@ -67,7 +67,6 @@ public class Player
     {
         return bet;
     }
-
 
     public void AddBet(double amount)
     {

@@ -14,13 +14,15 @@ using System.Timers;
 
 public class Game
 {
-    private Timer timer;
+    private System.Timers.Timer timer;
     public String id { get; }
     private CardDeck deck;
     private String[] slots = new String[7];
     public String hostid { get; set; }
     private Dictionary<string, Player> players = new Dictionary<string, Player>();
     private CardDeck dealerDeck;
+
+    private Boolean[] finishedBets;
     //public GameHub hub { get; set; }
 
     public int currentSlotsTurn{get; set;}
@@ -59,6 +61,7 @@ public class Game
         DealerDrawsCard(false);
         dealCardsToPlayer();
         phase = GamePhase.BETTING;
+        finishedBets = new bool[] {false,false,false,false,false,false,false};
         enableBet();
 
         timer = new System.Timers.Timer(betTime * 1000);
@@ -67,9 +70,14 @@ public class Game
 
     }
 
+    public void submitBet(String playerid)
+    {
+
+    }
+
     private void stopBet(object source, System.Timers.ElapsedEventArgs e)
     {
-        timer.stop();
+        timer.Stop();
         disableBet();
         phase = GamePhase.PLAYING;
         nextPlayerTurn();
@@ -234,33 +242,19 @@ public class Game
     }
 
     
-    public void hit(String playerid)
+    public void hit()
     {
-        Player player = players[playerid];
-
-        if (player != null)
-        {
-                
-                Card card = deck.drawCard();
-                player.addCard(card);
-                addCardToPlayer(slotid,card.getName()); 
-           }
-        endPlayerTurn();
+        Player player = players[slots[currentSlotsTurn]];
+        Card card = deck.drawCard();
+        player.addCard(card);
+        addCardToPlayer(currentSlotsTurn, card.getName());
+        endPlayerTurn(null, null);
     }
-
+    
     public void stand()
     {
-        endPlayerTurn();
-
+        endPlayerTurn(null, null);
     }
-
-
-
-
-
-
-
-
 
     public int GetChipAmount(string chipName)
     {
@@ -288,6 +282,12 @@ public class Game
         //player.addCard(card);
         //addCardToPlayer(slotid,card.getName()); 
         
+    }
+
+
+    public Boolean isPlayersTurn(String playerid)
+    {
+        return slots[currentSlotsTurn].Equals(playerid);
     }
 
 
@@ -373,7 +373,7 @@ public class Game
     public void showDealerCards(String cardname)
     {
         foreach (Player player in players.Values)
-            player.registerEvent(new FrontendEvent("showDealerCards"), cardname);
+            player.registerEvent(new FrontendEvent("showDealerCards", cardname));
     }
 
 
