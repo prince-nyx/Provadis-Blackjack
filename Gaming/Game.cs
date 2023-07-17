@@ -270,7 +270,6 @@ public class Game
         Card card = deck.drawCard();
         player.addCard(card);
         addCardToPlayer(currentSlotsTurn, card.getName());
-        endPlayerTurn(null, null);
     }
     
     public void stand()
