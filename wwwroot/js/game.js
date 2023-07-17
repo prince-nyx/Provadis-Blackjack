@@ -138,16 +138,19 @@ document.getElementById("endTurn").addEventListener("click", function (event) {
 
     console.log("Spieler beendet seinen Zug");
     connection
-        .invoke("endTurn",slotid)
+        .invoke("endTurn", getCookie("userid"))
         .catch(function (err) {
             return console.error(err.toString());
         });
 });
 
 document.getElementById("standButton").addEventListener("click", function (event) {
+    connection
+        .invoke("stand", getCookie("userid"))
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
 
-    console.log("Spieler zieht keine Karte");
-    endTurn();
 });
 
 

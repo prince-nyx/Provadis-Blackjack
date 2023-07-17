@@ -55,31 +55,45 @@ public class Game
 
     public void startGame()
     {
+        enableBet();
         Console.WriteLine("SPIEL GESTARTET");
-        DealerDrawsCard(true);
-        dealCardsToPlayer();
-        DealerDrawsCard(false);
-        dealCardsToPlayer();
         phase = GamePhase.BETTING;
         finishedBets = new bool[] {false,false,false,false,false,false,false};
-        enableBet();
 
         timer = new System.Timers.Timer(betTime * 1000);
-        timer.Elapsed += new System.Timers.ElapsedEventHandler(stopBet);
+        timer.Elapsed += new System.Timers.ElapsedEventHandler(startRound);
         timer.Start();
 
     }
 
     public void submitBet(String playerid)
     {
-
+        int slotid = Array.IndexOf(slots, playerid);
+        finishedBets[slotid] = true;
+        if (checkBetEnd())
+            startRound(null, null);
     }
 
-    private void stopBet(object source, System.Timers.ElapsedEventArgs e)
+    private Boolean checkBetEnd()
+    {
+        foreach(Boolean bet in finishedBets) {
+            if(!bet)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void startRound(object source, System.Timers.ElapsedEventArgs e)
     {
         timer.Stop();
         disableBet();
         phase = GamePhase.PLAYING;
+        DealerDrawsCard(true);
+        dealCardsToPlayer();
+        DealerDrawsCard(false);
+        dealCardsToPlayer();
         nextPlayerTurn();
     }
 
@@ -134,34 +148,38 @@ public class Game
 
         for(int i = 0; i < slots.Length; i++)
         {
-            Player player = players[slots[i]];
-            String headline = "";
-            String result = "";
-            int playerPoints = player.hand.BlackJackSum();
+            if (slots[i] != null && players.ContainsKey(slots[i]))
+            {
+                Player player = players[slots[i]];
+                String headline = "";
+                String result = "";
+                int playerPoints = player.hand.BlackJackSum();
 
-            if(player.hand.isLuckySeven())
-            {
-                player.AddWallet(player.bet * 3);
-                headline = "LUCKY 7";
-                result = (player.bet*3) + "€ gewonnen";
-            } 
-            else if(dealerDeck.isBlackJack())
-            {
-                if (player.hand.isBlackJack())
+                if (player.hand.isLuckySeven())
                 {
-                    player.AddWallet(player.bet);
-                    headline = "Dealer und du habt einen BlackJack";
-                    result = "Einsatz von " + player.bet + "€ zurück";
+                    player.AddWallet(player.bet * 3);
+                    headline = "LUCKY 7";
+                    result = (player.bet * 3) + "€ gewonnen";
                 }
-                else
+                else if (dealerDeck.isBlackJack())
                 {
-                    result = "Dealer hat einen Blackjack";
-                    result = "Einsatz von " + player.bet + "€ verloren";
+                    if (player.hand.isBlackJack())
+                    {
+                        player.AddWallet(player.bet);
+                        headline = "Der Dealer und du habt einen BlackJack";
+                        result = "Einsatz von " + player.bet + "€ zurück";
+                    }
+                    else
+                    {
+                        headline = "Dealer hat einen Blackjack";
+                        result = "Einsatz von " + player.bet + "€ verloren";
+                    }
                 }
-            }
-            else if(dealerPoints > 21)
-            {
-                if(playerPoints < 21)
+                else if (playerPoints > 21)
+                { 
+                    headline = "Du hast dich überkauft";
+                    result = player.bet + "€ verloren";
+                } else if (dealerPoints > 21)
                 {
                     player.AddWallet(player.bet * 2);
                     headline = "Dealer überkauft";
@@ -169,15 +187,16 @@ public class Game
                 } else
                 {
                     player.AddWallet(player.bet * 2);
-                    headline = "Du hast dich überkauft";
-                    result = player.bet  + "€ verloren";
+                    headline = "Du hast gewonnen";
+                    result = player.bet + "€ gewonnen";
                 }
-            }
 
-            player.hand.clear();
-            player.resetBet();
-            setBet(i, 0);
-            showResult(player, headline, result);
+                player.hand.clear();
+                player.resetBet();
+                setBet(i, 0);
+                setbBalance(player, player.wallet);
+                showResult(player, headline, result);
+            }
         }
     }
 
@@ -225,8 +244,11 @@ public class Game
         {
             int slotid = Array.IndexOf(slots, player.id);
             assignPlayer(slotid, player.username);
-            if(player.id.Equals(hostid))
+            if (player.id.Equals(hostid))
                 showStartButton(player);
+            for (int i = 0; i < slots.Length; i++)
+                if (slots[i] != null && slots[i] != player.id)
+                    player.registerEvent(new FrontendEvent("assignPlayer", i.ToString(), players[slots[i]].username));               
         }
     }
 
@@ -390,7 +412,7 @@ public class Game
     }
 
     //client
-    public void setbBalance(Player player, int amount)
+    public void setbBalance(Player player, double amount)
     {
         player.registerEvent(new FrontendEvent("setbBalance", amount.ToString()));
     }

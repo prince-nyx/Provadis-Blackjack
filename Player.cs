@@ -24,6 +24,7 @@ public class Player
         this.username = username;
 		this.wallet = wallet;
         this.currentGameId = "";
+        this.hand = new CardDeck();
     }
 
 	public int getPoints()
