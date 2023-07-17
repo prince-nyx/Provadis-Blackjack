@@ -74,5 +74,22 @@ namespace BlackJack.Hubs
                 }
             }
         }
+        public async Task hitButtonCS(String cookie)
+        {
+            Player player = Program.app.playerManager.getPlayer(cookie);
+            if (player == null)
+                await Clients.All.SendAsync("console", "Kein Login vorhanden");
+            else
+            {
+                Game game = Program.app.gameManager.getGame(player.currentGameId);
+                if (game == null)
+                    await Clients.All.SendAsync("console", "BUG | Game nicht vorhanden / Spieler kann keine weitere Karte ziehen");
+                else
+                {
+                    game.hitButtonCS(player.username);
+                    await Clients.All.SendAsync("console", "Spieler hat eine weitere Karte erhalten");
+                }
+            }
+        }
     }
 }
