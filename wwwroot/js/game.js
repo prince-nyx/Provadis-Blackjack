@@ -74,6 +74,17 @@ document.getElementById("hitButton").addEventListener("click", function (event) 
             return console.error(err.toString());
         });
 });
+
+document.getElementById("endTurn").addEventListener("click", function (event) {
+
+    console.log("Spieler beendet seinen Zug");
+    connection
+        .invoke("endTurn",slotid)
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
+});
+
 document.getElementById("standButton").addEventListener("click", function (event) {
 
     console.log("Spieler zieht keine Karte");
@@ -102,10 +113,26 @@ function setName(name) {
     document.getElementById("username").innerHTML = "Viel Erfolg " + name;
 }
 
-function load() {
-    setBalance(100);
-    setName("Rico");
+function load(amount, name) {
+    setBalance(amount);
+    setName(name);
     disableBet();
+}
+
+function showResult(amount, resultType) {
+    switch (resultType) {
+        case 0:
+            document.getElementById("resultScreen").innerHTML = "Sie haben " + amount + "€ per Blackjack gewonnen!";
+            document.getElementById("resultScreen").style.visibility = "visible";
+            break;
+        case 1:
+            document.getElementById("resultScreen").innerHTML = "Sie haben " + amount + "€ gewonnen!";
+            document.getElementById("resultScreen").style.visibility = "visible";
+            break;
+        case 2:
+            document.getElementById("resultScreen").innerHTML = "Sie haben verloren!";
+            document.getElementById("resultScreen").style.visibility = "visible";
+    }
 }
 
 function startTurn() {

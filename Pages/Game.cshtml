@@ -1,5 +1,8 @@
 ﻿@page
+@using Microsoft.JSInterop;
 @model BlackJack.Pages.GameModel
+
+
 @{
     
     ViewData["Title"] = "BlackJack";
@@ -9,8 +12,11 @@
     string user = "Manfred";
     int money = 1000;
 
-    //int totalAmount = Game.setBet();
+    //int totalAmount = Game.GetTotalAmount();
 }
+
+
+
 <head>
 <style>
     body {
@@ -179,17 +185,52 @@
     </div>
 </div>
 
-<div class="pokerchips" id="chipsDiv">
-    <img src="/images/pokerchips/Pokerchip1.png" onclick="setBet(1)" />
-    <img src="/images/pokerchips/Pokerchip5.png" onclick="setBet(5)" />
-    <img src="/images/pokerchips/Pokerchip10.png" onclick="setBet(10)" />
-    <img src="/images/pokerchips/Pokerchip20.png" onclick="setBet(20)" />
-    <img src="/images/pokerchips/Pokerchip25.png" onclick="setBet(25)" />
+<div class="startTurn">
+    <div class="pokerchips" id="chipsDiv">
+        <img src="/images/pokerchips/Pokerchip1.png" onclick="setBet(1)" />
+        <img src="/images/pokerchips/Pokerchip5.png" onclick="setBet(5)" />
+        <img src="/images/pokerchips/Pokerchip10.png" onclick="setBet(10)" />
+        <img src="/images/pokerchips/Pokerchip20.png" onclick="setBet(20)" />
+        <img src="/images/pokerchips/Pokerchip25.png" onclick="setBet(25)" />
+    </div>
+
+
+
+<div class="pokerchips">
+    <img src="/images/pokerchips/Pokerchip1.png" onclick="addToTotal(1)" />
+    <img src="/images/pokerchips/Pokerchip5.png" onclick="addToTotal(5)" />
+    <img src="/images/pokerchips/Pokerchip10.png" onclick="addToTotal(10)" />
+    <img src="/images/pokerchips/Pokerchip20.png" onclick="addToTotal(20)" />
+    <img src="/images/pokerchips/Pokerchip25.png" onclick="addToTotal(25)" />
 </div>
 
+<p>Total: <span id="totalAmount">0</span></p>
+
+
 <script>
-    function showMessageBox(message) {
-        alert(message);
+    let playerCurrency = 22;
+    let totalBet = 0;
+    const totalAmountElement = document.getElementById('totalAmount');
+    const chipImages = document.querySelectorAll('.pokerchips img');
+
+    function hideChipImages() {
+        chipImages.forEach(chipImage => {
+            const chipValue = parseInt(chipImage.getAttribute('onclick').match(/\d+/)[0]);
+            if (playerCurrency < chipValue || playerCurrency < totalBet + chipValue) {
+                chipImage.style.display = 'none';
+                chipImage.removeAttribute('onclick');
+            }
+        });
+    }
+
+    hideChipImages();
+
+    function addToTotal(amount) {
+        if (playerCurrency >= totalBet + amount) {
+            totalBet += amount;
+            totalAmountElement.textContent = totalBet;
+            hideChipImages();
+        }
     }
 </script>
 
