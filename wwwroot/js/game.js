@@ -91,7 +91,7 @@ function disableBet() {
 
 
 function enableBet() {
-    
+    document.getElementById("chipsDiv").style.display = "flex";
 }
 
 function setBalance(amount) {    
@@ -108,11 +108,10 @@ function load() {
     disableBet();
 }
 
-function startTurn(slotid, time) {
-    document.getElementById("startTurn").style.display = "flex";
-    document.getElementById("chipsDiv").style.display = "flex";
+function startTurn() {
+    enableBet();
 }
-function endTurn(slotid) {
-    document.getElementById("startTurn").style.display = "none";
-    document.getElementById("chipsDiv").style.display = "none";
+
+function endTurn() {
+    disableBet();
 }
