@@ -10,6 +10,11 @@ connection.start().then(function () {
 
     //weiteren Skriptcode zur Veränderung des Frontends.
     document.getElementById("sendButton").disabled = false;
+    connection
+        .invoke("onConnection")
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
 
 }).catch(function (err) {
 
@@ -42,11 +47,9 @@ function sendMessage(user, message) {
     li.textContent = `${user} sayed ${message}`;
 }
 
-connection.on("Console", function (args) {
 
-
-    console.log(args);
-
+connection.on("console", function (message) {
+    console.log(message);
 });
 
 //Ein Javascriptevent welches Informationen an das Backend schickt.

@@ -21,6 +21,20 @@ connection.on("console", function (message) {
 });
 
 
+function updateTask() {
+    connection
+        .invoke("update", getCookie("userid"))
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
+}
+setInterval(updateTask, 500);
+
+connection.on("updated", function (message) {
+    console.log(message);
+});
+
+
 
 function getCookie(cname) {
     let name = cname + "=";
