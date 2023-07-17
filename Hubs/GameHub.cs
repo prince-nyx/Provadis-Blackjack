@@ -15,7 +15,6 @@ namespace BlackJack.Hubs
             Console.WriteLine("GameHub");
         }
 
-
         public async Task update(String cookie)
         {
             connectionId = Context.ConnectionId;
