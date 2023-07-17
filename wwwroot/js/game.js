@@ -30,7 +30,46 @@ function updateTask() {
         });
 }
 
+function addCardToPlayer(slotID, card) {
+    let slot = null;
+    let cardSlot = null;
 
+    switch (slotID) {
+        case 4:
+            slot = document.getElementById("Benutzer");
+            break;
+        default:
+            slot = document.getElementById(`Spieler${slotID + 1}`);
+            break;
+    }
+
+    for (let i = 1; i <= 11; i++) {
+        cardSlot = slot.getElementsByClassName(`OfClubs${i}`)[0];
+        if (cardSlot.src == "") {
+            cardSlot.src = `/images/card/${card}.png`;
+            break;
+        }
+    }
+}
+
+function addDealerCard(card, isHidden) {
+    let slot = document.getElementById("Dealer");
+    let cardSlot = null;
+
+    for (let i = 1; i <= 11; i++) {
+        cardSlot = slot.getElementsByClassName(`OfClubs${i}`)[0];
+        if (cardSlot.src == "") {
+            if (!isHidden) {
+                cardSlot.src = `/images/card/${card}.png`;
+                break;
+            }
+            else {
+                cardSlot.src = `/images/design rueckseite.png`;
+                break;
+            }
+        }
+    }
+}
 
 function getCookie(cname) {
     let name = cname + "=";
