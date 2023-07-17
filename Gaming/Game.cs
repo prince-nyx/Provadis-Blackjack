@@ -22,7 +22,7 @@ public class Game
 
     private int currentSlotsTurn = -1;
 
-    private int total = 0; // Total betting amount
+    private int totalBet = 0; // Total betting amount
 
     public Game()
     {
@@ -120,6 +120,42 @@ public class Game
         if (player != null)
         {
                 
+                Card card = deck.drawCard();
+                player.addCard(card);
+            getHub().addCardToPlayer(slotid,card.getName()); 
+           }      
+
+    }
+
+
+
+
+
+
+
+
+
+    public int GetChipAmount(string chipName)
+    {
+        switch (chipName)
+        {
+            case "Pokerchip1.png":
+                return 1;
+            case "Pokerchip5.png":
+                return 5;
+            case "Pokerchip10.png":
+                return 10;
+            case "Pokerchip20.png":
+                return 20;
+            case "Pokerchip25.png":
+                return 25;
+            default:
+                return 0;
+        }
+    }
+
+    //Chipauswahl abrufen un den return Wert aufaddieren
+    public void setBet(string chipName)
             Card card = deck.drawCard();
             player.addCard(card);
             addCardToPlayer(slotid,card.getName()); 
@@ -226,13 +262,42 @@ public class Game
     //client
     public void showResult(Player player, int amount, String result)
     {
+        int amount = GetChipAmount(chipName);
         player.registerEvent(new FrontendEvent("showResult",  amount.ToString(), result));
     }
 
+        totalBet += amount;
     //client
     public void showStartButton(Player player)
     {
         player.registerEvent(new FrontendEvent("showStartButton"));
+    }
+
+    public int GetChipAmount(string chipName)
+    {
+        switch (chipName)
+        {
+            case "Pokerchip1.png":
+                return 1;
+            case "Pokerchip5.png":
+                return 5;
+            case "Pokerchip10.png":
+                return 10;
+            case "Pokerchip20.png":
+                return 20;
+            case "Pokerchip25.png":
+                return 25;
+            default:
+                return 0;
+        }
+    }
+
+    //Chipauswahl abrufen un den return Wert aufaddieren
+    public void setBet(string chipName)
+    {
+        int amount = GetChipAmount(chipName);
+
+        totalBet += amount;
     }
 
 }
