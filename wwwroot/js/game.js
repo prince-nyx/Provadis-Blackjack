@@ -122,7 +122,7 @@ document.getElementById("hitButton").addEventListener("click", function (event) 
 
     console.log("Spieler " + getCookie("userid") +" drückt hitButton");
     connection
-        .invoke("hitButtonCS", getCookie("userid"))
+        .invoke("hit", getCookie("userid"))
         .catch(function (err) {
             return console.error(err.toString());
         });

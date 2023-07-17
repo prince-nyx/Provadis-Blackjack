@@ -113,7 +113,7 @@ public class Game
     }
 
     
-    public void hitButtonCS(String playerid)
+    public void hit(String playerid)
     {
         Player player = players[playerid];
 

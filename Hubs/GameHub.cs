@@ -74,11 +74,11 @@ namespace BlackJack.Hubs
                 }
             }
         }
-        public async Task hitButtonCS(String cookie)
+        public async Task hit(String cookie)
         {
             Player player = Program.app.playerManager.getPlayer(cookie);
             if (player == null)
-                await Clients.All.SendAsync("console", "Kein Login vorhanden");
+                await Clients.All.SendAsync("console", "Spieler versucht Karte zu ziehen");
             else
             {
                 Game game = Program.app.gameManager.getGame(player.currentGameId);
@@ -86,7 +86,7 @@ namespace BlackJack.Hubs
                     await Clients.All.SendAsync("console", "BUG | Game nicht vorhanden / Spieler kann keine weitere Karte ziehen");
                 else
                 {
-                    game.hitButtonCS(player.username);
+                    game.hit(player.username);
                     await Clients.All.SendAsync("console", "Spieler hat eine weitere Karte erhalten");
                 }
             }
