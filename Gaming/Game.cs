@@ -120,13 +120,11 @@ public class Game
         player.registerEvent(new FrontendEvent("addCardToPlayer", playerid.ToString()));
     }
 
-
-
-
-
-
-
-
+    public void submitBet(int amount)
+    {
+        amount = GetChipAmount(ToString());
+        Console.WriteLine(amount);
+    }
 
     public int GetChipAmount(string chipName)
     {
@@ -147,7 +145,7 @@ public class Game
         }
     }
 
-    //Chipauswahl abrufen un den return Wert aufaddieren
+    //Chipauswahl abrufen und den return Wert aufaddieren
     public void setBet(string chipName)
     {
         Card card = deck.drawCard();
