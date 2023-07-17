@@ -91,7 +91,7 @@ function disableBet() {
 
 
 function enableBet() {
-    
+    document.getElementById("chipsDiv").style.display = "flex";
 }
 
 function setBalance(amount) {    
