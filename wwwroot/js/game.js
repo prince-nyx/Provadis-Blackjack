@@ -129,20 +129,9 @@ function load(amount, name) {
     disableBet();
 }
 
-function showResult(amount, resultType) {
-    switch (resultType) {
-        case 0:
-            document.getElementById("resultScreen").innerHTML = "Sie haben " + amount + "€ per Blackjack gewonnen!";
-            document.getElementById("resultScreen").style.visibility = "visible";
-            break;
-        case 1:
-            document.getElementById("resultScreen").innerHTML = "Sie haben " + amount + "€ gewonnen!";
-            document.getElementById("resultScreen").style.visibility = "visible";
-            break;
-        case 2:
-            document.getElementById("resultScreen").innerHTML = "Sie haben verloren!";
-            document.getElementById("resultScreen").style.visibility = "visible";
-    }
+function showResult(result) {
+    document.getElementById("resultScreen").innerHTML = result;
+    document.getElementById("resultScreen").style.visibility = "visible";
 }
 
 function startTurn() {
