@@ -1,6 +1,7 @@
 ﻿using BlackJack;
 using BlackJack.Hubs;
 using System;
+using static System.Net.Mime.MediaTypeNames;
 
 public class Player
 {
@@ -12,6 +13,8 @@ public class Player
 
     public GameHub hub { get; set; }
     public String connectionId { get; set; }
+
+    public List<FrontendEvent> events = new List<FrontendEvent>();
 
 	public Player(String username, double wallet)
     {
@@ -50,6 +53,12 @@ public class Player
         Player otherPlayer = (Player)obj;
 
         return this.username == otherPlayer.username;
+    }
+
+    public void registerEvent(FrontendEvent frontend)
+    {
+        Console.WriteLine("[EVENTS] "+username.ToUpper()+" registers "+ frontend.eventName+ "(" + string.Join(",", frontend.args) + ");");
+        events.Add(frontend);
     }
 
 

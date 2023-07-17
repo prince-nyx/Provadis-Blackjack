@@ -19,7 +19,7 @@
                 if(!game.containsPlayer(player.id))
                 {
                     if(game.hostid != player.id)
-                        game.addPlayer(player);
+                        game.addPlayerToGame(player);
                     player.currentGameId = gameid;
                     Console.WriteLine("[GAMEMANAGER] " + player.ToString() + " joined " + game.ToString());
                 }
