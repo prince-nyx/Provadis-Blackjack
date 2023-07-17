@@ -25,7 +25,7 @@ namespace BlackJack
         }
 
 
-        public static string GenerateRandomString(int length)
+        public string GenerateRandomString(int length)
         {
             Random random = new Random();
             StringBuilder stringBuilder = new StringBuilder();

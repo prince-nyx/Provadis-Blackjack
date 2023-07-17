@@ -37,7 +37,7 @@
 
         public String createGame(String hostid)
         {
-            Game game = new Game();
+            Game game = new Game(hostid);
             games.Add(game.id, game);
             return game.id;
         }
