@@ -69,10 +69,16 @@ function addDealerCard(card, isHidden) {
             }
             else {
                 cardSlot.src = `/images/design rueckseite.png`;
+                cardSlot.alt = card;
                 break;
             }
         }
     }
+}
+
+function showDealerCards() {
+    let hiddenCard = document.getElementById("Dealer").getElementsByClassName(`OfClubs1`)[0];
+    hiddenCard.src = `/images/card/${hiddenCard.alt}.png`;
 }
 
 function getCookie(cname) {
@@ -179,7 +185,38 @@ function startTurn() {
 
 function endTurn() {
     disableBet();
+
 }
+
+
 function assignPlayerToSlot() {
 
+}
+
+//Einsatz bei drücken der Chips hochzählen und nur die nutzbaren Chip anzeigen lassen.
+let playerCurrency = 12;
+let totalBet = 0;
+const totalAmountElement = document.getElementById('totalAmount');
+const chipImages = document.querySelectorAll('.pokerchips img');
+
+function hideChipImages() {
+    chipImages.forEach(chipImage => {
+        const chipValue = parseInt(chipImage.getAttribute('onclick').match(/\d+/)[0]);
+        if (playerCurrency < chipValue || playerCurrency < totalBet + chipValue) {
+            chipImage.style.display = 'none';
+            chipImage.removeAttribute('onclick');
+        }
+    });
+}
+
+hideChipImages();
+
+
+function setBet(amount) {
+    if (playerCurrency >= totalBet + amount) {
+        totalBet += amount;
+        totalAmountElement.textContent = totalBet;
+        hideChipImages();
+        return totalBet
+    }
 }
