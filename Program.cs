@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Hosting;
 using System.Numerics;
+using Microsoft.AspNet.SignalR;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 
 namespace BlackJack
 {
@@ -74,9 +76,9 @@ namespace BlackJack
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+            builder.Services.AddControllersWithViews(); 
             builder.Services.AddSignalR();
-            builder.Services.AddControllersWithViews();
-           // builder.Services.AddCookieManager();
+            // builder.Services.AddCookieManager();
 
             // or
             /*
@@ -114,8 +116,7 @@ namespace BlackJack
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
-
+            app.UseCors("AllowCors");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -126,8 +127,10 @@ namespace BlackJack
             app.MapRazorPages();
 
             app.UseRouting();
+
             app.MapHub<ChatHub>("/chatHub");
             app.MapHub<GameHub>("/GameHub");
+            //app.MapHub<StockTickerHub>("/StockTickerHub");
 
             app.Run();
         }
