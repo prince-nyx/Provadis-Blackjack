@@ -9,7 +9,7 @@
     string user = "Manfred";
     int money = 1000;
 }
-
+<body onload="load()">
 <style>
     body {
        background-image: url("/images/GameLobbyBackground.png");
@@ -17,9 +17,9 @@
 </style>
 
 <div class="displayOwnContainer">
-    <h1 class="displayOwnUsername">Viel Erfolg @user !</h1>
+    <h1 class="displayOwnUsername" id="username">Viel Erfolg @user !</h1>
     <button id="startButton">Spiel starten</button>
-    <h1 class="displayOwnMoney">Guthaben: @money €</h1>
+    <h1 class="displayOwnMoney" id="money">Guthaben: @money €</h1>
     <br />
     <button id="hitButton">Hit</button>
     <br />
@@ -192,3 +192,4 @@
 </script>
 
 <script src="~/js/game.js"></script>
+</body>

@@ -52,8 +52,16 @@ function enableBet() {
     document.getElementById("chipsDiv").style.display = "flex";
 }
 
-function setBalance(_double amount) {
-    if (amount > 0.0) {
-        document.getElementById("money").innerHTML = "Guthaben: " + amount.toString();
-    }
+function setBalance(amount) {    
+    document.getElementById("money").innerHTML = "Guthaben: " + amount.toString() + "€";
+}
+
+function setName(name) {
+    document.getElementById("username").innerHTML = "Viel Erfolg " + name;
+}
+
+function load() {
+    setBalance(100);
+    setName("Rico");
+    disableBet();
 }
