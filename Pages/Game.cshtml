@@ -14,13 +14,14 @@
 
     //int totalAmount = Game.GetTotalAmount();
 }
-<body onload="load()">
+<head>
 <style>
     body {
        background-image: url("/images/GameLobbyBackground.png");
     }
 </style>
-
+</head>
+<body onload="load()">
 <div class="displayOwnContainer">
     <h1 class="displayOwnUsername" id="username">Viel Erfolg @user !</h1>
     <button id="startButton">Spiel starten</button>
@@ -30,6 +31,7 @@
     <button id="standButton">Stand</button>
     <br />
     <button id="endTurn">Zug beenden</button>
+    
 </div>
 
 
@@ -230,4 +232,4 @@
     }
 </script>
 
-
+<script src="~/js/game.js"></script>

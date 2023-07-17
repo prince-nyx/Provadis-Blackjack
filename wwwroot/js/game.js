@@ -74,15 +74,6 @@ document.getElementById("hitButton").addEventListener("click", function (event) 
             return console.error(err.toString());
         });
 });
-document.getElementById("endTurn").addEventListener("click", function (event) {
-
-    console.log("Spieler beendet seinen Zug");
-    connection
-        .invoke("endTurn",slotid)
-        .catch(function (err) {
-            return console.error(err.toString());
-        });
-});
 document.getElementById("standButton").addEventListener("click", function (event) {
 
     console.log("Spieler zieht keine Karte");
@@ -100,7 +91,7 @@ function disableBet() {
 
 
 function enableBet() {
-    document.getElementById("chipsDiv").style.display = "flex";
+    
 }
 
 function setBalance(amount) {    
@@ -115,4 +106,13 @@ function load() {
     setBalance(100);
     setName("Rico");
     disableBet();
+}
+
+function startTurn(slotid, time) {
+    document.getElementById("startTurn").style.display = "flex";
+    document.getElementById("chipsDiv").style.display = "flex";
+}
+function endTurn(slotid) {
+    document.getElementById("startTurn").style.display = "none";
+    document.getElementById("chipsDiv").style.display = "none";
 }
