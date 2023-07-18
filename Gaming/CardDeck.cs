@@ -1,5 +1,4 @@
 ﻿using System;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Security.Cryptography;
 using System.Collections.Generic;
 
@@ -13,6 +12,11 @@ public class CardDeck
     public CardDeck()
 	{
 
+	}
+
+	public void clear()
+	{
+		cards.Clear();
 	}
 
 	public int BlackJackSum()
@@ -86,4 +90,24 @@ public class CardDeck
 		Console.WriteLine("Heysho");
 		return string.Join(",",cards.ConvertAll<string>(card => card.ToString()));
     }
+
+	public Card getCard(int i)
+	{
+		return cards[i];
+	}
+
+	public Boolean isLuckySeven()
+	{
+		for (int i = 0; i < cards.Count;i++)
+		{
+			if(i > 3 || cards[i].getWert() != 7)
+				return false;
+		}
+		return true;
+	}
+
+	public Boolean isBlackJack()
+	{
+		return cards.Count == 2 && BlackJackSum() == 21;
+	}
 }

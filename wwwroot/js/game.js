@@ -16,10 +16,6 @@ connection.start().then(function () {
     return console.error(err.toString());
 
 });
-connection.on("console", function (message) {
-    console.log(message);
-});
-
 
 function updateTask() {
     connection
@@ -30,9 +26,122 @@ function updateTask() {
 }
 setInterval(updateTask, 500);
 
-connection.on("updated", function (message) {
-    console.log(message);
+
+//START BACKEND EVENTS
+connection.on("addCardToPlayer", function (args) {
+    try {
+        addCardToPlayer(args[0], args[1]);
+    } catch (err) {
+        console.log(err.message);
+    }
 });
+connection.on("setCardSum", function (args) {
+    try {
+        setCardSum(args[0], args[1]);
+    } catch (err) {
+        console.log(err.message);
+    }
+});
+connection.on("assignPlayer", function (args) {
+    try {
+        assignPlayer(args[0], args[1]);
+    } catch (err) {
+        console.log(err.message);
+    }
+});
+connection.on("unassignPlayer", function (args) {
+    try {
+        unassignPlayer(args[0]);
+    } catch (err) {
+        console.log(err.message);
+    }
+});
+connection.on("setBet", function (args) {
+    try {
+        setBet(args[0], args[1]);
+    } catch (err) {
+        console.log(err.message);
+    }
+});
+connection.on("addDealerCard", function (args) {
+    try {
+        addDealerCard(args[0]);
+    } catch (err) {
+        console.log(err.message);
+    }
+});
+connection.on("enableBet", function (args) {
+    try {
+        enableBet();
+    } catch (err) {
+        console.log(err.message);
+    }
+});
+connection.on("disableBet", function (args) {
+    try {
+        disableBet();
+    } catch (err) {
+        console.log(err.message);
+    }
+});
+connection.on("showDealerCards", function (args) {
+    try {
+        showDealerCards();
+    } catch (err) {
+        console.log(err.message);
+    }
+});
+connection.on("endTurn", function (args) {
+    try {
+        endTurn();
+    } catch (err) {
+        console.log(err.message);
+    }
+});
+connection.on("startTurn", function (args) {
+    try {
+        startTurn(args[0]);
+    } catch (err) {
+        console.log(err.message);
+    }
+});
+connection.on("setbBalance", function (args) {
+    try {
+        setbBalance(args[0]);
+    } catch (err) {
+        console.log(err.message);
+    }
+});
+connection.on("showResult", function (args) {
+    try {
+        showResult(args[0], args[1]);
+    } catch (err) {
+        console.log(err.message);
+    }
+});
+connection.on("showStartButton", function (args) {
+    try {
+        showStartButton();
+    } catch (err) {
+        console.log(err.message);
+    }
+});
+connection.on("load", function (amount, username, gamecode) {
+    try {
+        showStartButton(amount, username);
+    } catch (err) {
+        console.log(err.message);
+    }
+});
+connection.on("console", function (message) {
+    try {
+        console.log(message);
+    } catch (err) {
+        console.log(err.message);
+    }
+});
+//STOP BACKEND EVENTS
+
 
 function addCardToPlayer(slotID, card) {
     let slot = null;
@@ -138,16 +247,19 @@ document.getElementById("endTurn").addEventListener("click", function (event) {
 
     console.log("Spieler beendet seinen Zug");
     connection
-        .invoke("endTurn",slotid)
+        .invoke("endTurn", getCookie("userid"))
         .catch(function (err) {
             return console.error(err.toString());
         });
 });
 
 document.getElementById("standButton").addEventListener("click", function (event) {
+    connection
+        .invoke("stand", getCookie("userid"))
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
 
-    console.log("Spieler zieht keine Karte");
-    endTurn();
 });
 
 
@@ -161,7 +273,7 @@ function enableBet() {
 }
 
 function setBalance(amount) {    
-    document.getElementById("money").innerHTML = "Guthaben: " + amount.toString() + "€";
+    document.getElementById("money").innerHTML = "Guthaben: " + amount + "€";
 }
 
 function setName(name) {
@@ -174,8 +286,9 @@ function load(amount, name) {
     disableBet();
 }
 
-function showResult(result) {
-    document.getElementById("resultScreen").innerHTML = result;
+function showResult(headline, result) {
+    document.getElementById("resultHeadline").innerHTML = headline;
+    document.getElementById("resultAmount").innerHTML = result;
     document.getElementById("resultScreen").style.visibility = "visible";
 }
 
@@ -189,7 +302,7 @@ function endTurn() {
 }
 
 
-function assignPlayerToSlot() {
+function assignPlayerToSlot(slotid, username) {
 
 }
 

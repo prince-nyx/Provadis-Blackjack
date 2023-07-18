@@ -18,8 +18,7 @@
                 Game game = games[gameid];
                 if(!game.containsPlayer(player.id))
                 {
-                    if(game.hostid != player.id)
-                        game.addPlayerToGame(player);
+                    game.addPlayerToGame(player);
                     player.currentGameId = gameid;
                     Console.WriteLine("[GAMEMANAGER] " + player.ToString() + " joined " + game.ToString());
                 }
@@ -37,7 +36,7 @@
 
         public String createGame(String hostid)
         {
-            Game game = new Game();
+            Game game = new Game(hostid);
             games.Add(game.id, game);
             return game.id;
         }

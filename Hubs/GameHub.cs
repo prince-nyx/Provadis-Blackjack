@@ -6,18 +6,10 @@ namespace BlackJack.Hubs
     public class GameHub : Hub
     {
 
-        public String connectionId { get; set; }
-
-
-        public String getConnectionID() { return connectionId; }    
-        public GameHub()
-        {
-            Console.WriteLine("GameHub");
-        }
 
         public async Task update(String cookie)
         {
-            connectionId = Context.ConnectionId;
+            String connectionId = Context.ConnectionId;
             Player player = Program.app.playerManager.getPlayer(cookie);
             if (player == null)
                 await Clients.Client(connectionId).SendAsync("console", "Kein Login vorhanden");
@@ -26,8 +18,10 @@ namespace BlackJack.Hubs
                 player.connectionId = connectionId;
                 foreach(FrontendEvent frontendEvent in player.events)
                 {
-                    Console.WriteLine("[EVENTS] " + frontendEvent.eventName + " bei " + player.username);
-                    await Clients.Client(connectionId).SendAsync("console", frontendEvent.eventName+"("+ string.Join(",", frontendEvent.args) + ")");
+
+                    Console.WriteLine("[BACKEND -> FRONTEND] " + player.ToString() + " gets "+ frontendEvent.ToString());
+                    await Clients.Client(connectionId).SendAsync(frontendEvent.eventName, frontendEvent.args);
+                    await Clients.Client(connectionId).SendAsync("console", frontendEvent.eventName+"("+String.Join(",",frontendEvent.args)+")");
                 }
                 player.events.Clear();
                 await Clients.Client(connectionId).SendAsync("console", "connected als " + player.username);
@@ -37,7 +31,7 @@ namespace BlackJack.Hubs
 
         public async Task onConnection(String cookie)
         {
-            connectionId = Context.ConnectionId;
+            String connectionId = Context.ConnectionId;
             Player player = Program.app.playerManager.getPlayer(cookie);
             if(player == null)
                 await Clients.Client(connectionId).SendAsync("console", "Kein Login vorhanden");
@@ -45,51 +39,144 @@ namespace BlackJack.Hubs
             {
                 player.hub = this;
                 player.connectionId = connectionId;
-                //player.hub = this;
-                
-                player.connectionId = Context.ConnectionId;
+           
                 Game game = Program.app.gameManager.getGame(player.currentGameId);
                 game.PlayerJoined(player);
-                
-                
-                await Clients.Client(connectionId).SendAsync("console", "Eingeloggt als " + player.username);
+
+                Console.WriteLine("[FRONTEND -> BACKEND] " + player.ToString() +" joined "+game.ToString());
+
+
+                await Clients.Client(connectionId).SendAsync("load", player.wallet, player.username);
+                await Clients.Client(connectionId).SendAsync("console", "Eingeloggt als " + player.username+" mit wallet "+player.wallet);
 
             }
         }
 
         public async Task startGame(String cookie)
         {
+            String connectionId = Context.ConnectionId;
             Player player = Program.app.playerManager.getPlayer(cookie);
             if (player == null)
-                await Clients.All.SendAsync("console", "Kein Login vorhanden");
+                await Clients.Client(connectionId).SendAsync("console", "Kein Login vorhanden");
             else
             {
                 Game game = Program.app.gameManager.getGame(player.currentGameId);
                 if(game == null)        
-                    await Clients.All.SendAsync("console", "Game nicht gefunden");
+                    await Clients.Client(connectionId).SendAsync("console", "Game nicht gefunden");
                 else
                 {
-                    game.startGame();
-                    await Clients.All.SendAsync("console", "Game gestartet");
+                    if(game.hostid!= null && game.hostid.Equals(player.id))
+                    {
+                        if (game.phase == GamePhase.WAITING_FOR_PLAYERS)
+                        {
+                            Console.WriteLine("[FRONTEND -> BACKEND] " + player.ToString() + " starts " + game.ToString());
+                            game.startGame();
+                            await Clients.Client(connectionId).SendAsync("console", "Game gestartet");
+                        }
+                        else
+                            await Clients.Client(connectionId).SendAsync("console", "Das Spiel läuft bereits");
+                    } else
+                    {
+                        await Clients.Client(connectionId).SendAsync("console", "Du bist nicht der Host");
+                    }
+                }
+            }
+        }
+
+        public async Task stand(String cookie)
+        {
+            String connectionId = Context.ConnectionId;
+            Player player = Program.app.playerManager.getPlayer(cookie);
+            if (player == null)
+                await Clients.Client(connectionId).SendAsync("console", "Dieser Account ist kein Spieler.");
+            else
+            {
+                Game game = Program.app.gameManager.getGame(player.currentGameId);
+                if (game == null)
+                    await Clients.Client(connectionId).SendAsync("console", "Dieser Spieler ist nicht in diesem Game.");
+                else
+                {
+                    if (game.isPlayersTurn(cookie))
+                    {
+                        Console.WriteLine("[FRONTEND -> BACKEND] " + player.ToString() + " stands in " + game.ToString());
+                        game.stand();
+                        await Clients.Client(connectionId).SendAsync("console", "Spieler möchte keine weitere Karte");
+                    }
+                    else
+                        await Clients.Client(connectionId).SendAsync("console", "Spieler ist nicht dran");
                 }
             }
         }
         public async Task hit(String cookie)
         {
+            String connectionId = Context.ConnectionId;
             Player player = Program.app.playerManager.getPlayer(cookie);
             if (player == null)
-                await Clients.All.SendAsync("console", "Spieler versucht Karte zu ziehen");
+                await Clients.Client(connectionId).SendAsync("console", "Dieser Account ist kein Spieler.");
             else
             {
                 Game game = Program.app.gameManager.getGame(player.currentGameId);
                 if (game == null)
-                    await Clients.All.SendAsync("console", "BUG | Game nicht vorhanden / Spieler kann keine weitere Karte ziehen");
+                    await Clients.Client(connectionId).SendAsync("console", "Dieser Spieler ist nicht in diesem Game.");
                 else
                 {
-                    game.hit(player.username);
-                    await Clients.All.SendAsync("console", "Spieler hat eine weitere Karte erhalten");
+                    if (game.isPlayersTurn(cookie))
+                    {
+                        game.hit();
+                        Console.WriteLine("[FRONTEND -> BACKEND] " + player.ToString() + " hits in " + game.ToString());
+                        await Clients.Client(connectionId).SendAsync("console", "Spieler zieht Karte");
+                    }
+                    else
+                        await Clients.Client(connectionId).SendAsync("console", "Spieler ist nicht dran");
                 }
             }
         }
+
+        public async Task setBet(String cookie, int amount)
+        {
+            String connectionId = Context.ConnectionId;
+            Player player = Program.app.playerManager.getPlayer(cookie);
+            if (player == null)
+                await Clients.Client(connectionId).SendAsync("console", "Dieser Account ist kein Spieler.");
+            else
+            {
+                Game game = Program.app.gameManager.getGame(player.currentGameId);
+                if (game == null)
+                    await Clients.Client(connectionId).SendAsync("console", "Dieser Spieler ist nicht in diesem Game.");
+                else if (game.phase == GamePhase.BETTING)
+                {
+                    player.AddBet(amount);
+                    Console.WriteLine("[FRONTEND -> BACKEND] " + player.ToString() + " set bet "+amount+" in " + game.ToString());
+                    await Clients.Client(connectionId).SendAsync("console", "Spieler erhöht seinen Einsatz um " + amount);
+                }
+                else
+                    await Clients.Client(connectionId).SendAsync("console", "Derzeit kann man nicht setzen.");
+                
+            }
+        }
+
+        public async Task submitBet(String cookie, int amount)
+        {
+            String connectionId = Context.ConnectionId;
+            Player player = Program.app.playerManager.getPlayer(cookie);
+            if (player == null)
+                await Clients.Client(connectionId).SendAsync("console", "Dieser Account ist kein Spieler.");
+            else
+            {
+                Game game = Program.app.gameManager.getGame(player.currentGameId);
+                if (game == null)
+                    await Clients.Client(connectionId).SendAsync("console", "Dieser Spieler ist nicht in diesem Game.");
+                else if (game.phase == GamePhase.BETTING)
+                {
+                    game.submitBet(player.id);
+                    Console.WriteLine("[FRONTEND -> BACKEND] " + player.ToString() + " submits bet in " + game.ToString());
+                    await Clients.Client(connectionId).SendAsync("console", "Spieler ist mit dem Einsetzen fertig");
+                }
+                else
+                    await Clients.Client(connectionId).SendAsync("console", "Derzeit kann man nicht setzen.");
+
+            }
+        }
+        
     }
 }
