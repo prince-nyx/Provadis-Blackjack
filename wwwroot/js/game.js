@@ -344,7 +344,7 @@ const sumElement = document.getElementById('sumPlayer1');
 console.log(sumElement.textContent);
 */
 
-function setCardSum(slotid, amount) {
+/*function setCardSum(slotid, amount) {
     const sumElement = document.getElementById(`sumPlayer${slotid}`);
     if (sumElement) {
         let currentSum = parseInt(sumElement.textContent.trim().split(':')[1]);
@@ -359,7 +359,53 @@ function setCardSum(slotid, amount) {
     }
 }
 
+*/
 
+
+
+function setCardSum(slotid, amount) {
+    const sumElement = document.getElementById(`sumPlayer${slotid}`);
+    if (sumElement) {
+        let currentSum = parseInt(sumElement.textContent.trim().split(':')[1]);
+        if (isNaN(currentSum)) {
+            currentSum = 0;
+        }
+        currentSum += amount;
+        sumElement.textContent = `Kartensumme: ${currentSum}`;
+
+        const addedAmountElement = document.getElementById(`addedAmountPlayer${slotid}`);
+        addedAmountElement.textContent = `Höhe der gezogenen Karte: +${amount}`;
+    }
+
+
+    // Target the dealer slot
+    const dealerSumElement = document.getElementById('sumDealer');
+    if (dealerSumElement) {
+        let dealerSum = parseInt(dealerSumElement.textContent.trim().split(':')[1]);
+        if (isNaN(dealerSum)) {
+            dealerSum = 0;
+        }
+        dealerSum += amount;
+        dealerSumElement.textContent = `Kartensumme: ${dealerSum}`;
+
+        const dealerAddedAmountElement = document.getElementById('addedAmountDealer');
+        dealerAddedAmountElement.textContent = `Höhe der gezogenen Karte: +${amount}`;
+    }
+
+    // Target the benutzer slot
+    const benutzerSumElement = document.getElementById('sumBenutzer');
+    if (benutzerSumElement) {
+        let benutzerSum = parseInt(benutzerSumElement.textContent.trim().split(':')[1]);
+        if (isNaN(benutzerSum)) {
+            benutzerSum = 0;
+        }
+        benutzerSum += amount;
+        benutzerSumElement.textContent = `Kartensumme: ${benutzerSum}`;
+
+        const benutzerAddedAmountElement = document.getElementById('addedAmountBenutzer');
+        benutzerAddedAmountElement.textContent = `Höhe der gezogenen Karte: +${amount}`;
+    }
+}
 
 
 
