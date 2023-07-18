@@ -11,5 +11,11 @@
             this.args = args;   
         }
 
+
+        public override String ToString()
+        {
+            return "FrontendEvent(name:" + eventName + " / args:[" + string.Join(",", args) + "])";
+        }
+
     }
 }

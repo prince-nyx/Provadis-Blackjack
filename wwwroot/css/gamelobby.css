@@ -1,6 +1,17 @@
 ﻿@import url('https://fonts.googleapis.com/css2?family=David+Libre:wght@500&display=swap');
 
 
+
+.card {
+    width: 60px;
+    height: 87.12px;
+    position: relative;
+    left: -80%;
+}
+
+
+
+
 .displayOwnContainer {
     position: relative;
     color: white;
