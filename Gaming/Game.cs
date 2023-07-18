@@ -253,6 +253,11 @@ public class Game
         }
     }
 
+    public Boolean isPlayersTurn(String playerid)
+    {
+        return slots[currentSlotsTurn].Equals(playerid);
+    }
+
     public Boolean containsPlayer(String playerid)
     {
         Console.WriteLine("gameid contains  " + playerid + ": " + players.ContainsKey(playerid));
