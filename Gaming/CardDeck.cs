@@ -79,7 +79,10 @@ public class CardDeck
 		return card;
 	}
 
-	public void addCard(Card card) { cards.Add(card); }
+	public void addCard(Card card) { 
+		cards.Add(card);
+		card.position = cards.Count();
+	}
 
 	public int size()
 	{

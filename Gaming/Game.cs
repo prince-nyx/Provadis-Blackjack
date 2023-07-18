@@ -31,7 +31,7 @@ public class Game
 
     public GamePhase phase { get; set; }
 
-    private int betTime = 3;
+    private int betTime = 60;
     private int turnTime = 60;
     
 
@@ -54,8 +54,9 @@ public class Game
 
 
     public void startGame()
-    {
-        enableBet();
+	{
+		gamestarting();
+		enableBet();
         Console.WriteLine("SPIEL GESTARTET");
         phase = GamePhase.BETTING;
         finishedBets = new bool[] {false,false,false,false,false,false,false};
@@ -306,8 +307,19 @@ public class Game
 
     }
 
-    //all
-    public void addCardToPlayer(int slotid, String cardname)
+	//all
+	public void gamestarting()
+	{
+		foreach (Player player in players.Values)
+		{
+			player.registerEvent(new FrontendEvent("gamestarting"));
+		}
+
+	}
+
+
+	//all
+	public void addCardToPlayer(int slotid, String cardname)
     {
         foreach (Player player in players.Values)
         {

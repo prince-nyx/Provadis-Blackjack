@@ -5,6 +5,8 @@ public class Card
 {
     int wert { get; }
     int color { get; }
+
+   public int position { set; get; }
     public Card(int wert, int color)
 	{
         if (wert <= 0 || wert > 13)
