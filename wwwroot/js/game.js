@@ -32,112 +32,113 @@ connection.on("addCardToPlayer", function (args) {
     try {
         addCardToPlayer(args[0], args[1]);
     } catch (err) {
-        console.log(err.message);
+        console.log("ERROR(addCardToPlayer) " + err.message);
     }
 });
 connection.on("setCardSum", function (args) {
     try {
         setCardSum(args[0], args[1]);
     } catch (err) {
-        console.log(err.message);
+        console.log("ERROR(setCardSum) " + err.message);
     }
 });
 connection.on("assignPlayer", function (args) {
     try {
         assignPlayer(args[0], args[1]);
     } catch (err) {
-        console.log(err.message);
+        console.log("ERROR(assignPlayer) " + err.message);
     }
 });
 connection.on("unassignPlayer", function (args) {
     try {
         unassignPlayer(args[0]);
     } catch (err) {
-        console.log(err.message);
+        console.log("ERROR(unassignPlayer) " + err.message);
     }
 });
 connection.on("setBet", function (args) {
     try {
         setBet(args[0], args[1]);
     } catch (err) {
-        console.log(err.message);
+        console.log("ERROR(setBet) " + err.message);
     }
 });
 connection.on("addDealerCard", function (args) {
     try {
         addDealerCard(args[0]);
     } catch (err) {
-        console.log(err.message);
+        console.log("ERROR(addDealerCard) " + err.message);
     }
 });
 connection.on("enableBet", function (args) {
     try {
         enableBet();
     } catch (err) {
-        console.log(err.message);
+        console.log("ERROR(enableBet) " + err.message);
     }
 });
 connection.on("disableBet", function (args) {
+
     try {
         disableBet();
     } catch (err) {
-        console.log(err.message);
+        console.log("ERROR(disableBet) " + err.message);
     }
 });
 connection.on("showDealerCards", function (args) {
     try {
         showDealerCards();
     } catch (err) {
-        console.log(err.message);
+        console.log("ERROR(showDealerCards) "+err.message);
     }
 });
 connection.on("endTurn", function (args) {
     try {
         endTurn();
     } catch (err) {
-        console.log(err.message);
+        console.log("ERROR(endTurn) " + err.message);
     }
 });
 connection.on("startTurn", function (args) {
     try {
         startTurn(args[0]);
     } catch (err) {
-        console.log(err.message);
+        console.log("ERROR(startTurn) " + err.message);
     }
 });
 connection.on("setbBalance", function (args) {
     try {
         setbBalance(args[0]);
     } catch (err) {
-        console.log(err.message);
+        console.log("ERROR(setbBalance) " + err.message);
     }
 });
 connection.on("showResult", function (args) {
     try {
         showResult(args[0], args[1]);
     } catch (err) {
-        console.log(err.message);
+        console.log("ERROR(showResult) " + err.message);
     }
 });
 connection.on("showStartButton", function (args) {
     try {
         showStartButton();
     } catch (err) {
-        console.log(err.message);
+        console.log("ERROR(showStartButton) " + err.message);
     }
 });
 connection.on("load", function (amount, username, gamecode) {
     try {
         load(amount, username, gamecode);
     } catch (err) {
-        console.log(err.message);
+        console.log("ERROR(load) " + err.message);
     }
 });
 connection.on("console", function (message) {
     try {
         console.log(message);
     } catch (err) {
-        console.log(err.message);
+        console.log("ERROR(console) " + err.message);
     }
 });
 //STOP BACKEND EVENTS
@@ -265,7 +266,7 @@ document.getElementById("standButton").addEventListener("click", function (event
 
 
 function disableBet() {
-    Console.log("DISABLED");
+    Console.log("DISABLED2");
     document.getElementById("chipsDiv").classList.remove("visible");
 }
 
