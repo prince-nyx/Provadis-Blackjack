@@ -45,11 +45,8 @@ namespace BlackJack.Pages
             this.Cpass = Request.Form["cpass"];
             this.Birth = Convert.ToDateTime(Request.Form["birth"]);
 
-            if (this.IsUserCharValid() && this.IsPassEQCheckPass() && this.IsBirthValid() && this.IsUserNameValid() && this.IsPasswordValid()) { this.CreateNewUser(); }
-            else 
-            {
-                Console.WriteLine("Invalid User");
-            }
+            if(this.IsUserCharValid() && this.IsPassEQCheckPass() && this.IsBirthValid() && this.IsUserNameValid() && this.IsPasswordValid()) { this.CreateNewUser(); }
+            else { Console.WriteLine("Invalid User"); }
         }
 
         private bool IsUserCharValid()

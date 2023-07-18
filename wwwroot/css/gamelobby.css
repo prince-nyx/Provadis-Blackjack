@@ -1,56 +1,88 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=David+Libre:wght@500&display=swap');
+﻿body {
+    background-image: url("/images/GameLobbyBackground.png");
+}
 
-
-
-.card {
-    width: 60px;
-    height: 87.12px;
+.rectangle {
+    width: 100%;
+    height: 8vh;
     position: relative;
-    left: -80%;
+    background: #A0D2FF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) inset;
+    border-radius: 95px;
+    border: 0.50px black solid;
+    display: flex;
+    justify-content: center;
+    top: 8vh;
+}
+
+.container {
+    max-width: 100%;
+}
+
+.visible {
+    visibility: show;
+}
+
+.spieler {
+    height: 10vh;
+}
+
+.cardcontainer {
+    height: 16vh;
+    width: 80%;
+    left: 10%;
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.image-row img {
+    width: auto;
+    max-height: 100%;
+    height: auto; /* Setze hier die gewünschte Höhe */
+    object-fit: cover;
+    margin-right: -27%; /* Setze hier den gewünschten Abstand zwischen den Bildern */
+    visibility: hidden;
+    overflow-clip-margin: unset;
+    overflow: auto;
 }
 
 
-
-
-.displayOwnContainer {
-    position: relative;
-    color: white;
-    height: 100px; /* Adjust the height as desired */
-    margin-top: 5%;
-}
-
-.displayOwnUsername {
+.image-row::before {
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
-    margin-left: 5%;
+    width: 50px;
+    height: 100%;
+    z-index: 1;
 }
 
-.displayOwnMoney {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin-right: 5%;
+.myPlayer .cardcontainer {
+    height: 18vh;
 }
 
-.TableContainer {
-    position: fixed;
-    top: 60%;
-    left: 65%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    width: 80%;
-    /*    position: fixed;
-    display: flex;*/
+.myPlayer .image-row img {
+    margin-right: -30%;
 }
 
-.BlackJackTable {
-    width: 100%; /* Set the width of the parent container */
-    height: 100vh; /* Set the height of the parent container */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.myPlayer .rectangle {
+    background: #66ffff;
+    height: 10vh;
+    top: 10vh;
 }
+
+.myPlayer h4 {
+    font-size: 35px;
+}
+
+.onTurn {
+    -webkit-box-shadow: 0 0 20px blue;
+    -moz-box-shadow: 0 0 20px blue;
+    box-shadow: 0 0 20px blue;
+}
+
 
 .winnerScreen {
     margin: auto;
@@ -106,1125 +138,40 @@
     margin-bottom: 20px;
     background-color: rgba(0, 0, 0, 0.5);
     width: 100vw; /* Extend from the left side to the right side of the screen */
+    visibility: hidden;
 }
 
+#buttons {
+    visibility: hidden;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100vw; /* Extend from the left side to the right side of the screen */
+}
+
+#buttons button {
+    margin: 1em;
+    padding: 1em;
+    width: 10%;
+    font-size: 30px;
+}
 
 .pokerchips img {
-   cursor: pointer;
-   display: inline-block;
-   width: 160px;
-   height: auto;
-   margin: 10px;
+    cursor: pointer;
+    display: inline-block;
+    width: 160px;
+    height: auto;
+    margin: 10px;
 }
 
 
-/*Übertragung des CSS vom Tisch*/
-.Group9 {
-    width: 1072px;
-    height: 441px;
-    left: 184px;
-    top: 291px;
-    position: fixed;
-}
-
-.Ellipse2 {
-    width: 1072px;
-    height: 378.57px;
-    left: 0px;
-    top: 62.43px;
-    background: #00460B;
-    border-radius: 9999px
-}
-
-.Rectangle1 {
-    width: 60px;
-    height: 87.12px;
-    left: 13px;
-    top: 0px;
-}
-
-.Ellipse1 {
-    width: 1072px;
-    height: 412.26px;
-    left: 0px;
-    top: 0px;
-    background: #008B27;
-    border-radius: 9999px;
-    position: absolute;
-}
-
-/*Spieler7*/
-.Spieler7 {
-    width: 214px;
-    height: 87.12px;
-    left: 291px;
-    top: 277px;
-    position: fixed;
-}
-
-.OfClubs1#Spieler7 {
-    width: 60px;
-    height: 87.12px;
-    left: 13px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs2#Spieler7 {
-    width: 60px;
-    height: 87.12px;
-    left: 26px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs3#Spieler7 {
-    width: 60px;
-    height: 87.12px;
-    left: 39px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs4#Spieler7 {
-    width: 60px;
-    height: 87.12px;
-    left: 52px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs5#Spieler7 {
-    width: 60px;
-    height: 87.12px;
-    left: 65px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs6#Spieler7 {
-    width: 60px;
-    height: 87.12px;
-    left: 78px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs7#Spieler7 {
-    width: 60px;
-    height: 87.12px;
-    left: 91px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs8#Spieler7 {
-    width: 60px;
-    height: 87.12px;
-    left: 104px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs9#Spieler7 {
-    width: 60px;
-    height: 87.12px;
-    left: 116px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs10#Spieler7 {
-    width: 60px;
-    height: 87.12px;
-    left: 129px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs11#Spieler7 {
-    width: 60px;
-    height: 87.12px;
-    left: 142px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.Rectangle3#Spieler7 {
-    width: 214px;
-    height: 50px;
-    left: 0px;
-    top: 37px;
-    background: #A0D2FF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) inset;
-    border-radius: 95px;
-    border: 0.50px black solid;
-    position: absolute;
-}
-
-.TextSpieler7#Spieler7 {
-    width: 178px;
-    height: 50px;
-    left: 11px;
-    top: 37px;
-    text-align: center;
-    color: black;
-    font-size: 24px;
-    font-family: Inter;
-    font-weight: 400;
-    word-wrap: break-word;
-    position: absolute;
-}
-
-
-
-
-
-
-/*Spieler6*/
-.Spieler6 {
-    width: 214px;
-    height: 87.12px;
-    left: 77px;
-    top: 433px;
-    position: fixed;
-}
-
-.OfClubs1#Spieler6 {
-    width: 60px;
-    height: 87.12px;
-    left: 13px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs2#Spieler6 {
-    width: 60px;
-    height: 87.12px;
-    left: 26px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs3#Spieler6 {
-    width: 60px;
-    height: 87.12px;
-    left: 39px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs4#Spieler6 {
-    width: 60px;
-    height: 87.12px;
-    left: 52px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs5#Spieler6 {
-    width: 60px;
-    height: 87.12px;
-    left: 65px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs6#Spieler6 {
-    width: 60px;
-    height: 87.12px;
-    left: 78px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs7#Spieler6 {
-    width: 60px;
-    height: 87.12px;
-    left: 91px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs8#Spieler6 {
-    width: 60px;
-    height: 87.12px;
-    left: 104px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs9#Spieler6 {
-    width: 60px;
-    height: 87.12px;
-    left: 116px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs10#Spieler6 {
-    width: 60px;
-    height: 87.12px;
-    left: 129px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs11#Spieler6 {
-    width: 60px;
-    height: 87.12px;
-    left: 142px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.Rectangle4#Spieler6 {
-    width: 214px;
-    height: 50px;
-    left: 0px;
-    top: 37px;
-    position: absolute;
-    background: #A0D2FF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) inset;
-    border-radius: 95px;
-    border: 0.50px black solid;
-}
-
-.TextSpieler6#Spieler6 {
-    width: 178px;
-    height: 50px;
-    left: 18px;
-    top: 37px;
-    position: absolute;
-    text-align: center;
-    color: black;
-    font-size: 24px;
-    font-family: Inter;
-    font-weight: 400;
-    word-wrap: break-word
-}
-
-
-
-
-/*Spieler5*/
-.Spieler5 {
-    width: 214px;
-    height: 87.12px;
-    left: 291px;
-    top: 593px;
-    position: fixed;
-}
-
-.OfClubs1#Spieler5 {
-    width: 60px;
-    height: 87.12px;
-    left: 11px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs2#Spieler5 {
-    width: 60px;
-    height: 87.12px;
-    left: 24px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs3#Spieler5 {
-    width: 60px;
-    height: 87.12px;
-    left: 37px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs4#Spieler5 {
-    width: 60px;
-    height: 87.12px;
-    left: 50px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs5#Spieler5 {
-    width: 60px;
-    height: 87.12px;
-    left: 63px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs6#Spieler5 {
-    width: 60px;
-    height: 87.12px;
-    left: 76px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs7#Spieler5 {
-    width: 60px;
-    height: 87.12px;
-    left: 89px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs8#Spieler5 {
-    width: 60px;
-    height: 87.12px;
-    left: 102px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs9#Spieler5 {
-    width: 60px;
-    height: 87.12px;
-    left: 114px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs10#Spieler5 {
-    width: 60px;
-    height: 87.12px;
-    left: 127px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs11#Spieler5 {
-    width: 60px;
-    height: 87.12px;
-    left: 140px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.Rectangle5#Spieler5 {
-    width: 214px;
-    height: 50px;
-    left: 0px;
-    top: 37px;
-    position: absolute;
-    background: #A0D2FF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) inset;
-    border-radius: 95px;
-    border: 0.50px black solid;
-}
-
-.TextSpieler5#Spieler5 {
-    width: 178px;
-    height: 50px;
-    left: 18px;
-    top: 37px;
-    position: absolute;
-    text-align: center;
-    color: black;
-    font-size: 24px;
-    font-family: Inter;
-    font-weight: 400;
-    word-wrap: break-word
-}
-
-
-
-
-/*Benutzer*/
-.Benutzer {
-    width: 309.50px;
-    height: 126px;
-    left: 579px;
-    top: 617px;
-    position: fixed;
-}
-
-.OfClubs1#Benutzer {
-    width: 86.78px;
-    height: 126px;
-    left: 18.80px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs2#Benutzer {
-    width: 86.78px;
-    height: 126px;
-    left: 37.60px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs3#Benutzer {
-    width: 86.78px;
-    height: 126px;
-    left: 56.41px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs4#Benutzer {
-    width: 86.78px;
-    height: 126px;
-    left: 75.21px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs5#Benutzer {
-    width: 86.78px;
-    height: 126px;
-    left: 94.01px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs6#Benutzer {
-    width: 86.78px;
-    height: 126px;
-    left: 112.81px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs7#Benutzer {
-    width: 86.78px;
-    height: 126px;
-    left: 131.61px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs8#Benutzer {
-    width: 86.78px;
-    height: 126px;
-    left: 150.41px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs9#Benutzer {
-    width: 86.78px;
-    height: 126px;
-    left: 167.77px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs10#Benutzer {
-    width: 86.78px;
-    height: 126px;
-    left: 186.57px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs11#Benutzer {
-    width: 86.78px;
-    height: 126px;
-    left: 205.37px;
-    top: 0px;
-    position: absolute;
-}
+/* +*/
+/* +*/
 
 
-.Rectangle3#Benutzer {
-    width: 309.50px;
-    height: 72.31px;
-    left: 0px;
-    top: 53.51px;
-    position: absolute;
-    background: #349EFF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) inset;
-    border-radius: 95px;
-    border: 0.50px black solid
-}
-
-.TextBenutzer#Benutzer {
-    width: 257.44px;
-    height: 72.31px;
-    left: 26.03px;
-    top: 53.51px;
-    position: absolute;
-    text-align: center;
-    color: black;
-    font-size: 24px;
-    font-family: Inter;
-    font-weight: 400;
-    word-wrap: break-word
-}
-
-
-/**********/
-/*Spieler3*/
-/**********/
-.Spieler3 {
-    width: 214px;
-    height: 87.12px;
-    left: 953px;
-    top: 593px;
-    position: fixed;
-}
-
-.OfClubs1#Spieler3 {
-    width: 60px;
-    height: 87.12px;
-    left: 18px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs2#Spieler3 {
-    width: 60px;
-    height: 87.12px;
-    left: 31px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs3#Spieler3 {
-    width: 60px;
-    height: 87.12px;
-    left: 44px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs4#Spieler3 {
-    width: 60px;
-    height: 87.12px;
-    left: 57px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs5#Spieler3 {
-    width: 60px;
-    height: 87.12px;
-    left: 70px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs6#Spieler3 {
-    width: 60px;
-    height: 87.12px;
-    left: 83px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs7#Spieler3 {
-    width: 60px;
-    height: 87.12px;
-    left: 96px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs8#Spieler3 {
-    width: 60px;
-    height: 87.12px;
-    left: 109px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs9#Spieler3 {
-    width: 60px;
-    height: 87.12px;
-    left: 121px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs10#Spieler3 {
-    width: 60px;
-    height: 87.12px;
-    left: 134px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs11#Spieler3 {
-    width: 60px;
-    height: 87.12px;
-    left: 147px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.Rectangle2#Spieler3 {
-    width: 214px;
-    height: 50px;
-    left: 0px;
-    top: 37px;
-    position: absolute;
-    background: #A0D2FF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) inset;
-    border-radius: 95px;
-    border: 0.50px black solid;
-}
-
-.TextSpieler3#Spieler3 {
-    width: 178px;
-    height: 50px;
-    left: 18px;
-    top: 37px;
-    position: absolute;
-    text-align: center;
-    color: black;
-    font-size: 24px;
-    font-family: Inter;
-    font-weight: 400;
-    word-wrap: break-word
-}
-
-
-
-/**********/
-/*Spieler2*/
-/**********/
-.Spieler2 {
-    width: 214px;
-    height: 87.12px;
-    left: 1149px;
-    top: 433px;
-    position: fixed;
-}
-
-.OfClubs1#Spieler2 {
-    width: 60px;
-    height: 87.12px;
-    left: 20px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs2#Spieler2 {
-    width: 60px;
-    height: 87.12px;
-    left: 33px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs3#Spieler2 {
-    width: 60px;
-    height: 87.12px;
-    left: 46px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs4#Spieler2 {
-    width: 60px;
-    height: 87.12px;
-    left: 59px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs5#Spieler2 {
-    width: 60px;
-    height: 87.12px;
-    left: 72px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs6#Spieler2 {
-    width: 60px;
-    height: 87.12px;
-    left: 85px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs7#Spieler2 {
-    width: 60px;
-    height: 87.12px;
-    left: 98px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs8#Spieler2 {
-    width: 60px;
-    height: 87.12px;
-    left: 111px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs9#Spieler2 {
-    width: 60px;
-    height: 87.12px;
-    left: 123px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs10#Spieler2 {
-    width: 60px;
-    height: 87.12px;
-    left: 136px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs11#Spieler2 {
-    width: 60px;
-    height: 87.12px;
-    left: 149px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.Rectangle2#Spieler2 {
-    width: 214px;
-    height: 50px;
-    left: 0px;
-    top: 37px;
-    position: absolute;
-    background: #A0D2FF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) inset;
-    border-radius: 95px;
-    border: 0.50px black solid
-}
-
-.TextSpieler2#Spieler2 {
-    width: 178px;
-    height: 50px;
-    left: 18px;
-    top: 37px;
-    position: absolute;
-    text-align: center;
-    color: black;
-    font-size: 24px;
-    font-family: Inter;
-    font-weight: 400;
-    word-wrap: break-word
-}
 
-
-
-/**********/
-/*Spieler1*/
-/**********/
-.Spieler1 {
-    width: 214px;
-    height: 87.12px;
-    left: 953px;
-    top: 277px;
-    position: fixed;
-}
-
-.Karten#Spieler1 {
-    width: 189px;
-    height: 87.12px;
-    left: 18px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs1#Spieler1 {
-    width: 60px;
-    height: 87.12px;
-    left: 0px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs2#Spieler1 {
-    width: 60px;
-    height: 87.12px;
-    left: 13px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs3#Spieler1 {
-    width: 60px;
-    height: 87.12px;
-    left: 26px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs4#Spieler1 {
-    width: 60px;
-    height: 87.12px;
-    left: 39px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs5#Spieler1 {
-    width: 60px;
-    height: 87.12px;
-    left: 52px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs6#Spieler1 {
-    width: 60px;
-    height: 87.12px;
-    left: 65px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs7#Spieler1 {
-    width: 60px;
-    height: 87.12px;
-    left: 78px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs8#Spieler1 {
-    width: 60px;
-    height: 87.12px;
-    left: 91px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs9#Spieler1 {
-    width: 60px;
-    height: 87.12px;
-    left: 103px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs10#Spieler1 {
-    width: 60px;
-    height: 87.12px;
-    left: 116px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs11#Spieler1 {
-    width: 60px;
-    height: 87.12px;
-    left: 129px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.Rectangle6#Spieler1 {
-    width: 214px;
-    height: 50px;
-    left: 0px;
-    top: 37px;
-    position: absolute;
-    background: #A0D2FF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) inset;
-    border-radius: 95px;
-    border: 0.50px black solid;
-}
-
-.TextSpieler1#Spieler1 {
-    width: 178px;
-    height: 50px;
-    left: 18px;
-    top: 37px;
-    position: absolute;
-    text-align: center;
-    color: black;
-    font-size: 24px;
-    font-family: Inter;
-    font-weight: 400;
-    word-wrap: break-word;
-}
-
-
-
-
-/**********/
-/*Dealer*/
-/**********/
-.Dealer {
-    width: 214px;
-    height: 87.12px;
-    left: 613px;
-    top: 227px;
-    position: fixed;
-}
-
-
-.OfClubs1#Dealer {
-    width: 60px;
-    height: 87.12px;
-    left: 13px;
-    top: 0px;
-    position: absolute
-}
-
-.OfClubs2#Dealer {
-    width: 60px;
-    height: 87.12px;
-    left: 26px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs3#Dealer {
-    width: 60px;
-    height: 87.12px;
-    left: 39px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs4#Dealer {
-    width: 60px;
-    height: 87.12px;
-    left: 52px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs5#Dealer {
-    width: 60px;
-    height: 87.12px;
-    left: 65px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs6#Dealer {
-    width: 60px;
-    height: 87.12px;
-    left: 78px;
-    top: 0px;
-    position: absolute;
-}
-
-.OfClubs7#Dealer {
-    width: 60px;
-    height: 87.12px;
-    left: 91px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs8#Dealer {
-    width: 60px;
-    height: 87.12px;
-    left: 104px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs9#Dealer {
-    width: 60px;
-    height: 87.12px;
-    left: 116px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs10#Dealer {
-    width: 60px;
-    height: 87.12px;
-    left: 129px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.OfClubs11#Dealer {
-    width: 60px;
-    height: 87.12px;
-    left: 142px;
-    top: 0px;
-    position: absolute;
-}
-
-
-.Rectangle3#Dealer {
-    width: 214px;
-    height: 50px;
-    left: 0px;
-    top: 37px;
-    position: absolute;
-    background: #A0D2FF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) inset;
-    border-radius: 95px;
-    border: 0.50px black solid;
-}
-
-.TextDealer#Dealer {
-    width: 178px;
-    height: 50px;
-    left: 18px;
-    top: 37px;
-    position: absolute;
-    text-align: center;
-    color: black;
-    font-size: 24px;
-    font-family: Inter;
-    font-weight: 400;
-    word-wrap: break-word
-}
