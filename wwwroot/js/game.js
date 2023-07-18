@@ -128,7 +128,7 @@ connection.on("showStartButton", function (args) {
 });
 connection.on("load", function (amount, username, gamecode) {
     try {
-        showStartButton(amount, username);
+        load(amount, username, gamecode);
     } catch (err) {
         console.log(err.message);
     }
@@ -142,6 +142,15 @@ connection.on("console", function (message) {
 });
 //STOP BACKEND EVENTS
 
+
+function showStartButton() {
+    document.getElementById("startbuttons").classList.add("visible");
+}
+
+function disableStartButton() {
+    document.getElementById("startbuttons").classList.remove("visible");
+
+}
 
 function addCardToPlayer(slotID, card) {
     let slot = null;
@@ -224,6 +233,8 @@ connection.on("SetCurrentPlayer", function (args) {
 
 document.getElementById("startButton").addEventListener("click", function (event) {
 
+
+    document.getElementById("startbuttons").classList.remove("visible");
     console.log("Game startet ..." + getCookie("userid"));
         connection
             .invoke("startGame", getCookie("userid"))
@@ -243,16 +254,6 @@ document.getElementById("hitButton").addEventListener("click", function (event) 
         });
 });
 
-document.getElementById("endTurn").addEventListener("click", function (event) {
-
-    console.log("Spieler beendet seinen Zug");
-    connection
-        .invoke("endTurn", getCookie("userid"))
-        .catch(function (err) {
-            return console.error(err.toString());
-        });
-});
-
 document.getElementById("standButton").addEventListener("click", function (event) {
     connection
         .invoke("stand", getCookie("userid"))
@@ -264,12 +265,13 @@ document.getElementById("standButton").addEventListener("click", function (event
 
 
 function disableBet() {
-    document.getElementById("chipsDiv").style.display = "none";
+    Console.log("DISABLED")
+    document.getElementById("chipsDiv").classList.remove("visible");
 }
 
 
 function enableBet() {
-    document.getElementById("chipsDiv").style.display = "flex";
+    document.getElementById("chipsDiv").classList.add("visible");
 }
 
 function setBalance(amount) {    
@@ -303,54 +305,12 @@ function endTurn() {
 
 
 function assignPlayerToSlot(slotid, username) {
-    switch (slotid) {
-        case 0:
-            document.getElementById("spieler1-name").innerHTML = username;
-            break;
-        case 1:
-            document.getElementById("spieler2-name").innerHTML = username;
-            break;
-        case 2:
-            document.getElementById("spieler3-name").innerHTML = username;
-            break;
-        case 3:
-            document.getElementById("spieler4-name").innerHTML = username;
-            break;
-        case 4:
-            document.getElementById("spieler5-name").innerHTML = username;
-            break;
-        case 5:
-            document.getElementById("spieler6-name").innerHTML = username;
-            break;
-        case 6:
-            document.getElementById("spieler7-name").innerHTML = username;
-    }
+    document.getElementById("spieler"+slotid+"-name").innerHTML = username;
 }
 
 
 function unassignPlayer(slotid) {
-    switch (slotid) {
-        case 0:
-            document.getElementById("spieler1-name").innerHTML = "Spieler 1";
-            break;
-        case 1:
-            document.getElementById("spieler2-name").innerHTML = "Spieler 2";
-            break;
-        case 2:
-            document.getElementById("spieler3-name").innerHTML = "Spieler 3";
-            break;
-        case 3:
-            document.getElementById("spieler4-name").innerHTML = "Spieler 4";
-            break;
-        case 4:
-            document.getElementById("spieler5-name").innerHTML = "Spieler 5";
-            break;
-        case 5:
-            document.getElementById("spieler6-name").innerHTML = "Spieler 6";
-            break;
-        case 6:
-            document.getElementById("spieler7-name").innerHTML = "Spieler 7";
-    }
+    document.getElementById("spieler" + slotid + "-name").innerHTML = "";
 }
 
 //Einsatz bei drücken der Chips hochzählen und nur die nutzbaren Chip anzeigen lassen.

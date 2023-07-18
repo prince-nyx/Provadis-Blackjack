@@ -246,9 +246,12 @@
 		<img src="/images/pokerchips/Pokerchip20.png" onclick="setBet(20)" />
 		<img src="/images/pokerchips/Pokerchip25.png" onclick="setBet(25)" />
 	</div>
-	<div id="buttons">
-		<button type="button" class="btn btn-secondary">HIT</button>
-		<button type="button" class="btn btn-secondary">STAND</button>
+	<div id="turnbuttons" class="buttons">
+		<button id="hitButton" type="button" class="btn btn-secondary">HIT</button>
+		<button id="standButton" type="button" class="btn btn-secondary">STAND</button>
+	</div>
+	<div id="startbuttons" class="buttons">
+		<button id="startButton" type="button" class="btn btn-secondary">SPIEL STARTEN</button>
 	</div>
 	<div class="winnerScreen" id="resultScreen">
 		<h1 class="resultHeadline" id="resultHeadline"></h1>
@@ -371,4 +374,3 @@
 
 
 <script src="/js/game.js"></script>
-</body>
