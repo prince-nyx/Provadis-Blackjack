@@ -18,8 +18,10 @@ namespace BlackJack.Hubs
                 player.connectionId = connectionId;
                 foreach(FrontendEvent frontendEvent in player.events)
                 {
-                    Console.WriteLine("[EVENTS] " + frontendEvent.eventName + " bei " + player.username);
-                    await Clients.Client(connectionId).SendAsync("console", frontendEvent.eventName+"("+ string.Join(",", frontendEvent.args) + ")");
+
+                    Console.WriteLine("[BACKEND -> FRONTEND] " + player.ToString() + " gets "+ frontendEvent.ToString());
+                    await Clients.Client(connectionId).SendAsync(frontendEvent.eventName, frontendEvent.args);
+                    await Clients.Client(connectionId).SendAsync("console", frontendEvent.eventName+"("+String.Join(",",frontendEvent.args)+")");
                 }
                 player.events.Clear();
                 await Clients.Client(connectionId).SendAsync("console", "connected als " + player.username);
@@ -40,9 +42,12 @@ namespace BlackJack.Hubs
            
                 Game game = Program.app.gameManager.getGame(player.currentGameId);
                 game.PlayerJoined(player);
-                
-                
-                await Clients.Client(connectionId).SendAsync("console", "Eingeloggt als " + player.username);
+
+                Console.WriteLine("[FRONTEND -> BACKEND] " + player.ToString() +" joined "+game.ToString());
+
+
+                await Clients.Client(connectionId).SendAsync("load", player.wallet, player.username);
+                await Clients.Client(connectionId).SendAsync("console", "Eingeloggt als " + player.username+" mit wallet "+player.wallet);
 
             }
         }
@@ -62,8 +67,14 @@ namespace BlackJack.Hubs
                 {
                     if(game.hostid!= null && game.hostid.Equals(player.id))
                     {
-                        game.startGame();
-                        await Clients.Client(connectionId).SendAsync("console", "Game gestartet");
+                        if (game.phase == GamePhase.WAITING_FOR_PLAYERS)
+                        {
+                            Console.WriteLine("[FRONTEND -> BACKEND] " + player.ToString() + " starts " + game.ToString());
+                            game.startGame();
+                            await Clients.Client(connectionId).SendAsync("console", "Game gestartet");
+                        }
+                        else
+                            await Clients.Client(connectionId).SendAsync("console", "Das Spiel läuft bereits");
                     } else
                     {
                         await Clients.Client(connectionId).SendAsync("console", "Du bist nicht der Host");
@@ -87,6 +98,8 @@ namespace BlackJack.Hubs
                 {
                     if (game.isPlayersTurn(cookie))
                     {
+                        Console.WriteLine("[FRONTEND -> BACKEND] " + player.ToString() + " stands in " + game.ToString());
+                        game.stand();
                         await Clients.Client(connectionId).SendAsync("console", "Spieler möchte keine weitere Karte");
                     }
                     else
@@ -110,6 +123,7 @@ namespace BlackJack.Hubs
                     if (game.isPlayersTurn(cookie))
                     {
                         game.hit();
+                        Console.WriteLine("[FRONTEND -> BACKEND] " + player.ToString() + " hits in " + game.ToString());
                         await Clients.Client(connectionId).SendAsync("console", "Spieler zieht Karte");
                     }
                     else
@@ -132,6 +146,7 @@ namespace BlackJack.Hubs
                 else if (game.phase == GamePhase.BETTING)
                 {
                     player.AddBet(amount);
+                    Console.WriteLine("[FRONTEND -> BACKEND] " + player.ToString() + " set bet "+amount+" in " + game.ToString());
                     await Clients.Client(connectionId).SendAsync("console", "Spieler erhöht seinen Einsatz um " + amount);
                 }
                 else
@@ -154,6 +169,7 @@ namespace BlackJack.Hubs
                 else if (game.phase == GamePhase.BETTING)
                 {
                     game.submitBet(player.id);
+                    Console.WriteLine("[FRONTEND -> BACKEND] " + player.ToString() + " submits bet in " + game.ToString());
                     await Clients.Client(connectionId).SendAsync("console", "Spieler ist mit dem Einsetzen fertig");
                 }
                 else

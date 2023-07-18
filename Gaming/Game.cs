@@ -31,8 +31,8 @@ public class Game
 
     public GamePhase phase { get; set; }
 
-    private int betTime = 20;
-    private int turnTime = 20;
+    private int betTime = 3;
+    private int turnTime = 60;
     
 
 
@@ -198,6 +198,7 @@ public class Game
                 showResult(player, headline, result);
             }
         }
+        phase = GamePhase.WAITING_FOR_PLAYERS;
     }
 
     
@@ -270,6 +271,8 @@ public class Game
         Card card = deck.drawCard();
         player.addCard(card);
         addCardToPlayer(currentSlotsTurn, card.getName());
+        if(player.hand.isLuckySeven() || player.hand.BlackJackSum() > 21)
+            endPlayerTurn(null, null);
     }
     
     public void stand()
@@ -429,12 +432,5 @@ public class Game
         player.registerEvent(new FrontendEvent("showStartButton"));
     }
 
-    //Chipauswahl abrufen un den return Wert aufaddieren
-    public void setBetBackend(string chipName)
-    {
-        int amount = GetChipAmount(chipName);
-
-        totalBet += amount;
-    }
 
 }
