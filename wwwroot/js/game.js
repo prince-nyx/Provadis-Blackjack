@@ -327,6 +327,7 @@ function assignPlayerToSlot(slotid, username) {
     }
 }
 
+
 function unassignPlayer(slotid) {
     switch (slotid) {
         case 0:
