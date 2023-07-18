@@ -305,12 +305,12 @@ function endTurn() {
 
 
 function assignPlayerToSlot(slotid, username) {
-    document.getElementById("spieler"+slotid+"-name").innerHTML = username;
+    document.getElementById("spieler" + slotid + "-name").textContent = username;
 }
 
 
 function unassignPlayer(slotid) {
-    document.getElementById("spieler" + slotid + "-name").innerHTML = "";
+    document.getElementById("spieler" + slotid + "-name").textContent = "";
 }
 
 //Einsatz bei drücken der Chips hochzählen und nur die nutzbaren Chip anzeigen lassen.
