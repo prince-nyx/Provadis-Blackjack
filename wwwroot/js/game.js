@@ -220,3 +220,39 @@ function setBet(amount) {
         return totalBet
     }
 }
+
+
+
+
+
+//setCardSum testen
+/*setCardSum(1, 10);
+const sumElement = document.getElementById('sumPlayer1');
+console.log(sumElement.textContent);
+*/
+
+function setCardSum(slotid, amount) {
+    const sumElement = document.getElementById(`sumPlayer${slotid}`);
+    if (sumElement) {
+        let currentSum = parseInt(sumElement.textContent.trim().split(':')[1]);
+        if (isNaN(currentSum)) {
+            currentSum = 0;
+        }
+        currentSum += amount;
+        sumElement.textContent = `Kartensumme: ${currentSum}`;
+
+        const addedAmountElement = document.getElementById(`addedAmountPlayer${slotid}`);
+        addedAmountElement.textContent = `Höhe der gezogenen Karte: +${amount}`;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -123,40 +123,6 @@ public class Game
 
 
 
-
-
-
-
-
-    public int GetChipAmount(string chipName)
-    {
-        switch (chipName)
-        {
-            case "Pokerchip1.png":
-                return 1;
-            case "Pokerchip5.png":
-                return 5;
-            case "Pokerchip10.png":
-                return 10;
-            case "Pokerchip20.png":
-                return 20;
-            case "Pokerchip25.png":
-                return 25;
-            default:
-                return 0;
-        }
-    }
-
-    //Chipauswahl abrufen un den return Wert aufaddieren
-    public void setBet(string chipName)
-    {
-        Card card = deck.drawCard();
-        //player.addCard(card);
-        //addCardToPlayer(slotid,card.getName()); 
-        
-    }
-
-
     //test
     public void console(String message)
     {
@@ -265,12 +231,6 @@ public class Game
         player.registerEvent(new FrontendEvent("showStartButton"));
     }
 
-    //Chipauswahl abrufen un den return Wert aufaddieren
-    public void setBetBackend(string chipName)
-    {
-        int amount = GetChipAmount(chipName);
 
-        totalBet += amount;
-    }
 
 }
