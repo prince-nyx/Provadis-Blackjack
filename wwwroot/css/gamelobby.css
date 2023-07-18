@@ -138,9 +138,11 @@
     margin-bottom: 20px;
     background-color: rgba(0, 0, 0, 0.5);
     width: 100vw; /* Extend from the left side to the right side of the screen */
+    visibility: hidden;
 }
 
-#buttons {
+.buttons {
+    visibility: hidden;
     position: fixed;
     left: 0;
     bottom: 0;
