@@ -265,7 +265,7 @@ document.getElementById("standButton").addEventListener("click", function (event
 
 
 function disableBet() {
-    Console.log("DISABLED")
+    Console.log("DISABLED");
     document.getElementById("chipsDiv").classList.remove("visible");
 }
 
