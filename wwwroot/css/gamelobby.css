@@ -141,7 +141,7 @@
     visibility: hidden;
 }
 
-#buttons {
+.buttons {
     visibility: hidden;
     position: fixed;
     left: 0;
