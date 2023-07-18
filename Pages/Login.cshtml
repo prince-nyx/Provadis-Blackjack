@@ -7,6 +7,7 @@
 <html>
 <head>
 	<link rel="stylesheet" href="/css/Register.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css" />
 		<style>
 		body {
 			font-family: montserrat, arial, verdana;
@@ -19,12 +20,18 @@
 <body>
 	<form id="msform" method="post">
 		<fieldset>
-			<h2 class="fs-title">Login!</h2>
-			<h3 class="fs-subtitle"></h3>
-			<input asp-for="Username" type="text" id="Username" placeholder="Username" />
-			<input asp-for="Password" type="password" id="pass" placeholder="Password" />
-			<input type="submit" id="next" />
-			<a href="Register">No account yet? Register.</a>
+			<h2 class="fs-title">Login</h2>
+			<div class="inputDiv">
+				<span class="userIcon"></span>
+				<input asp-for="Username" type="text" id="Username" placeholder="Username" />
+			</div>
+			<div class="inputDiv">
+				<span class="passwordIcon"></span>
+				<input asp-for="Password" type="password" id="pass" placeholder="Password" />
+			</div>
+			<input class="submit_btn" value="LOGIN" type="submit" id="next" />
+			<br />
+			<a>No account yet? </a> <a href="Register">Register.</a>
 		</fieldset>
 	</form>
 </body>
