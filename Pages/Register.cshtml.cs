@@ -1,6 +1,12 @@
+using Azure.Identity;
+using BlackJack.Hubs;
+using Microsoft.AspNet.SignalR;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.SignalR;
 using System.Data.SqlClient;
+using System.Numerics;
 using System.Text.RegularExpressions;
+using Microsoft.JSInterop;
 
 namespace BlackJack.Pages
 {
@@ -15,8 +21,9 @@ namespace BlackJack.Pages
         private SqlCommand? cmd;
         private SqlDataReader? reader;
         private readonly SqlDataAdapter? adapter = new SqlDataAdapter();
+        private FrontendEvent frontend;
 
-        public void OnGet()
+		public void OnGet()
         {
             //START ACCESS CHECK
             String userid = Request.Cookies["userid"];
@@ -31,15 +38,18 @@ namespace BlackJack.Pages
             }
             //END ACCESS CHECK
         }
-        public void OnPost()
+        public async void OnPost()
         {
 			this.Username = Request.Form["username"];
 			this.Password = Request.Form["password"];
             this.Cpass = Request.Form["cpass"];
             this.Birth = Convert.ToDateTime(Request.Form["birth"]);
 
-            if(this.IsUserCharValid() && this.IsPassEQCheckPass() && this.IsBirthValid() && this.IsUserNameValid() && this.IsPasswordValid()) { this.CreateNewUser(); }
-            else { Console.WriteLine("Invalid User"); }
+            if (this.IsUserCharValid() && this.IsPassEQCheckPass() && this.IsBirthValid() && this.IsUserNameValid() && this.IsPasswordValid()) { this.CreateNewUser(); }
+            else 
+            {
+                Console.WriteLine("Invalid User");
+            }
         }
 
         private bool IsUserCharValid()
@@ -77,7 +87,7 @@ namespace BlackJack.Pages
 
         private bool IsPasswordValid()
         {
-            return this.Password.Length >= 8 ? true : false;
+			return this.Password.Length >= 8 ? true : false;
         }
 
         private void CreateNewUser()

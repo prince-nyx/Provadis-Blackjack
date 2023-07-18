@@ -280,39 +280,15 @@ public class Game
         endPlayerTurn(null, null);
     }
 
-    public int GetChipAmount(string chipName)
-    {
-        switch (chipName)
-        {
-            case "Pokerchip1.png":
-                return 1;
-            case "Pokerchip5.png":
-                return 5;
-            case "Pokerchip10.png":
-                return 10;
-            case "Pokerchip20.png":
-                return 20;
-            case "Pokerchip25.png":
-                return 25;
-            default:
-                return 0;
-        }
-    }
-
-    //Chipauswahl abrufen und den return Wert aufaddieren
-    public void setBet(string chipName)
-    {
-        Card card = deck.drawCard();
-        //player.addCard(card);
-        //addCardToPlayer(slotid,card.getName()); 
-        
-    }
 
 
-    public Boolean isPlayersTurn(String playerid)
-    {
-        return slots[currentSlotsTurn].Equals(playerid);
-    }
+
+
+
+
+
+
+
 
 
     //test

@@ -1,12 +1,21 @@
 ﻿@page
+@using Microsoft.JSInterop;
+@inject IJSRuntime JS
 @model BlackJack.Pages.RegisterModel
 @{
 	ViewData["Title"] = "21 - Register";
 }
+<script>
+	function test(){
+		console.log("test");
+	}
+</script>
 <!doctype html>
 <html>
 	<head>
 	<link rel="stylesheet" href="~/css/Register.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css"/>
+	<script src="/js/site.js"></script>
 	<style>
 		body {
 			font-family: montserrat, arial, verdana;
@@ -17,16 +26,29 @@
 	</style>
 	</head>
 	<body>
+		
 	<form id="msform" method="post">
 		<fieldset>
-			<h2 class="fs-title">Create your account</h2>
-			<h3 class="fs-subtitle"></h3>
-			<input asp-for="Username" type="text" id="Username" placeholder="Username" />
-			<input asp-for="Password" type="password" id="pass" placeholder="Password" />
-			<input asp-for="Cpass" type="password" id="cpass" placeholder="Confirm Password" />
-			<input asp-for="Birth" type="date" id="birthdate" value="1900-01-01"/>
-			<input type="submit" id="next" onclick="location.href = 'Login';" />
-			<a href="Login">Already have an account? Login.</a>
+			<h2 class="fs-title">Register</h2>
+			<div class="inputDiv">
+				<span class="userIcon"></span>
+				<input asp-for="Username" type="text" id="Username" placeholder="Username" />
+			</div>
+			<div class="inputDiv">
+				<span class="passwordIcon"></span>
+				<input asp-for="Password" type="password" id="pass" placeholder="Password" />
+			</div>
+			<div class="inputDiv">
+				<span class="passwordIcon"></span>
+				<input asp-for="Cpass" type="password" id="cpass" placeholder="Confirm Password" />
+			</div>
+			<div class="inputDiv">
+				<span class="dateIcon"></span>
+				<input asp-for="Birth" type="date" id="birthdate" value="1900-01-01"/>
+			</div>
+			<input type="submit" id="next" class="submit_btn" value="SIGN UP" onclick="location.href = 'Login';" />
+			<br/>
+			<a>Already have an account? </a> <a href="Login">Login.</a>
 		</fieldset>
 	</form>
 	</body>
