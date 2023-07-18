@@ -193,7 +193,7 @@ function endTurn() {
 }
 
 
-function assignPlayerToSlot() {
+function assignPlayerToSlot(slotid, username) {
 
 }
 
