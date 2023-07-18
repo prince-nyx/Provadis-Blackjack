@@ -303,7 +303,54 @@ function endTurn() {
 
 
 function assignPlayerToSlot(slotid, username) {
+    switch (slotid) {
+        case 0:
+            document.getElementById("spieler1-name").innerHTML = username;
+            break;
+        case 1:
+            document.getElementById("spieler2-name").innerHTML = username;
+            break;
+        case 2:
+            document.getElementById("spieler3-name").innerHTML = username;
+            break;
+        case 3:
+            document.getElementById("spieler4-name").innerHTML = username;
+            break;
+        case 4:
+            document.getElementById("spieler5-name").innerHTML = username;
+            break;
+        case 5:
+            document.getElementById("spieler6-name").innerHTML = username;
+            break;
+        case 6:
+            document.getElementById("spieler7-name").innerHTML = username;
+    }
+}
 
+
+function unassignPlayer(slotid) {
+    switch (slotid) {
+        case 0:
+            document.getElementById("spieler1-name").innerHTML = "Spieler 1";
+            break;
+        case 1:
+            document.getElementById("spieler2-name").innerHTML = "Spieler 2";
+            break;
+        case 2:
+            document.getElementById("spieler3-name").innerHTML = "Spieler 3";
+            break;
+        case 3:
+            document.getElementById("spieler4-name").innerHTML = "Spieler 4";
+            break;
+        case 4:
+            document.getElementById("spieler5-name").innerHTML = "Spieler 5";
+            break;
+        case 5:
+            document.getElementById("spieler6-name").innerHTML = "Spieler 6";
+            break;
+        case 6:
+            document.getElementById("spieler7-name").innerHTML = "Spieler 7";
+    }
 }
 
 //Einsatz bei drücken der Chips hochzählen und nur die nutzbaren Chip anzeigen lassen.
@@ -333,3 +380,39 @@ function setBet(amount) {
         return totalBet
     }
 }
+
+
+
+
+
+//setCardSum testen
+/*setCardSum(1, 10);
+const sumElement = document.getElementById('sumPlayer1');
+console.log(sumElement.textContent);
+*/
+
+function setCardSum(slotid, amount) {
+    const sumElement = document.getElementById(`sumPlayer${slotid}`);
+    if (sumElement) {
+        let currentSum = parseInt(sumElement.textContent.trim().split(':')[1]);
+        if (isNaN(currentSum)) {
+            currentSum = 0;
+        }
+        currentSum += amount;
+        sumElement.textContent = `Kartensumme: ${currentSum}`;
+
+        const addedAmountElement = document.getElementById(`addedAmountPlayer${slotid}`);
+        addedAmountElement.textContent = `Höhe der gezogenen Karte: +${amount}`;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
