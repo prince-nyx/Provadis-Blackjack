@@ -298,7 +298,6 @@ function startTurn() {
 
 function endTurn() {
     disableBet();
-
 }
 
 
