@@ -83,7 +83,7 @@ namespace BlackJack.Hubs
             }
         }
 
-/*        public async Task stand(String cookie)
+        public async Task stand(String cookie)
         {
             String connectionId = Context.ConnectionId;
             Player player = Program.app.playerManager.getPlayer(cookie);
@@ -131,7 +131,7 @@ namespace BlackJack.Hubs
                 }
             }
         }
-*/
+
         public async Task setBet(String cookie, int amount)
         {
             String connectionId = Context.ConnectionId;
