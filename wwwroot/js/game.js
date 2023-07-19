@@ -218,6 +218,11 @@ function addCardToPlayer(slotID, card, cardslot) {
         }
     }
     */
+    
+    
+
+
+
 }
 
 function addDealerCard(card, cardslot) {
@@ -407,7 +412,7 @@ function setCardSum(slotid, amount) {
     }
 
 
-    // Target the dealer slot
+/*    // Target the dealer slot
     const dealerSumElement = document.getElementById('sumDealer');
     if (dealerSumElement) {
         let dealerSum = parseInt(dealerSumElement.textContent.trim().split(':')[1]);
@@ -419,7 +424,7 @@ function setCardSum(slotid, amount) {
 
         const dealerAddedAmountElement = document.getElementById('addedAmountDealer');
         dealerAddedAmountElement.textContent = `Höhe der gezogenen Karte: +${amount}`;
-    }
+    }*/
 
     // Target the benutzer slot
     const benutzerSumElement = document.getElementById('sumBenutzer');
