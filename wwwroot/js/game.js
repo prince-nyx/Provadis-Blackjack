@@ -386,3 +386,17 @@ function setCardSum(slotid, amount) {
     }
 }
 
+function markActivePlayer(slotid) {
+    slotid++;
+    if (slotid == 8) {
+        document.getElementById("Dealer").classList.add("onTurn");
+    }
+    else {
+        document.getElementById("Spieler" + slotid).classList.add("onTurn");
+        if (slotid != "1") {
+            slotid--;
+            var prevSlot = document.getElementById("Spieler" + slotid);
+            prevSlot.classList.remove("onTurn");
+        }
+    }
+}
