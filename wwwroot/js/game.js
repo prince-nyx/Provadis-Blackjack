@@ -225,7 +225,7 @@ function addDealerCard(card) {
 
 function showDealerCards(cardname) {
     var cardSlot = document.getElementById("Dealer-Card1");
-    cardSlot.src = "/images/card/"+cardname+".png"";
+    cardSlot.src = "/images/card/"+cardname+".png";
 }
 
 function getCookie(cname) {
