@@ -428,6 +428,9 @@ function setCardSum(slotid, amount) {
     }
 }
 
+
+
+
 function markUserSlot(slotid) {
     slotid++;
     var slot = document.getElementById("Spieler" + slotid +"-container");
