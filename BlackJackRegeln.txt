@@ -1,0 +1,26 @@
+https://teams.microsoft.com/l/meetup-join/19:meeting_MzQxNDQzZTItZjVlZS00NDVhLThhZjEtMWNkZjI3NTBlNThj@thread.v2/0?
+context=%7B%22Tid%22:%224641f0ca-2db0-49ca-a51f-731b61476530%22,%22Oid%22:%228a5c0d1b-822b-40c3-bc1e-09a6949eccfb%22%7D
+
+Black Jack Regeln:
+
+Black Jack ist ein Kartenspiel mit 6 Paketen zu 52 Blatt französischer Spielkarten. 
+Ziel des Spiels ist es, näher an 21 Punkte heranzukommen als der Croupier, ohne dabei den Wert von 21 zu überschreiten (bust).
+
+Karten zählen dabei ihren Augenwert, Bildkarten (Bube, Dame und König) zählen 10 Punkte und das Ass zählt 1 oder 11 Punkte je nachdem wie es für den Spieler am günstigsten ist.
+Als "Black Jack" wird eine Kombination aus einem Ass und einer Karte mit der Wertigkeit 10 bezeichnet. Ein "Black Jack" kann nur mit den ersten beiden Karten des Spielzuges erreicht werden.
+
+Vor Beginn des Spiels platzieren die Spieler ihre Einsätze. Jeder Spieler erhält nun zwei Karten. Der Croupier erhält ebenfalls zwei Karten, von denen die zweite verdeckt liegt.
+Es beginnt der Spieler links des Croupiers. Der Spieler hat die Optionen "Hit" und "Stand". Wählt er "Stand" so ist sein Zug vorbei und er bleibt bei seinem aktuellen Karten. 
+Wählt er "Hit" erhält er eine weitere Karte. Der Spieler kann weitere Karten verlangen, bis er "Stand" wählt oder die 21-Punkte-Marke überschreitet. 
+In diesem Falle verliert der Spieler seine Hand.
+
+Nachdem alle Spieler ihre Hände gespielt haben, deckt der Croupier seine zweite Karte auf und zieht nun so lange Karten, 
+bis er entweder mehr als 16 Punkte hat oder die 21-Punkte-Marke überschritten ist.
+Für den Croupier zählt ein Ass immer als 11 Augen, es sei denn, er würde damit die 21-Punkte-Marke überschreiten.
+
+Im Anschluss an den Croupier werden die Gewinne ausgezahlt:
+-Ein "Black Jack" gewinnt 3:2 (Ausnahme: Der Croupier hat ebenfalls einen "Black Jack", dann erhält der Spieler nur seinen Einsatz zurück)
+-Ein Spieler mit mehr Punkten als der Croupier gewinnt 1:1
+-Bei Gleichstand mit dem Croupier erhält ein Spieler seinen Einsatz zurück.
+-Bei einem "bust" des Croupiers gewinnt jeder noch verbleibende Spieler anhand der oberen Gewinnausschüttung.  
+

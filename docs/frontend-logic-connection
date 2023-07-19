@@ -1,0 +1,6 @@
+Um eine Connection aufzubauen sind folgende Dinge notwendig.:
+
+1. Kopiere im Verzeichnis Hubs die ChatHub.cs und nenne sie um
+2. Registiere nun die neue Hub in der Programm.cs
+3. Kopiere nun die wwwroot/js/chat.js Datei und nenne sie um. Passe die jeweiligen Namen an.
+4. Erstelle eine neue Razorpage und füge dort den Pfad zur js Datei ein.
