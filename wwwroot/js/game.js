@@ -300,7 +300,7 @@ function getCookie(cname) {
 
 document.getElementById("exitPromptBtn").addEventListener("click", function (event) {
 
-    console.log("Spieler " + getCookie("userid") + " drückt Leave");
+    console.log("Spieler " + getCookie("userid") + " verlässt das Spiel");
     connection
         .invoke("leave", getCookie("userid"))
         .catch(function (err) {
