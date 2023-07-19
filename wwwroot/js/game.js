@@ -174,11 +174,6 @@ connection.on("setBalance", function (args) {
 })
 //STOP BACKEND EVENTS
 
-document.querySelector("#close").addEventListener("click", function () {
-    document.querySelector(".rulePopup").style.display = "none";
-});
-
-
 function myConfirmBox(message) {
     let element = document.createElement("div");
     element.classList.add("box-background");
@@ -531,7 +526,14 @@ function resume() {
 
 function openRulePopup() {
     document.querySelector(".rulePopup").style.display = "block";
-    document.getElementById('resumeBtn').disabled = "true";
-    document.getElementById('exitPromptBtn').disabled = "true";
-    document.getElementById('ruleBtn').disabled = "true";
+    document.getElementById('resumeBtn').disabled = true;
+    document.getElementById('exitPromptBtn').disabled = true;
+    document.getElementById('ruleBtn').disabled = true;
+}
+
+function closeMenu() {
+    document.querySelector(".rulePopup").style.display = "none";
+    document.getElementById("resumeBtn").disabled = false;
+    document.getElementById("exitPromptBtn").disabled = false;
+    document.getElementById("ruleBtn").disabled = false;
 }
