@@ -152,7 +152,7 @@ public class Game
     {
 		player.AddBet(amount);
         setBet(getSlotId(player), player.getBet());
-        setbBalance(player, player.wallet);
+		setBalance(player, player.wallet);
 	}
 
     private void endGame()
@@ -208,7 +208,7 @@ public class Game
                 player.hand.clear();
                 player.resetBet();
                 setBet(i, 0);
-                setbBalance(player, player.wallet);
+				setBalance(player, player.wallet);
                 showResult(player, headline, result);
             }
         }
@@ -444,7 +444,7 @@ public class Game
     }
 
     //client
-    public void setbBalance(Player player, double amount)
+    public void setBalance(Player player, double amount)
     {
         player.registerEvent(new FrontendEvent("setbBalance", amount.ToString()));
     }
