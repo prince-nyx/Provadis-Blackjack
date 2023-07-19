@@ -38,7 +38,7 @@ connection.on("gamestarting", function (args) {
 });
 connection.on("addCardToPlayer", function (args) {
     try {
-        addCardToPlayer(args[0], args[1]);
+        addCardToPlayer(args[0], args[1], args[2]);
     } catch (err) {
         console.log("ERROR(addCardToPlayer) " + err.message);
     }
@@ -73,7 +73,7 @@ connection.on("setBet", function (args) {
 });
 connection.on("addDealerCard", function (args) {
     try {
-        addDealerCard(args[0]);
+        addDealerCard(args[0], args[1]);
     } catch (err) {
         console.log("ERROR(addDealerCard) " + err.message);
     }
@@ -135,9 +135,9 @@ connection.on("showStartButton", function (args) {
         console.log("ERROR(showStartButton) " + err.message);
     }
 });
-connection.on("load", function (amount, username, gamecode) {
+connection.on("load", function (args) {
     try {
-        load(amount, username, gamecode);
+        load(args[0], args[1], args[2]);
     } catch (err) {
         console.log("ERROR(load) " + err.message);
     }
@@ -164,6 +164,14 @@ connection.on("markUserSlot", function (args) {
         console.log("ERROR(markUserSlot) " + err.message);
     }
 });
+
+connection.on("setBalance", function (args) {
+    try {
+        setBalance(args[0]);
+    } catch (err) {
+        console.log("ERROR(setBalance) " + err.message);
+    }
+})
 //STOP BACKEND EVENTS
 
 document.querySelector("#close").addEventListener("click", function () {
@@ -229,10 +237,13 @@ function resetCards() {
 }
 
 
-function addCardToPlayer(slotID, card) {
+function addCardToPlayer(slotID, card, cardslot) {
     let cardSlot;
     slotID++;
-
+    cardSlot = document.getElementById("Spieler" + slotID + "-Card" + cardslot);
+    cardSlot.src = `/images/card/${card}.png`;
+    cardSlot.classList.add("visible");
+    /*
     for (let i = 1; i <= 11; i++) {
         cardSlot = document.getElementById("Spieler" + slotID + "-Card" + i);
         if (!cardSlot.classList.contains("visible")) {
@@ -241,11 +252,18 @@ function addCardToPlayer(slotID, card) {
             break;
         }
     }
+    */
 }
 
-function addDealerCard(card) {
+function addDealerCard(card, cardslot) {
     let cardSlot = null;
-    for (let i = 1; i <= 11; i++) {
+    cardSlot = document.getElementById("Dealer-Card" + cardslot);
+    if (cardslot == 1)
+        cardSlot.src = `/images/kartenruecken.png`;
+    else
+        cardSlot.src = `/images/card/${card}.png`;
+    cardSlot.classList.add("visible");
+    /*for (let i = 1; i <= 11; i++) {
         cardSlot = document.getElementById("Dealer-Card" + i);
         if (!cardSlot.classList.contains("visible")) {
             if (i == 1)
@@ -256,6 +274,7 @@ function addDealerCard(card) {
             break;
         }
     }
+    */
 }
 
 function showDealerCards(cardname) {
@@ -281,11 +300,12 @@ function getCookie(cname) {
 
 document.getElementById("startButton").addEventListener("click", function (event) {
     console.log("Game startet ..." + getCookie("userid"));
-        connection
-            .invoke("startGame", getCookie("userid"))
-            .catch(function (err) {
-                return console.error(err.toString());
-            });
+    closeWinnerScreen();
+    connection
+        .invoke("startGame", getCookie("userid"))
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
 });
 
 
@@ -305,7 +325,6 @@ document.getElementById("standButton").addEventListener("click", function (event
         .catch(function (err) {
             return console.error(err.toString());
         });
-
 });
 
 
@@ -326,9 +345,10 @@ function setName(name) {
     document.getElementById("username").innerHTML = "Viel Erfolg " + name;
 }
 
-function load(amount, name) {
+function load(amount, name, gamecode) {
     setBalance(amount);
     setName(name);
+    document.getElementById("code").innerHTML = "Gamecode: "+gamecode;
 }
 
 function showResult(headline, result) {
@@ -352,13 +372,17 @@ function endTurn() {
 function assignPlayerToSlot(slotid, username) {
     slotid++;
     document.getElementById("Spieler" + slotid + "-name").innerHTML = username;
+    document.getElementById("Spieler" + slotid).classList.add("activeSlot");
 }
 
 
 function unassignPlayer(slotid) {
     slotid++;
     document.getElementById("Spieler" + slotid + "-name").innerHTML = "";
+    document.getElementById("Spieler" + slotid).classList.remove("activeSlot");
 }
+
+
 
 //Einsatz bei drücken der Chips hochzählen und nur die nutzbaren Chip anzeigen lassen.
 let playerCurrency = 12;
@@ -366,26 +390,40 @@ let totalBet = 0;
 const totalAmountElement = document.getElementById('totalAmount');
 const chipImages = document.querySelectorAll('.pokerchips img');
 
+
 function hideChipImages() {
     chipImages.forEach(chipImage => {
-        const chipValue = parseInt(chipImage.getAttribute('onclick').match(/\d+/)[0]);
-        if (playerCurrency < chipValue || playerCurrency < totalBet + chipValue) {
-            chipImage.style.display = 'none';
-            chipImage.removeAttribute('onclick');
+        const onclickAttr = chipImage.getAttribute('onclick');
+        if (onclickAttr !== null) {
+            const chipValue = parseInt(onclickAttr.match(/\d+/)[0]);
+            if (playerCurrency < chipValue || playerCurrency < totalBet + chipValue) {
+                chipImage.style.display = 'none';
+                chipImage.removeAttribute('onclick');
+            }
         }
     });
 }
 
+
 hideChipImages();
 
 
-function setBet(amount) {
-    if (playerCurrency >= totalBet + amount) {
-        totalBet += amount;
-        totalAmountElement.textContent = totalBet;
-        hideChipImages();
-        return totalBet
-    }
+function setBet(slotid, amount) {
+
+    slotid++;
+    var totalAmountPlayerElement = document.getElementById("totalAmountPlayer" + slotid);
+
+    totalAmountPlayerElement.textContent = amount;
+}
+
+
+
+function clickChip(amount) {
+    connection
+        .invoke("setBet", getCookie("userid"), amount)
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
 }
 
 
