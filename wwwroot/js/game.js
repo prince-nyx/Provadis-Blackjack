@@ -174,6 +174,36 @@ connection.on("setBalance", function (args) {
 })
 //STOP BACKEND EVENTS
 
+function myConfirmBox(message) {
+    let element = document.createElement("div");
+    element.classList.add("box-background");
+    element.innerHTML = `<div class="box">
+                                    ${message}
+                                    <div>
+                                        <button id="trueButton" class="btn green">Ja</button> <!-- Set Id for both buttons -->
+                                        <button id="falseButton" class="btn red">Abbrechen</button>
+                                    </div>
+                                </div>`;
+    document.body.appendChild(element);
+    return new Promise(function (resolve, reject) {
+        document.getElementById("trueButton").addEventListener("click", function () {
+            resolve(true);
+            document.body.removeChild(element);
+        });
+        document.getElementById("falseButton").addEventListener("click", function () {
+            resolve(false);
+            document.body.removeChild(element);
+        });
+    })
+}
+
+// Using the confirm box
+document.getElementById("exitPromptBtn").addEventListener("click", () => {
+    myConfirmBox("Wollen sie das Spiel wirklich verlassen?").then(response => {
+        console.log(response); // true or false response from the user
+    })
+})
+
 
 function showStartButton() {
     document.getElementById("startbuttons").classList.add("visible");
@@ -218,6 +248,11 @@ function addCardToPlayer(slotID, card, cardslot) {
         }
     }
     */
+    
+    
+
+
+
 }
 
 function addDealerCard(card, cardslot) {
@@ -262,6 +297,17 @@ function getCookie(cname) {
     }
     return "";
 }
+
+document.getElementById("exitPromptBtn").addEventListener("click", function (event) {
+
+    console.log("Spieler " + getCookie("userid") + " verlässt das Spiel");
+    connection
+        .invoke("leave", getCookie("userid"))
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
+});
+
 
 document.getElementById("startButton").addEventListener("click", function (event) {
     console.log("Game startet ..." + getCookie("userid"));
@@ -350,7 +396,7 @@ function unassignPlayer(slotid) {
 
 
 //Einsatz bei drücken der Chips hochzählen und nur die nutzbaren Chip anzeigen lassen.
-let playerCurrency = 12;
+let playerCurrency = 1000;
 let totalBet = 0;
 const totalAmountElement = document.getElementById('totalAmount');
 const chipImages = document.querySelectorAll('.pokerchips img');
@@ -389,6 +435,8 @@ function clickChip(amount) {
         .catch(function (err) {
             return console.error(err.toString());
         });
+
+
 }
 
 
@@ -407,7 +455,7 @@ function setCardSum(slotid, amount) {
     }
 
 
-    // Target the dealer slot
+/*    // Target the dealer slot
     const dealerSumElement = document.getElementById('sumDealer');
     if (dealerSumElement) {
         let dealerSum = parseInt(dealerSumElement.textContent.trim().split(':')[1]);
@@ -419,7 +467,7 @@ function setCardSum(slotid, amount) {
 
         const dealerAddedAmountElement = document.getElementById('addedAmountDealer');
         dealerAddedAmountElement.textContent = `Höhe der gezogenen Karte: +${amount}`;
-    }
+    }*/
 
     // Target the benutzer slot
     const benutzerSumElement = document.getElementById('sumBenutzer');
@@ -435,6 +483,9 @@ function setCardSum(slotid, amount) {
         benutzerAddedAmountElement.textContent = `Höhe der gezogenen Karte: +${amount}`;
     }
 }
+
+
+
 
 function markUserSlot(slotid) {
     slotid++;
@@ -470,4 +521,30 @@ function markActivePlayer(slotid) {
 
 function closeWinnerScreen() {
     document.getElementById("resultScreen").classList.remove("visible");
+}
+
+function openSlidePopup() {
+    document.getElementById('visible').style.top = "0";
+    document.getElementById('visible-block').style.top = "0";
+    document.getElementById('menuBtn').style.visibility = "hidden";
+}
+
+function resume() {
+    document.getElementById('visible').style.top = "-100%";
+    document.getElementById('visible-block').style.top = "-100%";
+    document.getElementById('menuBtn').style.visibility = "visible";
+}
+
+function openRulePopup() {
+    document.querySelector(".rulePopup").style.display = "block";
+    document.getElementById('resumeBtn').disabled = true;
+    document.getElementById('exitPromptBtn').disabled = true;
+    document.getElementById('ruleBtn').disabled = true;
+}
+
+function closeMenu() {
+    document.querySelector(".rulePopup").style.display = "none";
+    document.getElementById("resumeBtn").disabled = false;
+    document.getElementById("exitPromptBtn").disabled = false;
+    document.getElementById("ruleBtn").disabled = false;
 }
