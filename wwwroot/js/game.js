@@ -200,7 +200,12 @@ function myConfirmBox(message) {
 // Using the confirm box
 document.getElementById("exitPromptBtn").addEventListener("click", () => {
     myConfirmBox("Wollen sie das Spiel wirklich verlassen?").then(response => {
-        console.log(response); // true or false response from the user
+        console.log("Spieler " + getCookie("userid") + " verlässt das Spiel");
+        connection
+            .invoke("leave", getCookie("userid"))
+            .catch(function (err) {
+                return console.error(err.toString());
+            });
     })
 })
 
@@ -298,15 +303,14 @@ function getCookie(cname) {
     return "";
 }
 
-document.getElementById("trueButton").addEventListener("click", function (event) {
-
-    console.log("Spieler " + getCookie("userid") + " verlässt das Spiel");
-    connection
-        .invoke("leave", getCookie("userid"))
-        .catch(function (err) {
-            return console.error(err.toString());
-        });
-});
+//document.getElementById("trueButton").addEventListener("click", function (event) {
+//    console.log("Spieler " + getCookie("userid") + " verlässt das Spiel");
+//    connection
+//        .invoke("leave", getCookie("userid"))
+//        .catch(function (err) {
+//            return console.error(err.toString());
+//        });
+//});
 
 
 document.getElementById("startButton").addEventListener("click", function (event) {
