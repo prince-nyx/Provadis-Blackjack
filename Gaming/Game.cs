@@ -33,8 +33,9 @@ public class Game
 
     public GamePhase phase { get; set; }
 
-    private int betTime = 10;
+    private int betTime = 20;
     private int turnTime = 60;
+    private int potLimit = 25;
     
 
 
@@ -52,7 +53,8 @@ public class Game
         currentSlotsTurn = -1;
         phase = GamePhase.WAITING_FOR_PLAYERS;
         timer = new System.Timers.Timer();
-    }
+
+	}
 
 
     public void startGame()
@@ -150,9 +152,20 @@ public class Game
 
     public void playerBets(Player player, int amount)
     {
-		player.AddBet(amount);
-        setBet(getSlotId(player), player.getBet());
-		setBalance(player, player.wallet);
+        if((player.bet + amount) <= potLimit)
+		{
+			player.AddBet(amount);
+			setBet(getSlotId(player), player.getBet());
+			setBalance(player, player.wallet);
+            if(player.bet == potLimit)
+                player.registerEvent(new FrontendEvent("disableBet"));
+		} else
+		{
+			player.registerEvent(new FrontendEvent("console", "Es ist nicht möglich mehr als "+ potLimit+" zu setzen"));
+            player.bet = potLimit;
+			player.registerEvent(new FrontendEvent("disableBet"));
+
+		}
 	}
 
     private void endRound()
@@ -352,17 +365,6 @@ public class Game
     {
         endPlayerTurn(null, null);
     }
-
-
-
-
-
-
-
-
-
-
-
 
     //test
     public void console(String message)
