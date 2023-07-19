@@ -248,6 +248,11 @@ function addCardToPlayer(slotID, card, cardslot) {
         }
     }
     */
+    
+    
+
+
+
 }
 
 function addDealerCard(card, cardslot) {
@@ -380,7 +385,7 @@ function unassignPlayer(slotid) {
 
 
 //Einsatz bei drücken der Chips hochzählen und nur die nutzbaren Chip anzeigen lassen.
-let playerCurrency = 12;
+let playerCurrency = 1000;
 let totalBet = 0;
 const totalAmountElement = document.getElementById('totalAmount');
 const chipImages = document.querySelectorAll('.pokerchips img');
@@ -419,6 +424,8 @@ function clickChip(amount) {
         .catch(function (err) {
             return console.error(err.toString());
         });
+
+
 }
 
 
@@ -437,7 +444,7 @@ function setCardSum(slotid, amount) {
     }
 
 
-    // Target the dealer slot
+/*    // Target the dealer slot
     const dealerSumElement = document.getElementById('sumDealer');
     if (dealerSumElement) {
         let dealerSum = parseInt(dealerSumElement.textContent.trim().split(':')[1]);
@@ -449,7 +456,7 @@ function setCardSum(slotid, amount) {
 
         const dealerAddedAmountElement = document.getElementById('addedAmountDealer');
         dealerAddedAmountElement.textContent = `Höhe der gezogenen Karte: +${amount}`;
-    }
+    }*/
 
     // Target the benutzer slot
     const benutzerSumElement = document.getElementById('sumBenutzer');
@@ -465,6 +472,9 @@ function setCardSum(slotid, amount) {
         benutzerAddedAmountElement.textContent = `Höhe der gezogenen Karte: +${amount}`;
     }
 }
+
+
+
 
 function markUserSlot(slotid) {
     slotid++;
