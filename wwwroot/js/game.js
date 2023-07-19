@@ -28,6 +28,14 @@ setInterval(updateTask, 500);
 
 
 //START BACKEND EVENTS
+connection.on("gamestarting", function (args) {
+    try {
+        resetCards();
+        document.getElementById("startbuttons").classList.remove("visible");
+    } catch (err) {
+        console.log("ERROR(gamestarting) " + err.message);
+    }
+});
 connection.on("addCardToPlayer", function (args) {
     try {
         addCardToPlayer(args[0], args[1]);
@@ -44,7 +52,7 @@ connection.on("setCardSum", function (args) {
 });
 connection.on("assignPlayer", function (args) {
     try {
-        assignPlayer(args[0], args[1]);
+        assignPlayerToSlot(args[0], args[1]);
     } catch (err) {
         console.log("ERROR(assignPlayer) " + err.message);
     }
@@ -153,22 +161,37 @@ function disableStartButton() {
 
 }
 
+function resetCards() {
+    for (let i = 1; i <= 7; i++) {
+        for (let x = 1; x <= 11; x++) {
+            cardSlot = document.getElementById("Spieler" + i + "-Card" + x);
+            cardSlot.src = `/images/kartenruecken.png`;
+        }
+    }
+
+    for (let x = 1; x <= 11; x++) {
+        cardSlot = document.getElementById("Dealer-Card" + x);
+        cardSlot.src = `/images/kartenruecken.png`;
+    }
+}
+
+
 function addCardToPlayer(slotID, card) {
     let slot = null;
     let cardSlot = null;
-
+    var player = `Spieler${slotID + 1}`;
     switch (slotID) {
-        case 4:
-            slot = document.getElementById("Benutzer");
+        case 8:
+            slot = document.getElementById("Dealer");
             break;
         default:
-            slot = document.getElementById(`Spieler${slotID + 1}`);
+            slot = document.getElementById(player);
             break;
     }
 
     for (let i = 1; i <= 11; i++) {
-        cardSlot = slot.getElementsByClassName(`OfClubs${i}`)[0];
-        if (cardSlot.src == "") {
+        cardSlot = document.getElementById(player + "-Card" + i);
+        if (cardSlot.src == "/images/kartenruecken.png") {
             cardSlot.src = `/images/card/${card}.png`;
             break;
         }
@@ -176,21 +199,18 @@ function addCardToPlayer(slotID, card) {
 }
 
 function addDealerCard(card, isHidden) {
-    let slot = document.getElementById("Dealer");
     let cardSlot = null;
-
     for (let i = 1; i <= 11; i++) {
-        cardSlot = slot.getElementsByClassName(`OfClubs${i}`)[0];
-        if (cardSlot.src == "") {
-            if (!isHidden) {
+        cardSlot = document.getElementById("Dealer" + i + "-Card" + i);
+        if (isHidden == "False" && i > 1) {
+            if (cardSlot.src == "/images/kartenruecken.png") {
                 cardSlot.src = `/images/card/${card}.png`;
                 break;
-            }
-            else {
-                cardSlot.src = `/images/design rueckseite.png`;
-                cardSlot.alt = card;
-                break;
-            }
+            } 
+        } else {
+            cardSlot.src = `/images/kartenruecken.png`;
+            cardSlot.alt = card;
+            break;
         }
     }
 }
@@ -216,26 +236,7 @@ function getCookie(cname) {
     return "";
 }
 
-connection.on("SetCardImage", function (args) {
-
-    Console.log("test");
-    var image = document.getElementById("Spieler1_Card_"+args[0]);
-    image.src = "/images/card/" + args[1] +".png";
-
-});
-
-
-connection.on("SetCurrentPlayer", function (args) {
-
-    Console.log(args[0]);
-
-});
-
-
 document.getElementById("startButton").addEventListener("click", function (event) {
-
-
-    document.getElementById("startbuttons").classList.remove("visible");
     console.log("Game startet ..." + getCookie("userid"));
         connection
             .invoke("startGame", getCookie("userid"))
@@ -266,7 +267,6 @@ document.getElementById("standButton").addEventListener("click", function (event
 
 
 function disableBet() {
-    Console.log("DISABLED2");
     document.getElementById("chipsDiv").classList.remove("visible");
 }
 
@@ -286,7 +286,6 @@ function setName(name) {
 function load(amount, name) {
     setBalance(amount);
     setName(name);
-    disableBet();
 }
 
 function showResult(headline, result) {
@@ -296,11 +295,12 @@ function showResult(headline, result) {
 }
 
 function startTurn() {
-    enableBet();
+    document.getElementById("turnButtons").classList.add("visible");
+
 }
 
 function endTurn() {
-    disableBet();
+    document.getElementById("turnButtons").classList.remove("visible");
 }
 
 
