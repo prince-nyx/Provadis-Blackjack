@@ -202,7 +202,8 @@ public class Game
             }
         }
         phase = GamePhase.WAITING_FOR_PLAYERS;
-    }
+        showStartButton(players[hostid]);
+	}
 
     
 
