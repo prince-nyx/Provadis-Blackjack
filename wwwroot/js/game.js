@@ -330,12 +330,14 @@ function endTurn() {
 function assignPlayerToSlot(slotid, username) {
     slotid++;
     document.getElementById("Spieler" + slotid + "-name").innerHTML = username;
+    document.getElementById("Spieler" + slotid).classList.add("activeSlot");
 }
 
 
 function unassignPlayer(slotid) {
     slotid++;
     document.getElementById("Spieler" + slotid + "-name").innerHTML = "";
+    document.getElementById("Spieler" + slotid).classList.remove("activeSlot");
 }
 
 //Einsatz bei drücken der Chips hochzählen und nur die nutzbaren Chip anzeigen lassen.
