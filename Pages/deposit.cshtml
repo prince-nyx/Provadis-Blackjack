@@ -1,0 +1,58 @@
+﻿@page
+@model BlackJack.Pages.DepositModel
+@{
+	ViewData["Title"] = "Deposit";
+}
+<!doctype html>
+<html>
+<head>
+	<link rel="stylesheet" href="~/css/deposit.css">
+	<style>
+		body {
+			font-family: montserrat, arial, verdana;
+			/* Replace "/path/to/your/background-image.jpg" with the actual URL of your background image */
+			background-image: url('/Images/GameLobbyBackground.png');
+			/* Add other background properties like size, position, and repeat if needed */
+		}
+	</style>
+</head>
+<body>
+	<form id="msform" method="post">
+		<fieldset>
+			<h2 class="fs-title">Geld einzahlen</h2>
+			<h3 class="fs-subtitle"></h3>
+			<p>Geben sie hier ihren Betrag, den sie einzahlen möchten an! </p>
+			<input asp-for="depositAmount" type="text" id="depositAmount" value="101" />
+			<input type="submit" id="next" value="Einzahlen" />
+
+		</fieldset>
+
+	</form>
+	<button style="
+   background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+	position: relative;
+    font-size: 16px;
+	margin: 0 42%;
+    cursor: pointer;
+	margin-right: 200px"
+			id="backToOverview" onclick="location.href = 'overview';" value="Zurückkehren">
+		Zurückkehren
+	</button>
+
+	@if (Convert.ToDouble(Model.depositAmount) > 100)
+	{
+		<script>alert("Geben sie eine gültige Zahl an!");</script>
+	}
+	else
+	{
+		<script>alert("Das hat geklappt!");</script>
+	}
+</body>
+
+</html>

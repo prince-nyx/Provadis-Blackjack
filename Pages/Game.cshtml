@@ -33,7 +33,7 @@
 	<div class="row m-5 p-5 ">
 		<div class="col-1"></div>
 		<div class="col-3 mt-3">
-			<div id="Spieler7" class="spieler">
+			<div id="Spieler7-container" class="spieler">
 				<div class="cardcontainer">
 					<div class="image-row">
 						<img id="Spieler7-Card1" src="images/card/ace_of_clubs.png" alt="Card 1" >
@@ -52,13 +52,12 @@
 				<div class="rectangle">
 					<p>Wetteinsatz: <span id="totalAmountPlayer8">0</span></p>
 					<h4 id="Spieler7-name" class="name m-auto">
-						Spieler7
 					</h4>
 				</div>
 			</div>
 		</div>
 		<div class="col-3 mt-2">
-			<div id="Dealer" class="spieler">
+			<div class="spieler">
 				<div class="cardcontainer">
 					<div class="image-row">
 						<img id="Dealer-Card1" src="images/card/ace_of_clubs.png" alt="Card 1" >
@@ -83,7 +82,7 @@
 			</div>
 		</div>
 		<div class="col-3 mt-3">
-			<div id="Spieler1" class="spieler">
+			<div id="Spieler1-container" class="spieler">
 				<div class="cardcontainer">
 					<div class="image-row">
 						<img id="Spieler1-Card1" src="images/card/ace_of_clubs.png" alt="Card 1">
@@ -103,7 +102,6 @@
 				<div class="rectangle">
 					<p>Wetteinsatz: <span id="totalAmountPlayer1">0</span></p>
 					<h4 id="Spieler1-name" class="name m-auto">
-						Spieler1
 					</h4>
 				</div>
 			</div>
@@ -112,7 +110,7 @@
 	</div>
 	<div class="row m-5 p-2">
 		<div class="col-3">
-			<div id="Spieler6" class="spieler">
+			<div id="Spieler6-container"  class="spieler">
 				<div class="cardcontainer">
 					<div class="image-row">
 						<img id="Spieler6-Card1" src="images/card/ace_of_clubs.png" alt="Card 1">
@@ -129,8 +127,8 @@
 					</div>
 				</div>
 
-				<div class="rectangle onTurn">
-					<p>Wetteinsatz: <span id="totalAmountPlayer2">0</span></p>
+				<div class="rectangle">
+					<p>Wetteinsatz: <span id="totalAmount">0</span></p>
 					<h4 id="Spieler2-name" class="name m-auto">
 						Spieler6
 					</h4>
@@ -139,7 +137,7 @@
 		</div>
 		<div class="col-5"></div>
 		<div class="col-3">
-			<div id="Spieler2" class="spieler myPlayer">
+			<div id="Spieler2-container" class="spieler">
 				<div class="cardcontainer">
 					<div class="image-row">
 						<img id="Spieler2-Card1" src="images/card/ace_of_clubs.png" alt="Card 1">
@@ -159,7 +157,6 @@
 				<div class="rectangle">
 					<p>Wetteinsatz: <span id="totalAmountPlayer2">0</span></p>
 					<h4 id="Spieler2-name" class="name m-auto">
-						Spieler2
 					</h4>
 				</div>
 			</div>
@@ -169,7 +166,7 @@
 	<div class="row m-5 p-5">
 		<div class="col-1"></div>
 		<div class="col-3">
-			<div id="Spieler5" class="spieler">
+			<div id="Spieler5-container"  class="spieler">
 				<div class="cardcontainer">
 					<div class="image-row">
 						<img id="Spieler5-Card1" src="images/card/ace_of_clubs.png" alt="Card 1" >
@@ -188,14 +185,13 @@
 				<div class="rectangle">
 					<p>Wetteinsatz: <span id="totalAmountPlayer5">0</span></p>
 					<h4 id="spieler5-name" class="name m-auto">
-						Spieler5
 					</h4>
 				</div>
 			</div>
 		</div>
 		<div class="col-3 mt-4">
-			<div id="Spieler4" class="spieler">
-				<div class="cardcontainer">
+			<div class="spieler">
+				<div id="Spieler4-container" class="cardcontainer">
 					<div class="image-row">
 						<img id="Spieler4-Card1" src="images/card/ace_of_clubs.png" alt="Card 1" >
 						<img id="Spieler4-Card2" src="images/card/2_of_clubs.png" alt="Card 2">
@@ -213,13 +209,12 @@
 				<div class="rectangle">
 					<p>Wetteinsatz: <span id="totalAmountPlayer4">0</span></p>
 					<h4 class="name m-auto">
-						Spieler4
 					</h4>
 				</div>
 			</div>
 		</div>
 		<div class="col-3">
-			<div id="Spieler3" class="spieler">
+			<div id ="Spieler3-container" class="spieler">
 				<div class="cardcontainer">
 					<div class="image-row">
 						<img id="Spieler3-Card1" src="images/card/ace_of_clubs.png" alt="Card 1">
@@ -239,7 +234,6 @@
 				<div class="rectangle">
 					<p>Wetteinsatz: <span class="wetteinsatz" id="totalAmountPlayer3">0</span></p>
 					<h4 id="Spieler3-name" class="name m-auto">
-						Spieler3
 					</h4>
 				</div>
 			</div>
@@ -261,6 +255,7 @@
 		<button id="startButton" type="button" class="btn btn-secondary">SPIEL STARTEN</button>
 	</div>
 	<div class="winnerScreen" id="resultScreen">
+		<a href="#" class="close" id="closeWinnerScreen" onclick="closeWinnerScreen()"></a>
 		<h1 class="resultHeadline" id="resultHeadline"></h1>
 		<h2 class="resultAmount" id="resultAmount"></h2>
 	</div>

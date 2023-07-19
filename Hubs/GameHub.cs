@@ -145,7 +145,7 @@ namespace BlackJack.Hubs
                     await Clients.Client(connectionId).SendAsync("console", "Dieser Spieler ist nicht in diesem Game.");
                 else if (game.phase == GamePhase.BETTING)
                 {
-                    player.AddBet(amount);
+                    game.playerBets(player, amount);
                     Console.WriteLine("[FRONTEND -> BACKEND] " + player.ToString() + " set bet "+amount+" in " + game.ToString());
                     await Clients.Client(connectionId).SendAsync("console", "Spieler erhöht seinen Einsatz um " + amount);
                 }
@@ -155,28 +155,27 @@ namespace BlackJack.Hubs
             }
         }
 
-        public async Task submitBet(String cookie, int amount)
-        {
-            String connectionId = Context.ConnectionId;
-            Player player = Program.app.playerManager.getPlayer(cookie);
-            if (player == null)
-                await Clients.Client(connectionId).SendAsync("console", "Dieser Account ist kein Spieler.");
-            else
-            {
-                Game game = Program.app.gameManager.getGame(player.currentGameId);
-                if (game == null)
-                    await Clients.Client(connectionId).SendAsync("console", "Dieser Spieler ist nicht in diesem Game.");
-                else if (game.phase == GamePhase.BETTING)
-                {
-                    game.submitBet(player.id);
-                    Console.WriteLine("[FRONTEND -> BACKEND] " + player.ToString() + " submits bet in " + game.ToString());
-                    await Clients.Client(connectionId).SendAsync("console", "Spieler ist mit dem Einsetzen fertig");
-                }
-                else
-                    await Clients.Client(connectionId).SendAsync("console", "Derzeit kann man nicht setzen.");
+		public async Task submitBet(String cookie)
+		{
+			String connectionId = Context.ConnectionId;
+			Player player = Program.app.playerManager.getPlayer(cookie);
+			if (player == null)
+				await Clients.Client(connectionId).SendAsync("console", "Dieser Account ist kein Spieler.");
+			else
+			{
+				Game game = Program.app.gameManager.getGame(player.currentGameId);
+				if (game == null)
+					await Clients.Client(connectionId).SendAsync("console", "Dieser Spieler ist nicht in diesem Game.");
+				else if (game.phase == GamePhase.BETTING)
+				{
+					game.submitBet(player);
+					Console.WriteLine("[FRONTEND -> BACKEND] " + player.ToString() + " submits bet in " + game.ToString());
+					await Clients.Client(connectionId).SendAsync("console", "Spieler ist fertig mit setzen");
+				}
+				else
+					await Clients.Client(connectionId).SendAsync("console", "Derzeit kann man nicht setzen.");
 
-            }
-        }
-
-	}
+			}
+		}
+    }
 }

@@ -1,0 +1,48 @@
+Tag 1:
+	
+	Koordination des Teams. 
+	Einigung auf ein Framework.
+	Aufstellen von Fragen an den Kunden
+	Unterteilung in Arbeitsschritte
+	Einigung auf Pull-Prinzip
+	
+	Tim:
+		- Kartenset raussuchen
+		- Regeln verständlich geschrieben
+	Paul:
+		- Page: Login/Regisitieren
+		- Logik: Regisitieren
+	Carsten: 
+		- Page: Startseite
+	Julian:
+		- Erstellung des ER Modells
+		- Implementierung der Datenbank
+		- Design für Logo und Kartenrücken
+	Rico:
+		- Page: Übersicht
+	Lennard:
+		- Page: gamelobby
+		- Logik: Gamelobby
+		
+Tag 2:
+	
+	-
+	
+	Tim:
+		- PoP-UP für die Regeln
+	Paul:
+		- Page: Login/Regisitieren
+		- Logik: Regisitieren
+	Carsten: 
+		- Page: Startseite
+		- Page: gamelobby
+	Julian:
+		- Hilfestellung für Carsten
+	Rico:
+		- Page: Übersicht
+		
+	Lennard:
+		- Page: gamelobby
+		- Logik: Gamelobby
+
+	

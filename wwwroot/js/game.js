@@ -38,7 +38,7 @@ connection.on("gamestarting", function (args) {
 });
 connection.on("addCardToPlayer", function (args) {
     try {
-        addCardToPlayer(args[0], args[1]);
+        addCardToPlayer(args[0], args[1], args[2]);
     } catch (err) {
         console.log("ERROR(addCardToPlayer) " + err.message);
     }
@@ -73,7 +73,7 @@ connection.on("setBet", function (args) {
 });
 connection.on("addDealerCard", function (args) {
     try {
-        addDealerCard(args[0]);
+        addDealerCard(args[0], args[1]);
     } catch (err) {
         console.log("ERROR(addDealerCard) " + err.message);
     }
@@ -95,7 +95,7 @@ connection.on("disableBet", function (args) {
 });
 connection.on("showDealerCards", function (args) {
     try {
-        showDealerCards();
+        showDealerCards(args[0]);
     } catch (err) {
         console.log("ERROR(showDealerCards) "+err.message);
     }
@@ -135,9 +135,9 @@ connection.on("showStartButton", function (args) {
         console.log("ERROR(showStartButton) " + err.message);
     }
 });
-connection.on("load", function (amount, username, gamecode) {
+connection.on("load", function (args) {
     try {
-        load(amount, username, gamecode);
+        load(args[0], args[1], args[2]);
     } catch (err) {
         console.log("ERROR(load) " + err.message);
     }
@@ -147,6 +147,21 @@ connection.on("console", function (message) {
         console.log(message);
     } catch (err) {
         console.log("ERROR(console) " + err.message);
+    }
+});
+connection.on("markActivePlayer", function (args) {
+    try {
+        markActivePlayer(args[0]);
+    } catch (err) {
+        console.log("ERROR(markActivePlayer) " + err.message);
+    }
+});
+
+connection.on("markUserSlot", function (args) {
+    try {
+        markUserSlot(args[0]);
+    } catch (err) {
+        console.log("ERROR(markUserSlot) " + err.message);
     }
 });
 //STOP BACKEND EVENTS
@@ -162,62 +177,66 @@ function disableStartButton() {
 }
 
 function resetCards() {
+    var cardSlot;
     for (let i = 1; i <= 7; i++) {
         for (let x = 1; x <= 11; x++) {
             cardSlot = document.getElementById("Spieler" + i + "-Card" + x);
             cardSlot.src = `/images/kartenruecken.png`;
+            cardSlot.classList.remove("visible");
         }
     }
 
     for (let x = 1; x <= 11; x++) {
         cardSlot = document.getElementById("Dealer-Card" + x);
         cardSlot.src = `/images/kartenruecken.png`;
+        cardSlot.classList.remove("visible");
     }
 }
 
 
-function addCardToPlayer(slotID, card) {
-    let slot = null;
-    let cardSlot = null;
-    var player = `Spieler${slotID + 1}`;
-    switch (slotID) {
-        case 8:
-            slot = document.getElementById("Dealer");
-            break;
-        default:
-            slot = document.getElementById(player);
-            break;
-    }
-
+function addCardToPlayer(slotID, card, cardslot) {
+    let cardSlot;
+    slotID++;
+    cardSlot = document.getElementById("Spieler" + slotID + "-Card" + cardslot);
+    cardSlot.src = `/images/card/${card}.png`;
+    cardSlot.classList.add("visible");
+    /*
     for (let i = 1; i <= 11; i++) {
-        cardSlot = document.getElementById(player + "-Card" + i);
-        if (cardSlot.src == "/images/kartenruecken.png") {
+        cardSlot = document.getElementById("Spieler" + slotID + "-Card" + i);
+        if (!cardSlot.classList.contains("visible")) {
             cardSlot.src = `/images/card/${card}.png`;
+            cardSlot.classList.add("visible");
             break;
         }
     }
+    */
 }
 
-function addDealerCard(card, isHidden) {
+function addDealerCard(card, cardslot) {
     let cardSlot = null;
-    for (let i = 1; i <= 11; i++) {
-        cardSlot = document.getElementById("Dealer" + i + "-Card" + i);
-        if (isHidden == "False" && i > 1) {
-            if (cardSlot.src == "/images/kartenruecken.png") {
+    cardSlot = document.getElementById("Dealer-Card" + cardslot);
+    if (cardslot == 1)
+        cardSlot.src = `/images/kartenruecken.png`;
+    else
+        cardSlot.src = `/images/card/${card}.png`;
+    cardSlot.classList.add("visible");
+    /*for (let i = 1; i <= 11; i++) {
+        cardSlot = document.getElementById("Dealer-Card" + i);
+        if (!cardSlot.classList.contains("visible")) {
+            if (i == 1)
+                cardSlot.src = `/images/kartenruecken.png`;
+            else 
                 cardSlot.src = `/images/card/${card}.png`;
-                break;
-            } 
-        } else {
-            cardSlot.src = `/images/kartenruecken.png`;
-            cardSlot.alt = card;
+            cardSlot.classList.add("visible");
             break;
         }
     }
+    */
 }
 
-function showDealerCards() {
-    let hiddenCard = document.getElementById("Dealer").getElementsByClassName(`OfClubs1`)[0];
-    hiddenCard.src = `/images/card/${hiddenCard.alt}.png`;
+function showDealerCards(cardname) {
+    var cardSlot = document.getElementById("Dealer-Card1");
+    cardSlot.src = "/images/card/"+cardname+".png";
 }
 
 function getCookie(cname) {
@@ -238,11 +257,12 @@ function getCookie(cname) {
 
 document.getElementById("startButton").addEventListener("click", function (event) {
     console.log("Game startet ..." + getCookie("userid"));
-        connection
-            .invoke("startGame", getCookie("userid"))
-            .catch(function (err) {
-                return console.error(err.toString());
-            });
+    closeWinnerScreen();
+    connection
+        .invoke("startGame", getCookie("userid"))
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
 });
 
 
@@ -282,34 +302,41 @@ function setName(name) {
     document.getElementById("username").innerHTML = "Viel Erfolg " + name;
 }
 
-function load(amount, name) {
+function load(amount, name, gamecode) {
     setBalance(amount);
     setName(name);
+    document.getElementById("code").innerHTML = "Gamecode: "+gamecode;
 }
 
 function showResult(headline, result) {
     document.getElementById("resultHeadline").innerHTML = headline;
     document.getElementById("resultAmount").innerHTML = result;
-    document.getElementById("resultScreen").style.visibility = "visible";
+    document.getElementById("resultScreen").classList.add("visible");
+    document.getElementById("Dealer").classList.remove("onTurn");
+
 }
 
 function startTurn() {
-    document.getElementById("turnButtons").classList.add("visible");
+    document.getElementById("turnbuttons").classList.add("visible");
 
 }
 
 function endTurn() {
-    document.getElementById("turnButtons").classList.remove("visible");
+    document.getElementById("turnbuttons").classList.remove("visible");
 }
 
 
 function assignPlayerToSlot(slotid, username) {
-    document.getElementById("spieler" + slotid + "-name").textContent = username;
+    slotid++;
+    document.getElementById("Spieler" + slotid + "-name").innerHTML = username;
+    document.getElementById("Spieler" + slotid).classList.add("activeSlot");
 }
 
 
 function unassignPlayer(slotid) {
-    document.getElementById("spieler" + slotid + "-name").textContent = "";
+    slotid++;
+    document.getElementById("Spieler" + slotid + "-name").innerHTML = "";
+    document.getElementById("Spieler" + slotid).classList.remove("activeSlot");
 }
 
 
@@ -357,10 +384,6 @@ function clickChip(amount) {
 }
 
 
-
-
-//setCardSum('dealer', 3);
-
 function setCardSum(slotid, amount) {
     const sumElement = document.getElementById(`sumPlayer${slotid}`);
     if (sumElement) {
@@ -373,30 +396,70 @@ function setCardSum(slotid, amount) {
 
         const addedAmountElement = document.getElementById(`addedAmountPlayer${slotid}`);
         addedAmountElement.textContent = `Höhe der gezogenen Karte: +${amount}`;
-    } else {
-        // Target the dealer slot
-        const dealerSumElement = document.getElementById('sumDealer');
-        if(dealerSumElement) {
-            let dealerSum = parseInt(dealerSumElement.textContent.trim().split(':')[1]);
-            if (isNaN(dealerSum)) {
-                dealerSum = 0;
-            }
-            dealerSum += amount;
-            dealerSumElement.textContent = `Kartensumme: ${dealerSum}`;
+    }
 
-            const dealerAddedAmountElement = document.getElementById('addedAmountDealer');
-            dealerAddedAmountElement.textContent = `Höhe der gezogenen Karte: +${amount}`;
+
+    // Target the dealer slot
+    const dealerSumElement = document.getElementById('sumDealer');
+    if (dealerSumElement) {
+        let dealerSum = parseInt(dealerSumElement.textContent.trim().split(':')[1]);
+        if (isNaN(dealerSum)) {
+            dealerSum = 0;
         }
+        dealerSum += amount;
+        dealerSumElement.textContent = `Kartensumme: ${dealerSum}`;
+
+        const dealerAddedAmountElement = document.getElementById('addedAmountDealer');
+        dealerAddedAmountElement.textContent = `Höhe der gezogenen Karte: +${amount}`;
+    }
+
+    // Target the benutzer slot
+    const benutzerSumElement = document.getElementById('sumBenutzer');
+    if (benutzerSumElement) {
+        let benutzerSum = parseInt(benutzerSumElement.textContent.trim().split(':')[1]);
+        if (isNaN(benutzerSum)) {
+            benutzerSum = 0;
         }
+        benutzerSum += amount;
+        benutzerSumElement.textContent = `Kartensumme: ${benutzerSum}`;
+
+        const benutzerAddedAmountElement = document.getElementById('addedAmountBenutzer');
+        benutzerAddedAmountElement.textContent = `Höhe der gezogenen Karte: +${amount}`;
+    }
 }
 
+function markUserSlot(slotid) {
+    slotid++;
+    var slot = document.getElementById("Spieler" + slotid +"-container");
+    slot.classList.add("myPlayer");
 
+}
 
+function markActivePlayer(slotid) {
+    for (var i = 1; i <= 7; i++) {
+        var slot = document.getElementById("Spieler" + i);
+        if (slot.classList.contains("onTurn")) {
+            slot.classList.remove("onTurn");
+            console.log("reset Spieler" + i);
+        }
+    }
+    var dealerslot = document.getElementById("Dealer");
+    if (dealerslot.classList.contains("onTurn")) {
+        dealerslot.classList.remove("onTurn");
+    console.log("reset Dealer");
 
+    }
 
+    slotid++;
+    if (slotid == 8) {
+        document.getElementById("Dealer").classList.add("onTurn");
+    }
+    else {
+        console.log("set Spieler" + slotid);
+        document.getElementById("Spieler" + slotid).classList.add("onTurn");
+    }
+}
 
-
-
-
-
-
+function closeWinnerScreen() {
+    document.getElementById("resultScreen").classList.remove("visible");
+}
