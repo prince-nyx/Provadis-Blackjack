@@ -34,6 +34,10 @@
             return games.ContainsKey(gameid);
         }
 
+        public void deleteGame(String gameid)
+        {
+            games.Remove(gameid);
+        }
         public String createGame(String hostid)
         {
             Game game = new Game(hostid);
