@@ -104,7 +104,8 @@ public class Game
         if (currentSlotsTurn >= slots.Length)
         {
             showDealerCards(dealerDeck.getCard(0).getName());
-            DealerThinking();
+			markActivePlayer(7);
+			DealerThinking();
         }
         else if (slots[currentSlotsTurn] != null && players.ContainsKey(slots[currentSlotsTurn]))
         {
