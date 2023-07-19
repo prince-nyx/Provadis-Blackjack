@@ -37,19 +37,23 @@ namespace BlackJack.Hubs
                 await Clients.Client(connectionId).SendAsync("console", "Kein Login vorhanden");
             else
             {
-                player.hub = this;
-                player.connectionId = connectionId;
+                if(player.currentGameId != "")
+                {
+                    player.hub = this;
+                    player.connectionId = connectionId;
            
-                Game game = Program.app.gameManager.getGame(player.currentGameId);
-                game.PlayerJoined(player);
+                    Game game = Program.app.gameManager.getGame(player.currentGameId);
+                    game.PlayerJoined(player);
 
-                Console.WriteLine("[FRONTEND -> BACKEND] " + player.ToString() +" joined "+game.ToString());
+                    Console.WriteLine("[FRONTEND -> BACKEND] " + player.ToString() +" joined "+game.ToString());
 
 
-                await Clients.Client(connectionId).SendAsync("load", player.wallet, player.username);
-                await Clients.Client(connectionId).SendAsync("console", "Eingeloggt als " + player.username+" mit wallet "+player.wallet);
+                    await Clients.Client(connectionId).SendAsync("load", player.wallet, player.username);
+                    await Clients.Client(connectionId).SendAsync("console", "Eingeloggt als " + player.username+" mit wallet "+player.wallet);
+				} else
+				    await Clients.Client(connectionId).SendAsync("console", "Du bist in keinem Spiel");
 
-            }
+			}
         }
 
         public async Task startGame(String cookie)
@@ -145,7 +149,7 @@ namespace BlackJack.Hubs
 					await Clients.Client(connectionId).SendAsync("console", "Dieser Spieler ist nicht in diesem Game.");
 				else
 				{
-                    game.leave(player);
+                    game.PlayerLeaves(player);
 				}
 			}
 		}

@@ -139,7 +139,7 @@ public class Game
         {
             System.Threading.Thread.Sleep(2000);
             if (dealerDeck.BlackJackSum() >= 17)
-                endGame();
+                endRound();
             else
             {
                 DealerDrawsCard();
@@ -155,7 +155,7 @@ public class Game
 		setBalance(player, player.wallet);
 	}
 
-    private void endGame()
+    private void endRound()
     {
         int dealerPoints = dealerDeck.BlackJackSum();
         Boolean dealerBlackJack = dealerDeck.isBlackJack();
@@ -283,7 +283,11 @@ public class Game
         {
             int slotid = getSlotId(player);
             unassignPlayer(slotid);
+            slots[slotid] = null;
+            players.Remove(player.id);
             player.resetBet();
+            player.events.Clear();
+            player.currentGameId = "";
 
             if(player.id.Equals(hostid))
             {
