@@ -1,6 +1,8 @@
 ﻿using BlackJack;
 using BlackJack.Hubs;
+using BlackJack.Pages;
 using Microsoft.AspNet.SignalR.Messaging;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using System;
 using System.Linq;
@@ -67,12 +69,14 @@ public class Game
 
     }
 
-    public void submitBet(String playerid)
+    public void submitBet(Player player)
     {
-        int slotid = Array.IndexOf(slots, playerid);
-        finishedBets[slotid] = true;
-        if (checkBetEnd())
-            startRound(null, null);
+        int slotid = getSlotId(player);
+        if (!finishedBets[slotid]) { 
+            finishedBets[slotid] = true;
+            if (checkBetEnd())
+                startRound(null, null);
+        }
     }
 
     private Boolean checkBetEnd()
@@ -144,6 +148,13 @@ public class Game
         });
     }
 
+    public void playerBets(Player player, int amount)
+    {
+		player.AddBet(amount);
+        setBet(getSlotId(player), player.getBet());
+        setbBalance(player, player.wallet);
+	}
+
     private void endGame()
     {
         int dealerPoints = dealerDeck.BlackJackSum();
@@ -203,6 +214,7 @@ public class Game
         }
         phase = GamePhase.WAITING_FOR_PLAYERS;
         showStartButton(players[hostid]);
+        currentSlotsTurn = -1;
 	}
 
     
@@ -211,7 +223,7 @@ public class Game
     {
         Card card = deck.drawCard();
         dealerDeck.addCard(card);
-        addDealerCard(card.getName());
+        addDealerCard(card);
     }
 
     public void dealCardsToPlayer()
@@ -223,7 +235,7 @@ public class Game
                 Player player = players[slots[i]];
                 Card card = deck.drawCard();
                 player.addCard(card);
-                addCardToPlayer(i, card.getName());
+                addCardToPlayer(i, card);
             }
         }
     }
@@ -247,9 +259,10 @@ public class Game
     {
         if (slots.Contains(player.id))
         {
-            int slotid = Array.IndexOf(slots, player.id);
+            int slotid = getSlotId(player);
             assignPlayer(slotid, player.username);
             markUserSlot(player, slotid);
+            load(player);
             if (player.id.Equals(hostid))
                 showStartButton(player);
             for (int i = 0; i < slots.Length; i++)
@@ -258,6 +271,10 @@ public class Game
         }
     }
 
+    private int getSlotId(Player player)
+    {
+		return Array.IndexOf(slots, player.id);
+	}
     public Boolean isPlayersTurn(String playerid)
     {
         return slots[currentSlotsTurn].Equals(playerid);
@@ -280,7 +297,7 @@ public class Game
         Player player = players[slots[currentSlotsTurn]];
         Card card = deck.drawCard();
         player.addCard(card);
-        addCardToPlayer(currentSlotsTurn, card.getName());
+        addCardToPlayer(currentSlotsTurn, card);
         if(player.hand.isLuckySeven() || player.hand.BlackJackSum() > 21)
             endPlayerTurn(null, null);
     }
@@ -323,11 +340,11 @@ public class Game
 
 
 	//all
-	public void addCardToPlayer(int slotid, String cardname)
+	public void addCardToPlayer(int slotid, Card card)
     {
         foreach (Player player in players.Values)
         {
-            player.registerEvent(new FrontendEvent("addCardToPlayer", slotid.ToString(),  cardname));
+            player.registerEvent(new FrontendEvent("addCardToPlayer", slotid.ToString(), card.getName(), card.position.ToString()));
         }
     }
 
@@ -368,12 +385,15 @@ public class Game
     }
 
     //all
-    public void addDealerCard(String cardname)
+    public void addDealerCard(Card card)
     {
         foreach (Player player in players.Values)
         {
-            player.registerEvent(new FrontendEvent("addDealerCard", cardname));
-        }
+            if(card.position == 1)
+				player.registerEvent(new FrontendEvent("addDealerCard", "", card.position.ToString()));
+			else
+                player.registerEvent(new FrontendEvent("addDealerCard", card.getName(), card.position.ToString()));
+		}
     }
 
     //all
@@ -405,9 +425,14 @@ public class Game
             player.registerEvent(new FrontendEvent("showDealerCards", cardname));
     }
 
-
     //client
-    public void endTurn(Player player, int slotid)
+	public void load(Player player)
+	{
+		player.registerEvent(new FrontendEvent("load", player.wallet.ToString(), player.username, id));
+	}
+
+	//client
+	public void endTurn(Player player, int slotid)
     {
         player.registerEvent(new FrontendEvent("endTurn", slotid.ToString()));
     }
