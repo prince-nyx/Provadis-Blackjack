@@ -413,14 +413,12 @@ function markActivePlayer(slotid) {
             console.log("reset Spieler" + i);
         }
     }
-
     var dealerslot = document.getElementById("Dealer");
     if (dealerslot.classList.contains("onTurn")) {
         dealerslot.classList.remove("onTurn");
     console.log("reset Dealer");
 
     }
-
 
     slotid++;
     if (slotid == 8) {
@@ -430,7 +428,8 @@ function markActivePlayer(slotid) {
         console.log("set Spieler" + slotid);
         document.getElementById("Spieler" + slotid).classList.add("onTurn");
     }
+}
 
-
- 
+function closeWinnerScreen() {
+    document.getElementById("resultScreen").classList.remove("visible");
 }
