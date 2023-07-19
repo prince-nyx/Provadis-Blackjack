@@ -298,6 +298,17 @@ function getCookie(cname) {
     return "";
 }
 
+document.getElementById("exitPromptBtn").addEventListener("click", function (event) {
+
+    console.log("Spieler " + getCookie("userid") + " drückt Leave");
+    connection
+        .invoke("leave", getCookie("userid"))
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
+});
+
+
 document.getElementById("startButton").addEventListener("click", function (event) {
     console.log("Game startet ..." + getCookie("userid"));
     closeWinnerScreen();
