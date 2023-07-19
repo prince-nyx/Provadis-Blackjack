@@ -57,7 +57,7 @@
 
 .image-row .visible {
     animation-name: cardflying;
-    animation-duration: 10s;
+    animation-duration: 1s;
 }
 
 @keyframes cardflying {

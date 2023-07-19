@@ -164,6 +164,14 @@ connection.on("markUserSlot", function (args) {
         console.log("ERROR(markUserSlot) " + err.message);
     }
 });
+
+connection.on("setBalance", function (args) {
+    try {
+        setBalance(args[0]);
+    } catch (err) {
+        console.log("ERROR(setBalance) " + err.message);
+    }
+})
 //STOP BACKEND EVENTS
 
 
