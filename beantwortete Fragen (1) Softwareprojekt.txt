@@ -1,0 +1,18 @@
+DSGVO? Nein
+Anmeldung? Ohne Email und Verifizierung, Eindeutiger Name und IDs, Geburtsdatum muss hinterlegt und überprüft 
+sein
+Endgeräte? Auf allen. :c
+Spielablauf? Höhe Pot:   
+Anmeldung += 100 Euro 
+Max Einsatz = 25 Euro
+Einzahlung = 100 Euro max
+Chat Funktion nicht notwendig
+Zeit pro Zug = Max 20 sek
+
+Profil:
+Name und Passwort, mehr nicht (erstmal)
+Freunde zwischen Nutzern (geht klar, gute Idee, Einladungslinks / Codes, Lobbys) (hinten dran stellen, dauert)
+Bildrechte = Egal, nicht notwendig
+
+Design:
+
