@@ -315,12 +315,14 @@ function endTurn() {
 
 
 function assignPlayerToSlot(slotid, username) {
-    document.getElementById("spieler" + slotid + "-name").textContent = username;
+    slotid++;
+    document.getElementById("Spieler" + slotid + "-name").innerHTML = username;
 }
 
 
 function unassignPlayer(slotid) {
-    document.getElementById("spieler" + slotid + "-name").textContent = "";
+    slotid++;
+    document.getElementById("Spieler" + slotid + "-name").innerHTML = "";
 }
 
 //Einsatz bei drücken der Chips hochzählen und nur die nutzbaren Chip anzeigen lassen.
@@ -396,21 +398,34 @@ function setCardSum(slotid, amount) {
     }
 }
 
+function markUserSlot(slotid) {
+    slotid++;
+    var slot = document.getElementById("Spieler" + slotid +"-container");
+    slot.classList.add("myPlayer");
+
+}
+
 function markActivePlayer(slotid) {
     for (var i = 1; i <= 7; i++) {
-        var slot = document.getElementById("Spieler" + slotid);
-        if (slot.classList.contains("onTurn"))
-            slot.remove("onTurn");
+        var slot = document.getElementById("Spieler" + i);
+        if (slot.classList.contains("onTurn")) {
+            slot.classList.remove("onTurn");
+            console.log("reset Spieler" + i);
+        }
     }
     var dealerslot = document.getElementById("Dealer");
-    if (dealerslot.classList.contains("onTurn"))
-        dealerslot.remove("onTurn");
+    if (dealerslot.classList.contains("onTurn")) {
+        dealerslot.classList.remove("onTurn");
+    console.log("reset Dealer");
+
+    }
 
     slotid++;
     if (slotid == 8) {
         document.getElementById("Dealer").classList.add("onTurn");
     }
     else {
+        console.log("set Spieler" + slotid);
         document.getElementById("Spieler" + slotid).classList.add("onTurn");
     }
 }

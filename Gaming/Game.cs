@@ -438,7 +438,7 @@ public class Game
 	//client
 	public void markUserSlot(Player player, int slotid)
 	{
-		player.registerEvent(new FrontendEvent("showStartButton", slotid.ToString()));
+		player.registerEvent(new FrontendEvent("markUserSlot", slotid.ToString()));
 	}
 
 
