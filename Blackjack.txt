@@ -1,0 +1,44 @@
+Registierung:
+- DSGVO konform? -> nö
+- Wie soll man sich anmelden?
+	- Email oder Nutzername
+	-> Nutzername und Passwort reicht und Alter
+- Altersverifizierung?
+
+Endgeräte:
+- welche endgeräte sollen auf die Anwendung zugreifen?
+	-> auf allen
+
+Spielaufbau:
+- Startguthaben?
+	-> 100 Euro
+- Kein Geld mehr, was dann?
+	-> Konto aufhalten mit Adminoberfläche
+- Pot Limit?
+	-> konfigurabel aber 25 Euro
+- Chat während des Spiels
+	-> kein Chat
+- Zeit für Spielzug
+	-> 20 sek konfigurabel
+- Zeit für den Einsatz
+	-> 20 sek konfigurabel
+
+Profil: -> kein profil
+- Chat mit Freunden
+	-> später
+- Freundesliste
+	-> später
+- Welche Informationen soll der Spieler angeben können?
+	-> keine
+	
+- Wie soll die Lobby aufgebaut sein?
+	- private Spiele
+		-> später
+	- öffentliche Spiele
+		-> mit Code
+	
+Bildrechte?
+-> kein
+Wie aufwendig sollen die Animantionen werden?
+
+Karten auf der Rückseite müssen ein Provadis Logo haben (gutaussehend, nicht zu groß usw)
