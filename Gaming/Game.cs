@@ -31,7 +31,7 @@ public class Game
 
     public GamePhase phase { get; set; }
 
-    private int betTime = 60;
+    private int betTime = 10;
     private int turnTime = 60;
     
 
@@ -91,9 +91,9 @@ public class Game
         timer.Stop();
         disableBet();
         phase = GamePhase.PLAYING;
-        DealerDrawsCard(true);
+        DealerDrawsCard();
         dealCardsToPlayer();
-        DealerDrawsCard(false);
+        DealerDrawsCard();
         dealCardsToPlayer();
         nextPlayerTurn();
     }
@@ -108,6 +108,7 @@ public class Game
         }
         else if (slots[currentSlotsTurn] != null && players.ContainsKey(slots[currentSlotsTurn]))
         {
+            markActivePlayer(currentSlotsTurn);
             startTurn(players[slots[currentSlotsTurn]], turnTime);
 
             timer = new System.Timers.Timer(turnTime* 1000);
@@ -136,7 +137,7 @@ public class Game
                 endGame();
             else
             {
-                DealerDrawsCard(false);
+                DealerDrawsCard();
                 DealerThinking();
             }
         });
@@ -204,11 +205,11 @@ public class Game
 
     
 
-    private void DealerDrawsCard(Boolean hidden)
+    private void DealerDrawsCard()
     {
         Card card = deck.drawCard();
         dealerDeck.addCard(card);
-        addDealerCard(card.getName(), hidden);
+        addDealerCard(card.getName());
     }
 
     public void dealCardsToPlayer()
@@ -246,6 +247,7 @@ public class Game
         {
             int slotid = Array.IndexOf(slots, player.id);
             assignPlayer(slotid, player.username);
+            markUserSlot(player, slotid);
             if (player.id.Equals(hostid))
                 showStartButton(player);
             for (int i = 0; i < slots.Length; i++)
@@ -364,11 +366,11 @@ public class Game
     }
 
     //all
-    public void addDealerCard(String cardname, Boolean hidden)
+    public void addDealerCard(String cardname)
     {
         foreach (Player player in players.Values)
         {
-            player.registerEvent(new FrontendEvent("addDealerCard", cardname, hidden.ToString()));
+            player.registerEvent(new FrontendEvent("addDealerCard", cardname));
         }
     }
 
@@ -384,10 +386,18 @@ public class Game
     {
         foreach (Player player in players.Values)
             player.registerEvent(new FrontendEvent("disableBet"));
-    }
-
+	}
+    
     //all
-    public void showDealerCards(String cardname)
+	public void markActivePlayer(int slotid)
+	{
+		foreach (Player player in players.Values)
+			player.registerEvent(new FrontendEvent("markActivePlayer", slotid.ToString()));
+	}
+
+
+	//all
+	public void showDealerCards(String cardname)
     {
         foreach (Player player in players.Values)
             player.registerEvent(new FrontendEvent("showDealerCards", cardname));
@@ -424,6 +434,11 @@ public class Game
     {
         player.registerEvent(new FrontendEvent("showStartButton"));
     }
+	//client
+	public void markUserSlot(Player player, int slotid)
+	{
+		player.registerEvent(new FrontendEvent("showStartButton", slotid.ToString()));
+	}
 
 
 }

@@ -95,7 +95,7 @@ connection.on("disableBet", function (args) {
 });
 connection.on("showDealerCards", function (args) {
     try {
-        showDealerCards();
+        showDealerCards(args[0]);
     } catch (err) {
         console.log("ERROR(showDealerCards) "+err.message);
     }
@@ -149,6 +149,21 @@ connection.on("console", function (message) {
         console.log("ERROR(console) " + err.message);
     }
 });
+connection.on("markActivePlayer", function (args) {
+    try {
+        markActivePlayer(args[0]);
+    } catch (err) {
+        console.log("ERROR(markActivePlayer) " + err.message);
+    }
+});
+
+connection.on("markUserSlot", function (args) {
+    try {
+        markUserSlot(args[0]);
+    } catch (err) {
+        console.log("ERROR(markUserSlot) " + err.message);
+    }
+});
 //STOP BACKEND EVENTS
 
 
@@ -162,62 +177,55 @@ function disableStartButton() {
 }
 
 function resetCards() {
+    var cardSlot;
     for (let i = 1; i <= 7; i++) {
         for (let x = 1; x <= 11; x++) {
             cardSlot = document.getElementById("Spieler" + i + "-Card" + x);
             cardSlot.src = `/images/kartenruecken.png`;
+            cardSlot.classList.remove("visible");
         }
     }
 
     for (let x = 1; x <= 11; x++) {
         cardSlot = document.getElementById("Dealer-Card" + x);
         cardSlot.src = `/images/kartenruecken.png`;
+        cardSlot.classList.remove("visible");
     }
 }
 
 
 function addCardToPlayer(slotID, card) {
-    let slot = null;
-    let cardSlot = null;
-    var player = `Spieler${slotID + 1}`;
-    switch (slotID) {
-        case 8:
-            slot = document.getElementById("Dealer");
-            break;
-        default:
-            slot = document.getElementById(player);
-            break;
-    }
+    let cardSlot;
+    slotID++;
 
     for (let i = 1; i <= 11; i++) {
-        cardSlot = document.getElementById(player + "-Card" + i);
-        if (cardSlot.src == "/images/kartenruecken.png") {
+        cardSlot = document.getElementById("Spieler" + slotID + "-Card" + i);
+        if (!cardSlot.classList.contains("visible")) {
             cardSlot.src = `/images/card/${card}.png`;
+            cardSlot.classList.add("visible");
             break;
         }
     }
 }
 
-function addDealerCard(card, isHidden) {
+function addDealerCard(card) {
     let cardSlot = null;
     for (let i = 1; i <= 11; i++) {
-        cardSlot = document.getElementById("Dealer" + i + "-Card" + i);
-        if (isHidden == "False" && i > 1) {
-            if (cardSlot.src == "/images/kartenruecken.png") {
+        cardSlot = document.getElementById("Dealer-Card" + i);
+        if (!cardSlot.classList.contains("visible")) {
+            if (i == 1)
+                cardSlot.src = `/images/kartenruecken.png`;
+            else 
                 cardSlot.src = `/images/card/${card}.png`;
-                break;
-            } 
-        } else {
-            cardSlot.src = `/images/kartenruecken.png`;
-            cardSlot.alt = card;
+            cardSlot.classList.add("visible");
             break;
         }
     }
 }
 
-function showDealerCards() {
-    let hiddenCard = document.getElementById("Dealer").getElementsByClassName(`OfClubs1`)[0];
-    hiddenCard.src = `/images/card/${hiddenCard.alt}.png`;
+function showDealerCards(cardname) {
+    var cardSlot = document.getElementById("Dealer-Card1");
+    cardSlot.src = "/images/card/"+cardname+".png"";
 }
 
 function getCookie(cname) {
@@ -291,16 +299,18 @@ function load(amount, name) {
 function showResult(headline, result) {
     document.getElementById("resultHeadline").innerHTML = headline;
     document.getElementById("resultAmount").innerHTML = result;
-    document.getElementById("resultScreen").style.visibility = "visible";
+    document.getElementById("resultScreen").classlist.add("visible");
+    document.getElementById("Dealer").classlist.remove("onTurn");
+
 }
 
 function startTurn() {
-    document.getElementById("turnButtons").classList.add("visible");
+    document.getElementById("turnbuttons").classList.add("visible");
 
 }
 
 function endTurn() {
-    document.getElementById("turnButtons").classList.remove("visible");
+    document.getElementById("turnbuttons").classList.remove("visible");
 }
 
 
