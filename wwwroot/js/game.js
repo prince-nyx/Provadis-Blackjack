@@ -299,8 +299,8 @@ function load(amount, name) {
 function showResult(headline, result) {
     document.getElementById("resultHeadline").innerHTML = headline;
     document.getElementById("resultAmount").innerHTML = result;
-    document.getElementById("resultScreen").classlist.add("visible");
-    document.getElementById("Dealer").classlist.remove("onTurn");
+    document.getElementById("resultScreen").classList.add("visible");
+    document.getElementById("Dealer").classList.remove("onTurn");
 
 }
 
