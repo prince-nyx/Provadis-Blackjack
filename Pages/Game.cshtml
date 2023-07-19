@@ -50,7 +50,7 @@
 					</div>
 				</div>
 				<div class="rectangle">
-					<p>Wetteinsatz: <span id="totalAmount">0</span></p>
+					<p>Wetteinsatz: <span id="totalAmountPlayer8">0</span></p>
 					<h4 id="Spieler7-name" class="name m-auto">
 						Spieler7
 					</h4>
@@ -75,7 +75,7 @@
 					</div>
 				</div>
 				<div class="rectangle">
-					<p>Wetteinsatz: <span id="totalAmount">0</span></p>
+					<p>Wetteinsatz: <span id="totalAmountPlayerDealer">0</span></p>
 					<h2 class="m-auto">
 						Dealer
 					</h2>
@@ -101,7 +101,7 @@
 				</div>
 
 				<div class="rectangle">
-					<p>Wetteinsatz: <span id="totalAmount">0</span></p>
+					<p>Wetteinsatz: <span id="totalAmountPlayer1">0</span></p>
 					<h4 id="Spieler1-name" class="name m-auto">
 						Spieler1
 					</h4>
@@ -130,7 +130,7 @@
 				</div>
 
 				<div class="rectangle onTurn">
-					<p>Wetteinsatz: <span id="totalAmount">0</span></p>
+					<p>Wetteinsatz: <span id="totalAmountPlayer2">0</span></p>
 					<h4 id="Spieler2-name" class="name m-auto">
 						Spieler6
 					</h4>
@@ -157,7 +157,7 @@
 				</div>
 
 				<div class="rectangle">
-					<p>Wetteinsatz: <span id="totalAmount">0</span></p>
+					<p>Wetteinsatz: <span id="totalAmountPlayer2">0</span></p>
 					<h4 id="Spieler2-name" class="name m-auto">
 						Spieler2
 					</h4>
@@ -186,7 +186,7 @@
 					</div>
 				</div>
 				<div class="rectangle">
-					<p>Wetteinsatz: <span id="totalAmount">0</span></p>
+					<p>Wetteinsatz: <span id="totalAmountPlayer5">0</span></p>
 					<h4 id="spieler5-name" class="name m-auto">
 						Spieler5
 					</h4>
@@ -211,7 +211,7 @@
 					</div>
 				</div>
 				<div class="rectangle">
-					<p>Wetteinsatz: <span id="totalAmount">0</span></p>
+					<p>Wetteinsatz: <span id="totalAmountPlayer4">0</span></p>
 					<h4 class="name m-auto">
 						Spieler4
 					</h4>
@@ -237,7 +237,7 @@
 				</div>
 
 				<div class="rectangle">
-					<p>Wetteinsatz: <span id="totalAmount">0</span></p>
+					<p>Wetteinsatz: <span class="wetteinsatz" id="totalAmountPlayer3">0</span></p>
 					<h4 id="Spieler3-name" class="name m-auto">
 						Spieler3
 					</h4>
@@ -247,11 +247,11 @@
 		<div class="col-1"></div>
 	</div>
 	<div class="pokerchips" id="chipsDiv">
-		<img src="/images/pokerchips/Pokerchip1.png" onclick="setBet(1)" />
-		<img src="/images/pokerchips/Pokerchip5.png" onclick="setBet(5)" />
-		<img src="/images/pokerchips/Pokerchip10.png" onclick="setBet(10)" />
-		<img src="/images/pokerchips/Pokerchip20.png" onclick="setBet(20)" />
-		<img src="/images/pokerchips/Pokerchip25.png" onclick="setBet(25)" />
+		<img src="/images/pokerchips/Pokerchip1.png" onclick="clickChip(1)" />
+		<img src="/images/pokerchips/Pokerchip5.png" onclick="clickChip(5)" />
+		<img src="/images/pokerchips/Pokerchip10.png" onclick="clickChip(10)" />
+		<img src="/images/pokerchips/Pokerchip20.png" onclick="clickChip(20)" />
+		<img src="/images/pokerchips/Pokerchip25.png" onclick="clickChip(25)" />
 	</div>
 	<div id="turnbuttons" class="buttons">
 		<button id="hitButton" type="button" class="btn btn-secondary">HIT</button>
@@ -266,7 +266,8 @@
 	</div>
 
     
-	
+	<p style="color: white">Wetteinsatz: <span id="totalAmountPlayer">0</span></p>
+
 
 
 <div class="angabeKartenwert">
@@ -320,11 +321,11 @@
 </div>
 
 <!-- Nur zum testen.-->
-<style>
+@*<style>
         .angabeKartenwert{
             color:white; 
         }
-</style>
+</style>*@
 
 
 <script src="/js/game.js"></script>

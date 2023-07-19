@@ -83,7 +83,7 @@ namespace BlackJack.Hubs
             }
         }
 
-/*        public async Task stand(String cookie)
+        public async Task stand(String cookie)
         {
             String connectionId = Context.ConnectionId;
             Player player = Program.app.playerManager.getPlayer(cookie);
@@ -130,7 +130,7 @@ namespace BlackJack.Hubs
                         await Clients.Client(connectionId).SendAsync("console", "Spieler ist nicht dran");
                 }
             }
-        }*/
+        }
 
         public async Task setBet(String cookie, int amount)
         {
@@ -177,6 +177,6 @@ namespace BlackJack.Hubs
 
             }
         }
-        
-    }
+
+	}
 }

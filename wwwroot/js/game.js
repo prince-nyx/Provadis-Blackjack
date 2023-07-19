@@ -262,7 +262,6 @@ document.getElementById("standButton").addEventListener("click", function (event
         .catch(function (err) {
             return console.error(err.toString());
         });
-
 });
 
 
@@ -313,39 +312,54 @@ function unassignPlayer(slotid) {
     document.getElementById("spieler" + slotid + "-name").textContent = "";
 }
 
+
+
 //Einsatz bei drücken der Chips hochzählen und nur die nutzbaren Chip anzeigen lassen.
 let playerCurrency = 12;
 let totalBet = 0;
 const totalAmountElement = document.getElementById('totalAmount');
 const chipImages = document.querySelectorAll('.pokerchips img');
 
+
 function hideChipImages() {
     chipImages.forEach(chipImage => {
-        const chipValue = parseInt(chipImage.getAttribute('onclick').match(/\d+/)[0]);
-        if (playerCurrency < chipValue || playerCurrency < totalBet + chipValue) {
-            chipImage.style.display = 'none';
-            chipImage.removeAttribute('onclick');
+        const onclickAttr = chipImage.getAttribute('onclick');
+        if (onclickAttr !== null) {
+            const chipValue = parseInt(onclickAttr.match(/\d+/)[0]);
+            if (playerCurrency < chipValue || playerCurrency < totalBet + chipValue) {
+                chipImage.style.display = 'none';
+                chipImage.removeAttribute('onclick');
+            }
         }
     });
 }
 
+
 hideChipImages();
 
 
-function setBet(amount) {
-    if (playerCurrency >= totalBet + amount) {
-        totalBet += amount;
-        totalAmountElement.textContent = totalBet;
-        hideChipImages();
-        return totalBet
-    }
+function setBet(slotid, amount) {
+
+    slotid++;
+    var totalAmountPlayerElement = document.getElementById("totalAmountPlayer" + slotid);
+
+    totalAmountPlayerElement.textContent = amount;
+}
+
+
+
+function clickChip(amount) {
+    connection
+        .invoke("setBet", getCookie("userid"), amount)
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
 }
 
 
 
 
 //setCardSum('dealer', 3);
-
 
 function setCardSum(slotid, amount) {
     const sumElement = document.getElementById(`sumPlayer${slotid}`);

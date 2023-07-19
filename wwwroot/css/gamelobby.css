@@ -170,8 +170,15 @@
 }
 
 
-/* +*/
-/* +*/
+.angabeKartenwert {
+    color: white;
+}
+
+
+.wetteinsatz {
+    color: green;
+    font: bold;
+}
 
 
 
