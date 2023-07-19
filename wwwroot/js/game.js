@@ -387,16 +387,25 @@ function setCardSum(slotid, amount) {
 }
 
 function markActivePlayer(slotid) {
+    for (var i = 1; i <= 7; i++) {
+        var slot = document.getElementById("Spieler" + slotid);
+        if (slot.classList.contains("onTurn"))
+            slot.remove("onTurn");
+    }
+
+    var dealerslot = document.getElementById("Dealer");
+    if (dealerslot.classList.contains("onTurn"))
+        dealerslot.remove("onTurn");
+
+
     slotid++;
     if (slotid == 8) {
         document.getElementById("Dealer").classList.add("onTurn");
     }
     else {
         document.getElementById("Spieler" + slotid).classList.add("onTurn");
-        if (slotid != "1") {
-            slotid--;
-            var prevSlot = document.getElementById("Spieler" + slotid);
-            prevSlot.classList.remove("onTurn");
-        }
     }
+
+
+ 
 }
