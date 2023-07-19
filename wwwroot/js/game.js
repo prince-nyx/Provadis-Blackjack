@@ -174,6 +174,41 @@ connection.on("setBalance", function (args) {
 })
 //STOP BACKEND EVENTS
 
+document.querySelector("#close").addEventListener("click", function () {
+    document.querySelector(".rulePopup").style.display = "none";
+});
+
+
+function myConfirmBox(message) {
+    let element = document.createElement("div");
+    element.classList.add("box-background");
+    element.innerHTML = `<div class="box">
+                                    ${message}
+                                    <div>
+                                        <button id="trueButton" class="btn green">Ja</button> <!-- Set Id for both buttons -->
+                                        <button id="falseButton" class="btn red">Abbrechen</button>
+                                    </div>
+                                </div>`;
+    document.body.appendChild(element);
+    return new Promise(function (resolve, reject) {
+        document.getElementById("trueButton").addEventListener("click", function () {
+            resolve(true);
+            document.body.removeChild(element);
+        });
+        document.getElementById("falseButton").addEventListener("click", function () {
+            resolve(false);
+            document.body.removeChild(element);
+        });
+    })
+}
+
+// Using the confirm box
+document.getElementById("exitPromptBtn").addEventListener("click", () => {
+    myConfirmBox("Wollen sie das Spiel wirklich verlassen?").then(response => {
+        console.log(response); // true or false response from the user
+    })
+})
+
 
 function showStartButton() {
     document.getElementById("startbuttons").classList.add("visible");
@@ -478,4 +513,23 @@ function markActivePlayer(slotid) {
 
 function closeWinnerScreen() {
     document.getElementById("resultScreen").classList.remove("visible");
+}
+
+function openSlidePopup() {
+    document.getElementById('visible').style.top = "0";
+    document.getElementById('visible-block').style.top = "0";
+    document.getElementById('menuBtn').style.visibility = "hidden";
+}
+
+function resume() {
+    document.getElementById('visible').style.top = "-100%";
+    document.getElementById('visible-block').style.top = "-100%";
+    document.getElementById('menuBtn').style.visibility = "visible";
+}
+
+function openRulePopup() {
+    document.querySelector(".rulePopup").style.display = "block";
+    document.getElementById('resumeBtn').disabled = "true";
+    document.getElementById('exitPromptBtn').disabled = "true";
+    document.getElementById('ruleBtn').disabled = "true";
 }

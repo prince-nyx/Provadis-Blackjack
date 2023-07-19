@@ -262,6 +262,51 @@
 		<h2 class="resultAmount" id="resultAmount"></h2>
 	</div>
 
+	<button class="menuBtn" onclick="openSlidePopup()" id="menuBtn">
+		<img src="/images/icons/menu-2.png" class="menuicons"/>
+	</button>
+	<div class="slidePopup" id="visible-block">
+        <div class="overlay"></div>
+        <div class="settings" id="visible">
+            <button id="resumeBtn" class="resumeBtn" onclick="resume()">
+				<img src="/images/icons/player-play-filled.png" class="menuicons"/>
+			</button> <br />
+            <button id="ruleBtn" class="ruleBtn" onclick="openRulePopup()">
+				<img src="/images/icons/info-square.png" class="menuicons" />
+            </button> <br />
+            <button class="exitPromptBtn" id="exitPromptBtn">
+				<img src="/images/icons/logout.png" class="menuicons" />
+            </button>
+        </div>
+    </div>
+
+    <div class="rulePopup">
+        <button id="close">&times;</button>
+        <h2>Black Jack Regeln:</h2>
+        <p>
+            Black Jack ist ein Kartenspiel mit 6 Paketen zu 52 Blatt französischer Spielkarten.
+            Ziel des Spiels ist es, näher an 21 Punkte heranzukommen als der Croupier, ohne dabei den Wert von 21 zu überschreiten (bust).
+            <br /> <br />
+            Karten zählen dabei ihren Augenwert, Bildkarten (Bube, Dame und König) zählen 10 Punkte und das Ass zählt 1 oder 11 Punkte je nachdem wie es für den Spieler am günstigsten ist.
+            Als "Black Jack" wird eine Kombination aus einem Ass und einer Karte mit der Wertigkeit 10 bezeichnet. Ein "Black Jack" kann nur mit den ersten beiden Karten des Spielzuges erreicht werden.
+            <br /> <br />
+            Vor Beginn des Spiels platzieren die Spieler ihre Einsätze. Jeder Spieler erhält nun zwei Karten. Der Croupier erhält ebenfalls zwei Karten, von denen die zweite verdeckt liegt.
+            Es beginnt der Spieler links des Croupiers. Der Spieler hat die Optionen "Hit" und "Stand". Wählt er "Stand" so ist sein Zug vorbei und er bleibt bei seinem aktuellen Karten.
+            Wählt er "Hit" erhält er eine weitere Karte. Der Spieler kann weitere Karten verlangen, bis er "Stand" wählt oder die 21-Punkte-Marke überschreitet.
+            In diesem Falle verliert der Spieler seine Hand.
+            <br /> <br />
+            Nachdem alle Spieler ihre Hände gespielt haben, deckt der Croupier seine zweite Karte auf und zieht nun so lange Karten,
+            bis er entweder mehr als 16 Punkte hat oder die 21-Punkte-Marke überschritten ist.
+            Für den Croupier zählt ein Ass immer als 11 Augen, es sei denn, er würde damit die 21-Punkte-Marke überschreiten.
+            <br /> <br />
+            Im Anschluss an den Croupier werden die Gewinne ausgezahlt: <br />
+            -Ein "Black Jack" gewinnt 3:2 (Ausnahme: Der Croupier hat ebenfalls einen "Black Jack", dann erhält der Spieler nur seinen Einsatz zurück) <br />
+            -Ein Spieler mit mehr Punkten als der Croupier gewinnt 1:1 <br />
+            -Bei Gleichstand mit dem Croupier erhält ein Spieler seinen Einsatz zurück. <br />
+            -Bei einem "bust" des Croupiers gewinnt jeder noch verbleibende Spieler anhand der oberen Gewinnausschüttung. <br />
+        </p>
+    </div>
+	
 
 
 <div class="angabeKartenwert">

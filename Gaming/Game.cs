@@ -198,12 +198,17 @@ public class Game
                     player.AddWallet(player.bet * 2);
                     headline = "Dealer überkauft";
                     result = (player.bet * 2) + "€ gewonnen";
-                } else
+                } else if(playerPoints > dealerPoints)
                 {
                     player.AddWallet(player.bet * 2);
                     headline = "Du hast gewonnen";
                     result = player.bet + "€ gewonnen";
-                }
+                } else
+				{
+					player.AddWallet(player.bet * 2);
+					headline = "Dealer gewinnt";
+					result = player.bet + "€ verloren";
+				}
 
                 player.hand.clear();
                 player.resetBet();
@@ -214,7 +219,8 @@ public class Game
         }
         phase = GamePhase.WAITING_FOR_PLAYERS;
         showStartButton(players[hostid]);
-        currentSlotsTurn = -1;
+        dealerDeck.clear();
+		currentSlotsTurn = -1;
 	}
 
     

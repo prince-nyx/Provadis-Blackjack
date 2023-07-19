@@ -25,7 +25,7 @@ public class Player
 		this.wallet = wallet;
         this.currentGameId = "";
         this.hand = new CardDeck();
-        bet = 1;
+        bet = 0;
     }
 
 	public int getPoints()
@@ -73,12 +73,12 @@ public class Player
     public void AddBet(double amount)
     {
         this.bet += amount;
-        this.wallet -= bet;
+        this.wallet -= amount;
     }
 
     public void resetBet()
     {
-        bet = 1;
+        bet = 0;
     }
 
     public void AddWallet(double amount)
