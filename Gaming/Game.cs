@@ -446,7 +446,7 @@ public class Game
     //client
     public void setBalance(Player player, double amount)
     {
-        player.registerEvent(new FrontendEvent("setbBalance", amount.ToString()));
+        player.registerEvent(new FrontendEvent("setBalance", amount.ToString()));
     }
 
 
