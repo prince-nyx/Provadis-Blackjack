@@ -298,7 +298,7 @@ function getCookie(cname) {
     return "";
 }
 
-document.getElementById("exitPromptBtn").addEventListener("click", function (event) {
+document.getElementById("trueButton").addEventListener("click", function (event) {
 
     console.log("Spieler " + getCookie("userid") + " verlässt das Spiel");
     connection
