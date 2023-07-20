@@ -7,6 +7,7 @@ namespace BlackJack.Hubs
     {
 
 
+
         public async Task update(String cookie)
         {
             String connectionId = Context.ConnectionId;
@@ -54,6 +55,21 @@ namespace BlackJack.Hubs
 				    await Clients.Client(connectionId).SendAsync("console", "Du bist in keinem Spiel");
 
 			}
+        }
+        
+        public async Task onConnectionToOverview(String cookie)
+        {
+            Console.WriteLine("Hallo");
+            String connectionId = Context.ConnectionId;
+            Player player = Program.app.playerManager.getPlayer(cookie);
+            Console.WriteLine(cookie);
+            Console.WriteLine(player.ToString());
+            if (player != null)
+            {
+                await Clients.Client(connectionId).SendAsync("console", "Eingeloggt als " + player.username + " mit wallet " + player.wallet);
+                await Clients.Client(connectionId).SendAsync("load", player.wallet, player.username);
+            }
+			
         }
 
         public async Task startGame(String cookie)
