@@ -3,13 +3,20 @@
 @{
 }
 <link rel="stylesheet" href="~/css/Register.css" />
-<form>
-    <fieldset id="msform" method="post">
-        <input type="text" id="betTime" placeholder="Wettzeit (In Sekunden)" />
-        <input type="text" id="turnTime" placeholder="Zugzeit (In Sekunden)" />
-        <input type="text" id="potLimit" placeholder="Pot Limit (In einer Ganzzahl)" />
-        <input type="text" id="maxEinzahlung" placeholder="Maximale Einzahlung (In einer Ganzzahl)" />
-        <input type="text" id="startguthaben" placeholder="Startguthaben (In einer Ganzzahl)" />
+<form id ="msform" method="post">
+    <fieldset >
+        <h1>Einstellungen</h1>
+
+        <p>Wettzeit (In Sekunden):</p>
+        <input asp-for="betTime" type="text" id="betTime" />
+        <p>Zugzeit (In Sekunden)t:</p>
+        <input asp-for="turnTime" type="text" id="turnTime" />
+        <p>Pot Limit (In einer Ganzzahl):</p>
+        <input asp-for="potLimit" type="text" id="potLimit" />
+        <p>Maximale Einzahlung (In einer Ganzzahl):</p>
+        <input asp-for="maxEinzahlung" type="text" id="maxEinzahlung" />
+        <p>Startguthaben (In einer Ganzzahl):</p>
+        <input asp-for="startguthaben" type="text" id="startguthaben" />
         <input type="submit" id="submit" placeholder="Absenden" />
     </fieldset>   
 </form>
