@@ -14,27 +14,50 @@
 
     //int totalAmount = Game.GetTotalAmount();
 }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css" />
 <div class="container">
 	<div class="row">
-		<div class="col-1"></div>
-		<div class="col-3">
-			<h1 class="displayOwnUsername" id="username">Viel Erfolg @user !</h1>
+		<div class="col-2"></div>
+		<div class="col-md-auto">
+			<i class="moneyIcon filler"></i>
 		</div>
-		<div class="col"></div>
+		<div class="col-2"></div>
 		<div class="col-3">
-			<h1 class="displayGamecode" id="code">Gamecode: XXXX</h1>
+			<h1 class="greetingmsg">Viel Erfolg</h1>
 		</div>
-		<div class="col"></div>
-		<div class="col-3">
-			<h1 class="displayOwnMoney" id="money">Guthaben: @money €</h1>
+		<div class="col-2"></div>
+		<div class="col-md-auto">
+			<i class="fa-solid fa-terminal moneyIcon"></i>
 		</div>
-		<div class="col-1"></div>
+		<div class="col-2">
+			<h1 class="displayGamecode" id="code">XXXX</h1>
+		</div>
+
 	</div>
+	<div class="row">
+
+		<div class="col-2"></div>
+		<div class="col-md-auto">
+			<i class="moneyIcon filler"></i>
+		</div>
+		<div class="col-2"></div>
+		<div class="col-3">
+			<h1 class="displayOwnUsername" id="username">@user</h1>
+		</div>
+		<div class="col-2"></div>
+		<div class="col-md-auto">
+			<i class="fa-thin fa-circle-euro moneyIcon"></i>
+		</div>
+		<div class="col-2">
+			<h1 class="displayOwnMoney" id="money">@money €</h1>
+		</div>
+	</div>
+	<div class="table"></div>
 	<div class="row m-5 p-5 ">
 		<div class="col-1"></div>
 		<div class="col-3 mt-3">
 			<div id="Spieler7-container" class="spieler">
-				<div class="cardcontainer">
+				<div class="cardcontainer" id="player7_cards">
 					<div class="image-row">
 						<img id="Spieler7-Card1" src="images/card/ace_of_clubs.png" alt="Card 1" >
 						<img id="Spieler7-Card2" src="images/card/2_of_clubs.png" alt="Card 2">
@@ -50,15 +73,16 @@
 					</div>
 				</div>
 				<div id="Spieler7" class="rectangle">
-					<p>Wetteinsatz: <span id="totalAmountPlayer8">0</span></p>
-					<h4 id="Spieler7-name" class="name m-auto">
-                    </h4>
+					<div class="labelcontainer">
+						<h4 id="Spieler7-name" class="name m-auto">Empty</h4>
+						<h5 id="totalAmountPlayer8">BET</h5>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="col-3 mt-2">
 			<div class="spieler">
-				<div class="cardcontainer">
+				<div class="cardcontainer" id="dealer_cards">
 					<div class="image-row">
 						<img id="Dealer-Card1" src="images/card/ace_of_clubs.png" alt="Card 1" >
 						<img id="Dealer-Card2" src="images/card/2_of_clubs.png" alt="Card 2">
@@ -74,16 +98,16 @@
 					</div>
 				</div>
 				<div id="Dealer" class="rectangle activeSlot">
-					<p>Wetteinsatz: <span id="totalAmountPlayerDealer">0</span></p>
-					<h2 class="m-auto">
-						Dealer
-					</h2>
+					<div class="labelcontainer">
+						<h4 class="m-auto">Dealer</h4>
+						<h5 id="totalAmountPlayerDealer">BET</h5>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="col-3 mt-3">
 			<div id="Spieler1-container" class="spieler">
-				<div class="cardcontainer">
+				<div class="cardcontainer" id="player1_cards">
 					<div class="image-row">
 						<img id="Spieler1-Card1" src="images/card/ace_of_clubs.png" alt="Card 1">
 						<img id="Spieler1-Card2" src="images/card/2_of_clubs.png" alt="Card 2">
@@ -100,9 +124,10 @@
 				</div>
 
 				<div id="Spieler1"  class="rectangle">
-					<p>Wetteinsatz: <span id="totalAmountPlayer1">0</span></p>
-					<h4 id="Spieler1-name" class="name m-auto">
-					</h4>
+					<div class="labelcontainer">
+						<h4 id="Spieler1-name" class="name m-auto">Empty</h4>
+						<h5 id="totalAmountPlayer1">BET</h5>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -111,7 +136,7 @@
 	<div class="row m-5 p-2">
 		<div class="col-3">
 			<div id="Spieler6-container"  class="spieler">
-				<div class="cardcontainer">
+				<div class="cardcontainer" id="player6_cards">
 					<div class="image-row">
 						<img id="Spieler6-Card1" src="images/card/ace_of_clubs.png" alt="Card 1">
 						<img id="Spieler6-Card2" src="images/card/2_of_clubs.png" alt="Card 2">
@@ -128,16 +153,17 @@
 				</div>
 
 				<div id="Spieler6" class="rectangle">
-					<p>Wetteinsatz: <span id="totalAmount">0</span></p>
-					<h4 id="Spieler6-name" class="name m-auto">
-					</h4>
+					<div class="labelcontainer">
+						<h4 id="Spieler6-name" class="name m-auto">Empty</h4>
+						<h5 id="totalAmount">BET</h5>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="col-5"></div>
 		<div class="col-3">
 			<div id="Spieler2-container" class="spieler">
-				<div class="cardcontainer">
+				<div class="cardcontainer" id="player2_cards">
 					<div class="image-row">
 						<img id="Spieler2-Card1" src="images/card/ace_of_clubs.png" alt="Card 1">
 						<img id="Spieler2-Card2" src="images/card/2_of_clubs.png" alt="Card 2">
@@ -154,9 +180,10 @@
 				</div>
 
 				<div id="Spieler2" class="rectangle">
-					<p>Wetteinsatz: <span id="totalAmountPlayer2">0</span></p>
-					<h4 id="Spieler2-name" class="name m-auto">
-					</h4>
+					<div class="labelcontainer">
+						<h4 id="Spieler2-name" class="name m-auto">Empty</h4>
+						<h5 id="totalAmountPlayer2">BET</h5>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -166,7 +193,7 @@
 		<div class="col-1"></div>
 		<div class="col-3">
 			<div id="Spieler5-container"  class="spieler">
-				<div class="cardcontainer">
+				<div class="cardcontainer" id="player5_cards">
 					<div class="image-row">
 						<img id="Spieler5-Card1" src="images/card/ace_of_clubs.png" alt="Card 1" >
 						<img id="Spieler5-Card2" src="images/card/2_of_clubs.png" alt="Card 2">
@@ -182,15 +209,16 @@
 					</div>
 				</div>
 				<div id="Spieler5" class="rectangle">
-					<p>Wetteinsatz: <span id="totalAmountPlayer5">0</span></p>
-					<h4 id="Spieler5-name" class="name m-auto">
-					</h4>
+					<div class="labelcontainer">
+						<h4 id="Spieler5-name" class="name m-auto">Empty</h4>
+						<h5 id="totalAmountPlayer5">BET</h5>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="col-3 mt-4">
-			<div class="spieler">
-				<div id="Spieler4-container" class="cardcontainer">
+			<div class="spieler" id="Spieler4-container">
+				<div class="cardcontainer" id="player4_cards">
 					<div class="image-row">
 						<img id="Spieler4-Card1" src="images/card/ace_of_clubs.png" alt="Card 1" >
 						<img id="Spieler4-Card2" src="images/card/2_of_clubs.png" alt="Card 2">
@@ -206,15 +234,16 @@
 					</div>
 				</div>
 				<div id="Spieler4"  class="rectangle">
-					<p>Wetteinsatz: <span id="totalAmountPlayer4">0</span></p>
-					<h4  id="Spieler4-name" class="name m-auto">
-					</h4>
+					<div class="labelcontainer">
+						<h4 id="Spieler4-name" class="name m-auto">Empty</h4>
+						<h5 id="totalAmountPlayer4">BET</h5>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="col-3">
 			<div id ="Spieler3-container" class="spieler">
-				<div class="cardcontainer">
+				<div class="cardcontainer" id="player3_cards">
 					<div class="image-row">
 						<img id="Spieler3-Card1" src="images/card/ace_of_clubs.png" alt="Card 1">
 						<img id="Spieler3-Card2" src="images/card/2_of_clubs.png" alt="Card 2">
@@ -231,9 +260,10 @@
 				</div>
 
 				<div id="Spieler3" class="rectangle">
-					<p>Wetteinsatz: <span class="wetteinsatz" id="totalAmountPlayer3">0</span></p>
-					<h4 id="Spieler3-name" class="name m-auto">
-					</h4>
+					<div class="labelcontainer">
+						<h4 id="Spieler1-name" class="name m-auto">Empty</h4>
+						<h5 id="totalAmountPlayer3">BET</h5>
+					</div>
 				</div>
 			</div>
 		</div>
