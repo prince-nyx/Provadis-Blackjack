@@ -1,4 +1,7 @@
-﻿body {
+﻿@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+body {
+    font-family: montserrat, arial, verdana;
     background-image: url('/Images/GameLobbyBackground.png');
 }
 
@@ -23,9 +26,9 @@ p.b {
 }
 
 .displayMoney {
-    position: absolute;
     top: 0;
     right: 0;
+    text-align: left;
 }
 
 .divFenster {
@@ -38,10 +41,12 @@ p.b {
 .divBox {
     text-align: center;
     width: 300px;
-    height: 190px;
+    height: 22em;
     background-color: rgba(0, 0, 0, 0.5);
     border: 2px solid rgba(255, 255, 255, 1.0);
+    border-radius: 2.5em;
     margin: 0 auto;
+    font-family: montserrat;
 }
 
 .code-container {
@@ -54,4 +59,152 @@ input.code {
     width: 2em;
     border: 1px solid black;
     text-align: center;
+}
+
+#spielbeitreten .col-md-auto {
+    padding-left: 0.32em;
+    padding-right: 0;
+    padding-top: 0em;
+}
+
+#spielbeitreten .col {
+    padding-left: 0em;
+}
+
+#spielerstellen .col-md-auto {
+    padding-left: 0.32em;
+    padding-right: 0;
+    padding-top: 0em;
+}
+
+#spielerstellen .col {
+    padding-left: 0em;
+}
+
+.overview_user .col-md-auto {
+    padding-left: 0.32em;
+    padding-right: 0;
+    padding-top: 0em;
+}
+
+.overview_user .col {
+    padding-left: 0em;
+}
+
+.overview_money .col-md-auto {
+    padding-left: 0.32em;
+    padding-right: 0;
+    padding-top: 0em;
+}
+
+.overview_money .col {
+    padding-left: 0em;
+}
+
+#deposit .col-md-auto {
+    padding-left: 0.6em;
+    padding-right: 0;
+    padding-top: 0em;
+}
+
+#deposit .col {
+    padding-left: 0em;
+}
+
+#spielbeitreten {
+    width: 8em;
+    height: 2.5em;
+    border-radius: 15em;
+    background: #42424299;
+    border: 0.2em #5f5f5fcc solid;
+    color: white;
+    font-size: 1.5em;
+    font-weight: 600;
+    padding-top: 0.4em;
+    margin-bottom: 0.5em;
+}
+
+#spielerstellen {
+    width: 8em;
+    height: 2.5em;
+    border-radius: 15em;
+    background: #42424299;
+    border: 0.2em #5f5f5fcc solid;
+    color: white;
+    font-size: 1.5em;
+    font-weight: 600;
+    padding-top: 0.4em;
+}
+
+.joingame {
+    width: 11em;
+    height: 3.1em;
+    border-radius: 15em;
+    cursor: pointer;
+}
+
+.joinbtnIcon::before {
+    height: 0.5em;
+    width: 0.5em !important;
+    font: var(--fa-font-solid);
+    font-weight: 600;
+    font-size: 2em;
+    text-align: center;
+    display: flex;
+    color: white;
+    margin-top: -0.16em;
+}
+
+.userIcon::before {
+    height: 1.5em;
+    width: 1.5em !important;
+    font: var(--fa-font-solid);
+    font-weight: 600;
+    font-size: 2em;
+    text-align: center;
+    display: flex;
+    color: white;
+    margin-top: 0.25em;
+}
+
+.moneyIcon::before {
+    height: 1.5em;
+    width: 1.5em !important;
+    font: var(--fa-font-solid);
+    font-weight: 600;
+    font-size: 2em;
+    text-align: center;
+    display: flex;
+    color: white;
+    margin-top: 0.25em;
+}
+
+.moneybtnIcon::before {
+    height: 1.5em;
+    width: 1.5em !important;
+    font: var(--fa-font-solid);
+    font-weight: 600;
+    font-size: 2em;
+    text-align: center;
+    display: flex;
+    color: white;
+    margin-top: -0.16em;
+}
+
+#deposit {
+    width: 10em;
+    height: 3em;
+    background: #0c6f3c;
+    border: 0.2em #00de6b solid;
+    border-radius: 15em;
+    color: white;
+    margin-top: 1em;
+    padding-top: 0.5em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
 }

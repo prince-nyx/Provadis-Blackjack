@@ -1,3 +1,8 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+body {
+    font-family: montserrat, arial, verdana;
+}
 /* Style the video: 100% width and height to cover the entire window */
 #myVideo {
     position: fixed;
@@ -15,45 +20,43 @@
     width: 100%;
 }
 
-
-
 #Registrieren {
-    width: 300px;
-    font-size: 18px;
-    padding-block: 30px;
-    border: none;
-    background: #000;
-    color: #fff;
+    width: 10em;
+    height: 2.5em;
+    font-size: 2em;
+    font-weight: 600;
+    font-family: montserrat;
+    padding-top: 0.5em;
+    margin: auto auto;
+    margin-top: 0.5em;
+    border: 0.1em solid #00de6b;
+    border-radius: 2em;
+    background: #0c6f3ccc;
     cursor: pointer;
-    margin: 0 auto;
     flex-direction: column;
-    margin-top: 400px;
     align-items: center;
-    border: solid;
-    border-color: white;
-    border-width: 5px;
 }
 
 #Anmelden {
-    width: 300px;
-    font-size: 18px;
-    padding-block: 30px;
-    align-items: center;
-    border: none;
-    background: #000;
-    color: #fff;
-    cursor: pointer;
+    width: 10em;
+    height: 2.5em;
+    font-size: 2em;
+    font-weight: 600;
+    font-family: montserrat;
+    padding-top: 0.5em;
     margin: 0 auto;
+    margin-top: 10em;
+    border: 0.1em solid #00de6b;
+    border-radius: 2em;
+    background: #0c6f3ccc;
+    cursor: pointer;
     flex-direction: column;
-    margin-block: 30px;
-    border: solid;
-    border-color: white;
-    border-width: 5px;
+    align-items: center;
 }
 
 #Logo {
-    width: 300px;
-    font-size: 18px;
+    width: 10em;
+    font-size: 2em;
     padding-block: 30px;
     align-items: center;
     margin: 0 auto;
