@@ -399,11 +399,90 @@ function unassignPlayer(slotid) {
 
 
 
+//Game.cs Code
+/*    public void playerBets(Player player, int amount)
+    {
+		player.AddBet(amount);
+        setBet(getSlotId(player), player.getBet());
+		setBalance(player, player.wallet);
+	}
+    
+     public void setBalance(Player player, double amount)
+    {
+        player.registerEvent(new FrontendEvent("setBalance", amount.ToString()));
+    }
+    
+
+    */
+
+
+/*function setBalance(amount) {
+    document.getElementById("money").innerHTML = amount + "€";
+}
+*/
+function hideChipImages() {
+    let totalBet = 0;
+    let moneyElement = document.getElementById('money');
+    let playerCurrency = parseInt(moneyElement.innerText);
+    //let playerCurrency = 125;
+    const chipImages = document.querySelectorAll('.pokerchips img'); // Define chipImages here
+
+
+    chipImages.forEach(chipImage => {
+        const onclickAttr = chipImage.getAttribute('onclick');
+        if (onclickAttr !== null) {
+            const chipValue = parseInt(onclickAttr.match(/\d+/)[0]);
+            if (playerCurrency < chipValue || playerCurrency < totalBet + chipValue) {
+                chipImage.style.display = 'none';
+                chipImage.removeAttribute('onclick');
+            }
+        }
+    });
+}
+hideChipImages();
+
+
+function clickChip(amount) {
+    connection
+        .invoke("setBet", getCookie("userid"), amount)
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
+    hideChipImages();
+}
+
+
+
+
+
+/*
+document.addEventListener('DOMContentLoaded', function () {
+    let playerCurrency;
+    const moneyElement = document.getElementById('money');
+    const chipImages = document.querySelectorAll('.pokerchips img'); // Define chipImages here
+
+    if (moneyElement) {
+        playerCurrency = parseInt(moneyElement.innerText.replace(/[^0-9]/g, ''));
+        hideChipImages(playerCurrency, chipImages); // Call the function with the initialized value
+    } else {
+        console.error("Error: 'money' element not found.");
+    }
+});
+*/
+
+
+
+
+
+
+
 //Einsatz bei drücken der Chips hochzählen und nur die nutzbaren Chip anzeigen lassen.
-let playerCurrency = 10;
-let totalBet = 0;
-const totalAmountElement = document.getElementById('totalAmountPlayer');
+//let playerCurrency = 10;
+/*let totalBet = 0;
+//const totalAmountElement = document.getElementById('totalAmountPlayer');
 const chipImages = document.querySelectorAll('.pokerchips img');
+let playerCurrency = document.getElementById('money');
+
 
 
 function hideChipImages() {
@@ -423,6 +502,21 @@ function hideChipImages() {
 hideChipImages();
 
 
+
+
+function clickChip(amount) {
+    connection
+        .invoke("setBet", getCookie("userid"), amount)
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
+}*/
+
+
+
+
+
+
 function setBet(slotid, amount) {
 
     slotid++;
@@ -432,16 +526,6 @@ function setBet(slotid, amount) {
 }
 
 
-
-function clickChip(amount) {
-    connection
-        .invoke("setBet", getCookie("userid"), amount)
-        .catch(function (err) {
-            return console.error(err.toString());
-        });
-
-
-}
 
 
 function setCardSum(slotid, amount) {
@@ -510,7 +594,6 @@ function markActivePlayer(slotid) {
     if (dealerslot.classList.contains("onTurn")) {
         dealerslot.classList.remove("onTurn");
     console.log("reset Dealer");
-
     }
 
     slotid++;
