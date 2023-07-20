@@ -17,7 +17,10 @@ namespace BlackJack
         public static GameHub gamehub;
         public PlayerManager playerManager;
         public GameManger gameManager;
+        public HostApplicationBuilderSettings s
         private const string Characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+
         public Program()
         {
             gameManager= new GameManger();

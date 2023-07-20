@@ -8,10 +8,6 @@ namespace BlackJack.Pages
 {
     public class Index1Model : PageModel
     {
-        private readonly SqlConnection conn = new("Server=provadis-it-ausbildung.de;Database=BlackJack02;UID=BlackJackUser02;PWD=Pr@vadis_188_Pta;");
-        private SqlCommand? cmd;
-        private SqlDataReader? reader;
-        private readonly SqlDataAdapter? adapter = new SqlDataAdapter();
         public string? code { get; set; }
         public void OnGet()
         {
@@ -25,6 +21,9 @@ namespace BlackJack.Pages
             {
                 Response.Redirect("/index?info=playernotfound");
             }
+
+
+
             //END ACCESS CHECK
         }
         public IActionResult OnPost()

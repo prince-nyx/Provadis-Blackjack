@@ -8,6 +8,7 @@ using System;
 using System.Linq;
 using System.Numerics;
 using System.Reflection.Metadata;
+using System.Reflection.PortableExecutable;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
@@ -57,6 +58,10 @@ public class Game
 
 	}
 
+    public void loadSettings()
+    {
+       
+    }
 
     public void startGame()
 	{
@@ -161,7 +166,7 @@ public class Game
 		    } else
 		    {
 			    player.registerEvent(new FrontendEvent("console", "Es ist nicht möglich mehr als "+ potLimit+" zu setzen"));
-                player.bet = potLimit;
+                player.AddBet(potLimit - player.bet);
             }
             setBet(getSlotId(player), player.getBet());
             setBalance(player, player.wallet);
