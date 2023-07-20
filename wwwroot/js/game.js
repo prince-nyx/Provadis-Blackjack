@@ -14,7 +14,6 @@ connection.start().then(function () {
 
     //falls die Verbindung fehlschlägt. man könnte z.b. die seite neu laden lassen.
     return console.error(err.toString());
-
 });
 
 function updateTask() {
@@ -26,7 +25,6 @@ function updateTask() {
 }
 setInterval(updateTask, 500);
 
-
 //START BACKEND EVENTS
 connection.on("gamestarting", function (args) {
     try {
@@ -36,6 +34,7 @@ connection.on("gamestarting", function (args) {
         console.log("ERROR(gamestarting) " + err.message);
     }
 });
+
 connection.on("addCardToPlayer", function (args) {
     try {
         addCardToPlayer(args[0], args[1], args[2]);
@@ -43,6 +42,7 @@ connection.on("addCardToPlayer", function (args) {
         console.log("ERROR(addCardToPlayer) " + err.message);
     }
 });
+
 connection.on("setCardSum", function (args) {
     try {
         setCardSum(args[0], args[1]);
@@ -50,6 +50,7 @@ connection.on("setCardSum", function (args) {
         console.log("ERROR(setCardSum) " + err.message);
     }
 });
+
 connection.on("assignPlayer", function (args) {
     try {
         assignPlayerToSlot(args[0], args[1]);
@@ -57,6 +58,7 @@ connection.on("assignPlayer", function (args) {
         console.log("ERROR(assignPlayer) " + err.message);
     }
 });
+
 connection.on("unassignPlayer", function (args) {
     try {
         unassignPlayer(args[0]);
@@ -64,6 +66,7 @@ connection.on("unassignPlayer", function (args) {
         console.log("ERROR(unassignPlayer) " + err.message);
     }
 });
+
 connection.on("setBet", function (args) {
     try {
         setBet(args[0], args[1]);
@@ -71,6 +74,7 @@ connection.on("setBet", function (args) {
         console.log("ERROR(setBet) " + err.message);
     }
 });
+
 connection.on("addDealerCard", function (args) {
     try {
         addDealerCard(args[0], args[1]);
@@ -78,21 +82,23 @@ connection.on("addDealerCard", function (args) {
         console.log("ERROR(addDealerCard) " + err.message);
     }
 });
+
 connection.on("enableBet", function (args) {
     try {
-        enableBet();
+        enableBet(args[0]);
     } catch (err) {
         console.log("ERROR(enableBet) " + err.message);
     }
 });
-connection.on("disableBet", function (args) {
 
+connection.on("disableBet", function (args) {
     try {
         disableBet();
     } catch (err) {
         console.log("ERROR(disableBet) " + err.message);
     }
 });
+
 connection.on("showDealerCards", function (args) {
     try {
         showDealerCards(args[0]);
@@ -100,6 +106,7 @@ connection.on("showDealerCards", function (args) {
         console.log("ERROR(showDealerCards) "+err.message);
     }
 });
+
 connection.on("endTurn", function (args) {
     try {
         endTurn();
@@ -107,13 +114,15 @@ connection.on("endTurn", function (args) {
         console.log("ERROR(endTurn) " + err.message);
     }
 });
+
 connection.on("startTurn", function (args) {
     try {
-        startTurn(args[0]);
+        startTurn();
     } catch (err) {
         console.log("ERROR(startTurn) " + err.message);
     }
 });
+
 connection.on("setbBalance", function (args) {
     try {
         setbBalance(args[0]);
@@ -121,6 +130,7 @@ connection.on("setbBalance", function (args) {
         console.log("ERROR(setbBalance) " + err.message);
     }
 });
+
 connection.on("showResult", function (args) {
     try {
         showResult(args[0], args[1]);
@@ -128,6 +138,7 @@ connection.on("showResult", function (args) {
         console.log("ERROR(showResult) " + err.message);
     }
 });
+
 connection.on("showStartButton", function (args) {
     try {
         showStartButton();
@@ -135,6 +146,7 @@ connection.on("showStartButton", function (args) {
         console.log("ERROR(showStartButton) " + err.message);
     }
 });
+
 connection.on("load", function (args) {
     try {
         load(args[0], args[1], args[2]);
@@ -142,6 +154,7 @@ connection.on("load", function (args) {
         console.log("ERROR(load) " + err.message);
     }
 });
+
 connection.on("console", function (message) {
     try {
         console.log(message);
@@ -149,9 +162,10 @@ connection.on("console", function (message) {
         console.log("ERROR(console) " + err.message);
     }
 });
+
 connection.on("markActivePlayer", function (args) {
     try {
-        markActivePlayer(args[0]);
+        markActivePlayer(args[0], args[1]);
     } catch (err) {
         console.log("ERROR(markActivePlayer) " + err.message);
     }
@@ -180,7 +194,7 @@ function myConfirmBox(message) {
     element.innerHTML = `<div class="box">
                                     ${message}
                                     <div>
-                                        <button id="trueButton" class="btn green">Ja</button> <!-- Set Id for both buttons -->
+                                        <a id="trueButton" class="btn green" href="overview">Ja</a> <!-- Set Id for both buttons -->
                                         <button id="falseButton" class="btn red">Abbrechen</button>
                                     </div>
                                 </div>`;
@@ -209,14 +223,12 @@ document.getElementById("exitPromptBtn").addEventListener("click", () => {
     })
 })
 
-
 function showStartButton() {
     document.getElementById("startbuttons").classList.add("visible");
 }
 
 function disableStartButton() {
     document.getElementById("startbuttons").classList.remove("visible");
-
 }
 
 function resetCards() {
@@ -236,7 +248,6 @@ function resetCards() {
     }
 }
 
-
 function addCardToPlayer(slotID, card, cardslot) {
     let cardSlot;
     slotID++;
@@ -253,11 +264,6 @@ function addCardToPlayer(slotID, card, cardslot) {
         }
     }
     */
-    
-    
-
-
-
 }
 
 function addDealerCard(card, cardslot) {
@@ -303,16 +309,6 @@ function getCookie(cname) {
     return "";
 }
 
-//document.getElementById("trueButton").addEventListener("click", function (event) {
-//    console.log("Spieler " + getCookie("userid") + " verlässt das Spiel");
-//    connection
-//        .invoke("leave", getCookie("userid"))
-//        .catch(function (err) {
-//            return console.error(err.toString());
-//        });
-//});
-
-
 document.getElementById("startButton").addEventListener("click", function (event) {
     console.log("Game startet ..." + getCookie("userid"));
     closeWinnerScreen();
@@ -322,7 +318,6 @@ document.getElementById("startButton").addEventListener("click", function (event
             return console.error(err.toString());
         });
 });
-
 
 document.getElementById("hitButton").addEventListener("click", function (event) {
 
@@ -342,14 +337,13 @@ document.getElementById("standButton").addEventListener("click", function (event
         });
 });
 
-
 function disableBet() {
     document.getElementById("chipsDiv").classList.remove("visible");
 }
 
-
-function enableBet() {
+function enableBet(time) {
     document.getElementById("chipsDiv").classList.add("visible");
+    setTimer(time);
 }
 
 function setBalance(amount) {    
@@ -371,18 +365,15 @@ function showResult(headline, result) {
     document.getElementById("resultAmount").innerHTML = result;
     document.getElementById("resultScreen").classList.add("visible");
     document.getElementById("Dealer").classList.remove("onTurn");
-
 }
 
 function startTurn() {
     document.getElementById("turnbuttons").classList.add("visible");
-
 }
 
 function endTurn() {
     document.getElementById("turnbuttons").classList.remove("visible");
 }
-
 
 function assignPlayerToSlot(slotid, username) {
     slotid++;
@@ -390,10 +381,10 @@ function assignPlayerToSlot(slotid, username) {
     document.getElementById("Spieler" + slotid).classList.add("activeSlot");
 }
 
-
 function unassignPlayer(slotid) {
     slotid++;
-    document.getElementById("Spieler" + slotid + "-name").innerHTML = "";
+    document.getElementById("Spieler" + slotid + "-name").innerHTML = "...";
+    document.getElementById("totalAmountPlayer" + slotid).innerHTML = "...";
     document.getElementById("Spieler" + slotid).classList.remove("activeSlot");
 }
 
@@ -455,54 +446,13 @@ function clickChip(amount) {
 
 
 
-/*
-document.addEventListener('DOMContentLoaded', function () {
-    let playerCurrency;
-    const moneyElement = document.getElementById('money');
-    const chipImages = document.querySelectorAll('.pokerchips img'); // Define chipImages here
+function setBet(slotid, amount) {
 
-    if (moneyElement) {
-        playerCurrency = parseInt(moneyElement.innerText.replace(/[^0-9]/g, ''));
-        hideChipImages(playerCurrency, chipImages); // Call the function with the initialized value
-    } else {
-        console.error("Error: 'money' element not found.");
-    }
-});
-*/
+    slotid++;
+    var totalAmountPlayerElement = document.getElementById("totalAmountPlayer" + slotid);
 
-
-
-
-
-
-
-//Einsatz bei drücken der Chips hochzählen und nur die nutzbaren Chip anzeigen lassen.
-//let playerCurrency = 10;
-/*let totalBet = 0;
-//const totalAmountElement = document.getElementById('totalAmountPlayer');
-const chipImages = document.querySelectorAll('.pokerchips img');
-let playerCurrency = document.getElementById('money');
-
-
-
-function hideChipImages() {
-    chipImages.forEach(chipImage => {
-        const onclickAttr = chipImage.getAttribute('onclick');
-        if (onclickAttr !== null) {
-            const chipValue = parseInt(onclickAttr.match(/\d+/)[0]);
-            if (playerCurrency < chipValue || playerCurrency < totalBet + chipValue) {
-                chipImage.style.display = 'none';
-                chipImage.removeAttribute('onclick');
-            }
-        }
-    });
+    totalAmountPlayerElement.textContent = amount + "€";
 }
-
-
-hideChipImages();
-
-
-
 
 function clickChip(amount) {
     connection
@@ -510,7 +460,7 @@ function clickChip(amount) {
         .catch(function (err) {
             return console.error(err.toString());
         });
-}*/
+}
 
 
 
@@ -525,9 +475,6 @@ function setBet(slotid, amount) {
     totalAmountPlayerElement.textContent = amount + "€";
 }
 
-
-
-
 function setCardSum(slotid, amount) {
     const sumElement = document.getElementById(`sumPlayer${slotid}`);
     if (sumElement) {
@@ -541,7 +488,6 @@ function setCardSum(slotid, amount) {
         const addedAmountElement = document.getElementById(`addedAmountPlayer${slotid}`);
         addedAmountElement.textContent = `Höhe der gezogenen Karte: +${amount}`;
     }
-
 
 /*    // Target the dealer slot
     const dealerSumElement = document.getElementById('sumDealer');
@@ -572,17 +518,13 @@ function setCardSum(slotid, amount) {
     }
 }
 
-
-
-
 function markUserSlot(slotid) {
     slotid++;
     var slot = document.getElementById("Spieler" + slotid +"-container");
     slot.classList.add("myPlayer");
-
 }
 
-function markActivePlayer(slotid) {
+function markActivePlayer(slotid, time) {
     for (var i = 1; i <= 7; i++) {
         var slot = document.getElementById("Spieler" + i);
         if (slot.classList.contains("onTurn")) {
@@ -593,7 +535,7 @@ function markActivePlayer(slotid) {
     var dealerslot = document.getElementById("Dealer");
     if (dealerslot.classList.contains("onTurn")) {
         dealerslot.classList.remove("onTurn");
-    console.log("reset Dealer");
+        console.log("reset Dealer");
     }
 
     slotid++;
@@ -603,6 +545,7 @@ function markActivePlayer(slotid) {
     else {
         console.log("set Spieler" + slotid);
         document.getElementById("Spieler" + slotid).classList.add("onTurn");
+        setTimer(time);
     }
 }
 
@@ -634,4 +577,60 @@ function closeMenu() {
     document.getElementById("resumeBtn").disabled = false;
     document.getElementById("exitPromptBtn").disabled = false;
     document.getElementById("ruleBtn").disabled = false;
+}
+
+function setTimer(timeInMinutes) {
+    $step = 1;
+    $loops = Math.round(100 / $step);
+    $increment = 360 / $loops;
+    $half = Math.round($loops / 2);
+    $barColor = '#ec366b';
+    $backColor = '#feeff4';
+
+    document.getElementById("clock_vis").style.visibility = "visible";
+
+    $(function () {
+        clock.init();
+    });
+    clock = {
+        interval: null,
+        init: function () {
+            clock.start(timeInMinutes);
+        },
+        start: function (t) {
+            var pie = 0;
+            var num = 0;
+            var min = 0;
+            var sec = t+1;
+            var lop = sec;
+            $('.count').text(min);
+            if (min > 0) {
+                $('.count').addClass('min')
+            } else {
+                $('.count').addClass('sec')
+            }
+            clock.interval = setInterval(function () {
+                sec = sec - 1;
+                if (min > 1) {
+                    pie = pie + (100 / (lop / min));
+                } else {
+                    pie = pie + (100 / (lop));
+                }
+                if (pie >= 101) { pie = 1; }
+                num = (sec / 60).toFixed(2).slice(0, -3);
+                if (num == 0) {
+                    $('.count').removeClass('min').addClass('sec').text(sec);
+                } else {
+                    $('.count').removeClass('sec').addClass('min').text(num);
+                }
+
+                if (sec == 0) {
+                    document.getElementById("clock_vis").style.visibility = "collapse";
+                    clearInterval(clock.interval);
+                    $('.count').text(0);
+                    $('.clock').removeAttr('style');
+                }
+            }, 1000);
+        }
+    }
 }

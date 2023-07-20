@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
@@ -10,7 +11,7 @@ namespace BlackJack.Pages
         private SqlCommand? cmd;
         private SqlDataReader? reader;
         private readonly SqlDataAdapter? adapter = new SqlDataAdapter();
-
+        public string? code { get; set; }
         public void OnGet()
         {
             //START ACCESS CHECK
@@ -18,11 +19,11 @@ namespace BlackJack.Pages
             String result = Program.app.checkAccess(userid);
             if (!result.Equals("/overview"))
             {
-                //Response.Redirect(result);
+                Response.Redirect(result);
             }
             //END ACCESS CHECK
         }
-        public void OnPost()
+        public IActionResult OnPost()
         {
 
             String userid = Request.Cookies["userid"];
@@ -31,16 +32,33 @@ namespace BlackJack.Pages
             Player player = Program.app.playerManager.getPlayer(userid);
             if(player != null)
             {
-                if (gamecode == null || !gameManager.exist(gamecode.ToUpper()))
+                //Spiel erstellen wenn Code nicht vorhanden
+                if(gamecode == "")
+                {
                     gamecode = gameManager.createGame(player.id);
+                }
 
-                if (gameManager.join(player, gamecode.ToUpper()))
-                    Response.Redirect("Game");
-                else
-                    Response.Redirect("Error");
+
+                // Code überprüfen
+                if(gameManager.exist(gamecode.ToUpper()))
+                {
+                    if(gameManager.join(player, gamecode.ToUpper()))
+                    {
+                        return RedirectToPage("/Game");
+                    } else
+                    {
+                        ModelState.AddModelError("code", "Spielbeitritt nicht möglich, da Spiel läuft");
+                        return Page();
+
+                    }
+                } else
+                {
+                    ModelState.AddModelError("code", "Spiel nicht gefunden");
+                    return Page();
+                }
             } else
             {
-                Response.Redirect("Error");
+                return RedirectToPage("/index");
             }
 
         }

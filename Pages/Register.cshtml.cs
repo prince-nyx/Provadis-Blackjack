@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Numerics;
 using System.Text.RegularExpressions;
 using Microsoft.JSInterop;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BlackJack.Pages
 {
@@ -22,7 +23,7 @@ namespace BlackJack.Pages
         private SqlDataReader? reader;
         private readonly SqlDataAdapter? adapter = new SqlDataAdapter();
         private FrontendEvent frontend;
-
+		private static readonly HttpClient client = new HttpClient();
 		public void OnGet()
         {
             //START ACCESS CHECK
@@ -38,30 +39,66 @@ namespace BlackJack.Pages
             }
             //END ACCESS CHECK
         }
-        public async void OnPost()
-        {
+        public IActionResult OnPost()
+		{
+			
+			Console.WriteLine(Request.Cookies["userid"]);
 			this.Username = Request.Form["username"];
 			this.Password = Request.Form["password"];
             this.Cpass = Request.Form["cpass"];
             this.Birth = Convert.ToDateTime(Request.Form["birth"]);
 
-            if(this.IsUserCharValid() && this.IsPassEQCheckPass() && this.IsBirthValid() && this.IsUserNameValid() && this.IsPasswordValid()) { this.CreateNewUser(); }
-            else { Console.WriteLine("Invalid User"); }
+			if (this.IsUsernameLengthValid() && this.IsUserCharValid() && this.IsPassEQCheckPass() && this.IsBirthValid() && this.IsUserNameValid() && this.IsPasswordValid()) { 
+                this.CreateNewUser();
+				return RedirectToPage("/login");
+
+
+			}
+            else {
+				return Page();
+            }
         }
 
-        private bool IsUserCharValid()
+        private bool IsUsernameLengthValid()
+		{
+			Boolean valid = (this.Username.Length >= 3);
+			if (!valid)
+				ModelState.AddModelError("username", "Benutzername zu kurz");
+			return valid;
+
+		}
+
+
+		private bool IsUserCharValid()
         {
-            return Regex.IsMatch(this.Username, "[*@:=\\/[?\\]|\\\\\"<>+;]") ? false : true;
-        }
+            Boolean valid = Regex.IsMatch(this.Username, "[*@:=\\/[?\\]|\\\\\"<>+;]");
+            if(valid)
+				ModelState.AddModelError("username", "Benutzername enthält ungültige Zeichen.");
+            return !valid;
+		}
 
         private bool IsPassEQCheckPass()
         {
-            return this.Password == this.Cpass ? true : false;
-        }
+			Boolean valid = this.Password == this.Cpass;
+			if (!valid)
+				ModelState.AddModelError("Cpass", "Passwörter stimmen nicht überein");
+			return valid;
+		}
 
         private bool IsBirthValid()
         {
-            return this.Birth.CompareTo(DateTime.Today.AddYears(-18)) <= 0 ? true : false;
+            int age = DateTime.Today.Year - this.Birth.Year;
+
+            if (age >= 18)
+            {
+                return true;
+            }
+            else
+			{
+				ModelState.AddModelError("birth", "zu jung.");
+				return false;
+            }
+            
 		}
 
         private bool IsUserNameValid() 
@@ -79,13 +116,18 @@ namespace BlackJack.Pages
             this.cmd.Dispose();
             this.conn.Close();
             
-            return isValid;
+            if(!isValid)
+				ModelState.AddModelError("username", "Benutzername bereits vergeben.");
+			return isValid;
         }
 
         private bool IsPasswordValid()
         {
-			return this.Password.Length >= 8 ? true : false;
-        }
+            Boolean valid = (this.Password.Length >= 8);
+			if (!valid)
+				ModelState.AddModelError("password", "Passwort zu kurz");
+			return valid;
+		}
 
         private void CreateNewUser()
 		{
