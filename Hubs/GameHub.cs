@@ -202,7 +202,7 @@ namespace BlackJack.Hubs
 				else if (game.phase == GamePhase.BETTING)
 				{
 					game.resetBet(player);
-					await Clients.Client(connectionId).SendAsync("console", "Spieler erhöht seinen Einsatz um " + amount);
+					await Clients.Client(connectionId).SendAsync("console", "Spieler resetet seinen Einsatz");
 				}
 				else
 					await Clients.Client(connectionId).SendAsync("console", "Derzeit kann man nicht setzen.");
