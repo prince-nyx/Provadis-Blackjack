@@ -343,17 +343,17 @@ function enableBet() {
 }
 
 function setBalance(amount) {    
-    document.getElementById("money").innerHTML = "Guthaben: " + amount + "€";
+    document.getElementById("money").innerHTML = amount + "€";
 }
 
 function setName(name) {
-    document.getElementById("username").innerHTML = "Viel Erfolg " + name;
+    document.getElementById("username").innerHTML = name;
 }
 
 function load(amount, name, gamecode) {
     setBalance(amount);
     setName(name);
-    document.getElementById("code").innerHTML = "Gamecode: "+gamecode;
+    document.getElementById("code").innerHTML = gamecode;
 }
 
 function showResult(headline, result) {
@@ -418,7 +418,7 @@ function setBet(slotid, amount) {
     slotid++;
     var totalAmountPlayerElement = document.getElementById("totalAmountPlayer" + slotid);
 
-    totalAmountPlayerElement.textContent = amount;
+    totalAmountPlayerElement.textContent = amount + "€";
 }
 
 
