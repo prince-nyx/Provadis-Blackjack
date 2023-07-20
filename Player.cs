@@ -1,7 +1,6 @@
 ﻿using BlackJack;
 using BlackJack.Hubs;
-using System;
-using static System.Net.Mime.MediaTypeNames;
+using System.Data.SqlClient;
 
 public class Player
 {
@@ -18,7 +17,12 @@ public class Player
 
     public double bet;
 
-	public Player(String username, double wallet)
+    private SqlCommand? cmd;
+    private SqlDataReader? reader;
+    private readonly SqlDataAdapter? adapter = new SqlDataAdapter();
+    private readonly SqlConnection conn = new("Server=provadis-it-ausbildung.de;Database=BlackJack02;UID=BlackJackUser02;PWD=Pr@vadis_188_Pta;");
+
+    public Player(String username, double wallet)
     {
         this.id = Program.app.GenerateRandomString(8);
         this.username = username;
@@ -74,6 +78,7 @@ public class Player
     {
         this.bet += amount;
         this.wallet -= amount;
+        updateWallet();
     }
 
     public void resetBet()
@@ -84,6 +89,22 @@ public class Player
     public void AddWallet(double amount)
     {
         this.wallet += amount;
+        updateWallet();
+    }
+    private void updateWallet()
+    {
+        string sql = "UPDATE Benutzer SET GeldAnzahl = @GeldAnzahl WHERE username = @username";
+
+        this.conn.Open();
+        this.cmd = new SqlCommand(sql, this.conn);
+
+        this.cmd.Parameters.AddWithValue("@username", username);
+        this.cmd.Parameters.AddWithValue("@GeldAnzahl", wallet);
+
+        this.cmd.ExecuteNonQuery();
+
+        this.cmd.Dispose();
+        this.conn.Close();
     }
 
 

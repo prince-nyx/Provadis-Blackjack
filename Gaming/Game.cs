@@ -5,7 +5,6 @@ using Microsoft.AspNet.SignalR.Messaging;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using System;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Numerics;
 using System.Reflection.Metadata;
@@ -24,10 +23,7 @@ public class Game
     public String hostid { get; set; }
     private Dictionary<string, Player> players = new Dictionary<string, Player>();
     private CardDeck dealerDeck;
-	private readonly SqlConnection conn = new("Server=provadis-it-ausbildung.de;Database=BlackJack02;UID=BlackJackUser02;PWD=Pr@vadis_188_Pta;");
-	private SqlCommand? cmd;
-	private SqlDataReader? reader;
-	private readonly SqlDataAdapter? adapter = new SqlDataAdapter();
+	
 
 	private Boolean[] finishedBets;
     //public GameHub hub { get; set; }
@@ -65,7 +61,7 @@ public class Game
     public void startGame()
 	{
 		gamestarting();
-		enableBet();
+		enableBet(betTime);
         Console.WriteLine("SPIEL GESTARTET");
         phase = GamePhase.BETTING;
         finishedBets = new bool[] {false,false,false,false,false,false,false};
@@ -115,13 +111,13 @@ public class Game
         if (currentSlotsTurn >= slots.Length)
         {
             showDealerCards(dealerDeck.getCard(0).getName());
-			markActivePlayer(7);
+			markActivePlayer(7,30);
 			DealerThinking();
         }
         else if (slots[currentSlotsTurn] != null && players.ContainsKey(slots[currentSlotsTurn]))
         {
-            markActivePlayer(currentSlotsTurn);
-            startTurn(players[slots[currentSlotsTurn]], turnTime);
+            markActivePlayer(currentSlotsTurn, turnTime);
+            startTurn(players[slots[currentSlotsTurn]]);
 
             timer = new System.Timers.Timer(turnTime* 1000);
             timer.Elapsed += new System.Timers.ElapsedEventHandler(endPlayerTurn);
@@ -157,21 +153,22 @@ public class Game
 
     public void playerBets(Player player, int amount)
     {
-        if((player.bet + amount) <= potLimit)
-		{
-			player.AddBet(amount);
-			setBet(getSlotId(player), player.getBet());
-			setBalance(player, player.wallet);
-            if(player.bet == potLimit)
-                player.registerEvent(new FrontendEvent("disableBet"));
-		} else
-		{
-			player.registerEvent(new FrontendEvent("console", "Es ist nicht möglich mehr als "+ potLimit+" zu setzen"));
-            player.bet = potLimit;
-			player.registerEvent(new FrontendEvent("disableBet"));
-
-		}
-	}
+        if(player.wallet >= amount)
+        {
+            if((player.bet + amount) <= potLimit)
+		    {
+			    player.AddBet(amount);
+		    } else
+		    {
+			    player.registerEvent(new FrontendEvent("console", "Es ist nicht möglich mehr als "+ potLimit+" zu setzen"));
+                player.bet = potLimit;
+            }
+            setBet(getSlotId(player), player.getBet());
+            setBalance(player, player.wallet);
+        }
+        else
+            player.registerEvent(new FrontendEvent("console", "Zu wenig Geld"));
+    }
 
     private void endRound()
     {
@@ -206,19 +203,6 @@ public class Game
                         headline = "Dealer hat einen Blackjack";
                         result = "Einsatz von " + player.bet + "€ verloren";
 
-						string sql = "UPDATE Benutzer SET GeldAnzahl -= @GeldAnzahl WHERE username = @username";
-
-						this.conn.Open();
-						this.cmd = new SqlCommand(sql, this.conn);
-
-						this.cmd.Parameters.AddWithValue("@username", player.username);
-						this.cmd.Parameters.AddWithValue("@GeldAnzahl", player.bet);
-
-						this.cmd.ExecuteNonQuery();
-
-						this.cmd.Dispose();
-						this.conn.Close();
-
 						Console.WriteLine("WALLET UPDATE SUCCESS");
 					}
                 }
@@ -226,20 +210,6 @@ public class Game
                 { 
                     headline = "Du hast dich überkauft";
                     result = player.bet + "€ verloren";
-
-					string sql = "UPDATE Benutzer SET GeldAnzahl -= @GeldAnzahl WHERE username = @username";
-
-					this.conn.Open();
-					this.cmd = new SqlCommand(sql, this.conn);
-
-					this.cmd.Parameters.AddWithValue("@username", player.username);
-					this.cmd.Parameters.AddWithValue("@GeldAnzahl", player.bet);
-
-					this.cmd.ExecuteNonQuery();
-
-					this.cmd.Dispose();
-					this.conn.Close();
-
 					Console.WriteLine("WALLET UPDATE SUCCESS");
 
 				} else if (dealerPoints > 21)
@@ -247,19 +217,6 @@ public class Game
 					player.AddWallet(player.bet * 2);
 					headline = "Dealer überkauft";
                     result = (player.bet * 2) + "€ gewonnen";
-
-					string sql = "UPDATE Benutzer SET GeldAnzahl += @GeldAnzahl WHERE username = @username";
-
-					this.conn.Open();
-					this.cmd = new SqlCommand(sql, this.conn);
-
-					this.cmd.Parameters.AddWithValue("@username", player.username);
-					this.cmd.Parameters.AddWithValue("@GeldAnzahl", player.bet);
-
-					this.cmd.ExecuteNonQuery();
-
-					this.cmd.Dispose();
-					this.conn.Close();
 
 					Console.WriteLine("WALLET UPDATE SUCCESS");
 
@@ -269,39 +226,13 @@ public class Game
                     headline = "Du hast gewonnen";
                     result = player.bet + "€ gewonnen";
 
-					string sql = "UPDATE Benutzer SET GeldAnzahl += @GeldAnzahl WHERE username = @username";
-
-					this.conn.Open();
-					this.cmd = new SqlCommand(sql, this.conn);
-
-					this.cmd.Parameters.AddWithValue("@username", player.username);
-					this.cmd.Parameters.AddWithValue("@GeldAnzahl", player.bet);
-
-					this.cmd.ExecuteNonQuery();
-
-					this.cmd.Dispose();
-					this.conn.Close();
-
+					
 					Console.WriteLine("WALLET UPDATE SUCCESS");
 
 				} else
 				{
 					headline = "Dealer gewinnt";
 					result = player.bet + "€ verloren";
-
-					string sql = "UPDATE Benutzer SET GeldAnzahl -= @GeldAnzahl WHERE username = @username";
-
-					this.conn.Open();
-					this.cmd = new SqlCommand(sql, this.conn);
-
-					this.cmd.Parameters.AddWithValue("@username", player.username);
-					this.cmd.Parameters.AddWithValue("@GeldAnzahl", player.bet);
-
-					this.cmd.ExecuteNonQuery();
-
-					this.cmd.Dispose();
-					this.conn.Close();
-
 					Console.WriteLine("WALLET UPDATE SUCCESS");
 				}
 
@@ -527,10 +458,10 @@ public class Game
     }
 
     //all
-    public void enableBet()
+    public void enableBet(int betTime)
     {
         foreach (Player player in players.Values)
-            player.registerEvent(new FrontendEvent("enableBet"));
+            player.registerEvent(new FrontendEvent("enableBet", betTime.ToString()));
     }
 
     //all
@@ -541,10 +472,10 @@ public class Game
 	}
     
     //all
-	public void markActivePlayer(int slotid)
+	public void markActivePlayer(int slotid, int time)
 	{
 		foreach (Player player in players.Values)
-			player.registerEvent(new FrontendEvent("markActivePlayer", slotid.ToString()));
+			player.registerEvent(new FrontendEvent("markActivePlayer", slotid.ToString(), time.ToString()));
 	}
 
 
@@ -568,9 +499,9 @@ public class Game
     }
 
     //client
-    public void startTurn(Player player, int time)
+    public void startTurn(Player player)
     {
-        player.registerEvent(new FrontendEvent("startTurn", time.ToString()));
+        player.registerEvent(new FrontendEvent("startTurn"));
     }
 
     //client

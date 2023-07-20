@@ -29,6 +29,7 @@
 				<span class="passwordIcon"></span>
 				<input asp-for="Password" type="password" id="pass" placeholder="Password" />
 			</div>
+			<span asp-validation-for="Password" class="text-danger"></span>
 			<input class="submit_btn" value="LOGIN" type="submit" id="next" />
 			<br />
 			<a>No account yet? </a> <a href="Register">Register.</a>

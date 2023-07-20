@@ -85,14 +85,13 @@ connection.on("addDealerCard", function (args) {
 
 connection.on("enableBet", function (args) {
     try {
-        enableBet();
+        enableBet(args[0]);
     } catch (err) {
         console.log("ERROR(enableBet) " + err.message);
     }
 });
 
 connection.on("disableBet", function (args) {
-
     try {
         disableBet();
     } catch (err) {
@@ -118,7 +117,7 @@ connection.on("endTurn", function (args) {
 
 connection.on("startTurn", function (args) {
     try {
-        startTurn(args[0]);
+        startTurn();
     } catch (err) {
         console.log("ERROR(startTurn) " + err.message);
     }
@@ -166,7 +165,7 @@ connection.on("console", function (message) {
 
 connection.on("markActivePlayer", function (args) {
     try {
-        markActivePlayer(args[0]);
+        markActivePlayer(args[0], args[1]);
     } catch (err) {
         console.log("ERROR(markActivePlayer) " + err.message);
     }
@@ -342,9 +341,9 @@ function disableBet() {
     document.getElementById("chipsDiv").classList.remove("visible");
 }
 
-function enableBet() {
+function enableBet(time) {
     document.getElementById("chipsDiv").classList.add("visible");
-    setTimer(0.5, true);
+    setTimer(time, true);
 }
 
 function setBalance(amount) {    
@@ -384,7 +383,8 @@ function assignPlayerToSlot(slotid, username) {
 
 function unassignPlayer(slotid) {
     slotid++;
-    document.getElementById("Spieler" + slotid + "-name").innerHTML = "";
+    document.getElementById("Spieler" + slotid + "-name").innerHTML = "...";
+    document.getElementById("totalAmountPlayer" + slotid).innerHTML = "...";
     document.getElementById("Spieler" + slotid).classList.remove("activeSlot");
 }
 
@@ -474,7 +474,7 @@ function markUserSlot(slotid) {
     slot.classList.add("myPlayer");
 }
 
-function markActivePlayer(slotid) {
+function markActivePlayer(slotid, time) {
     for (var i = 1; i <= 7; i++) {
         var slot = document.getElementById("Spieler" + i);
         if (slot.classList.contains("onTurn")) {
@@ -495,6 +495,7 @@ function markActivePlayer(slotid) {
     else {
         console.log("set Spieler" + slotid);
         document.getElementById("Spieler" + slotid).classList.add("onTurn");
+        setTimer(time);
     }
 }
 
@@ -554,8 +555,8 @@ function setTimer(timeInMinutes, status) {
         start: function (t) {
             var pie = 0;
             var num = 0;
-            var min = t ? t : 1;
-            var sec = min * 60;
+            var min = 0;
+            var sec = t+1;
             var lop = sec;
             $('.count').text(min);
             if (min > 0) {
