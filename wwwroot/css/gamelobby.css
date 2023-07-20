@@ -1,29 +1,74 @@
-﻿body {
+﻿@import url(https://fonts.googleapis.com/css?family=Montserrat);
+body {
     background-image: url("/images/GameLobbyBackground.png");
+    font-family: montserrat, arial, verdana;
+}
+
+.moneyIcon::before {
+    height: 1em;
+    width: 1em !important;
+    content: '\f4d3';
+    font: var(--fa-font-solid);
+    font-weight: 600;
+    font-size: 3em;
+    text-align: center;
+    display: flex;
+    color: white;
+}
+
+.filler {
+    visibility: hidden;
+}
+
+.greetingmsg {
+    color: white;
+    text-align: center;
+    font-weight: 600;
+}
+
+.displayOwnUsername {
+    color: white;
+    text-align: center;
 }
 
 .rectangle {
     width: 5vw;
-    height: 8vh;
+    height: 5vw;
     position: relative;
-    background: #999999;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) inset;
-    border-radius: 95px;
-    border: 0.50px black solid;
+    border-radius: 25em;
+    border: 0.2em #00de6b solid;
     display: flex;
     justify-content: center;
-    top: 8vh;
+    top: 2vh;
     margin: auto;
+    opacity: 0.6;
+    background: black;
+    background-image: url("/images/nutzer.png");
+    background-size: cover;
+}
+
+.table {
+    width: 74em;
+    height: 33em;
+    margin: 0;
+    margin-top: 10em;
+    position: absolute;
+    left: 19.167%;
+    border-radius: 20em;
+    border: 1em #341401 solid;
+    background-image: url("https://t3.ftcdn.net/jpg/00/97/46/36/360_F_97463619_ZHqQiR70xv5HRiTJlkfyetkzxrmezDtP.jpg");
+    background-size: cover;
 }
 
 .activeSlot {
-    width: 100%;
-    background: #A0D2FF;
-    
+    border: 0.2em #a100c1 solid;
+    opacity: 1;
 }
 
 .container {
     max-width: 100%;
+    margin-top: 1em;
 }
 
 .visible {
@@ -31,13 +76,14 @@
 }
 
 .spieler {
-    height: 10vh;
+    height: 12vh;
+    width: 33.5em;
 }
 
 .cardcontainer {
     height: 16vh;
     width: 80%;
-    left: 10%;
+    left: -10%;
     position: absolute;
     top: 0;
     display: flex;
@@ -55,24 +101,41 @@
     overflow: auto;
 }
 
+#player2_cards,
+#player6_cards {
+    left: 25%;
+    top: -70%;
+}
+
+#dealer_cards,
+#player1_cards,
+#player3_cards,
+#player4_cards,
+#player5_cards,
+#player7_cards {
+    left: 27%;
+    top: -60%;
+}
+
+
 .image-row .visible {
     animation-name: cardflying;
-    animation-duration: 1s;
+    animation-duration: 1.5s;
 }
 
 @keyframes cardflying {
     0% {
-        top: 50%;
-        left: 50%;
+        top: 45%;
+        left: 48%;
         position: fixed;
-        height: 100px;
+        height: 8em;
         content: url("/images/kartenruecken.png");
     }
     99% {
         top: auto;
-        left: auto;
+        left: 48%;
         position: relative;
-        height: 100px;
+        height: 8em;
         content: url("/images/kartenruecken.png");
     }
 }
@@ -95,14 +158,43 @@
     margin-right: -30%;
 }
 
-.myPlayer .rectangle {
-    background: #66ffff;
-    height: 10vh;
-    top: 10vh;
+.labelcontainer {
+    width: auto;
+    min-width: 5.5em;
+    height: auto;
+    position: relative;
+    display: flex;
+    justify-content: center;
 }
 
-.myPlayer h4 {
-    font-size: 35px;
+.labelcontainer h5 {
+    background: #0c5a6f;
+    width: auto;
+    height: 1.25em;
+    padding: 0 0.4em 1.3em 0.5em;
+    border: 0.1em #00b5de solid;
+    border-radius: 10em;
+    font-size: 1.1em;
+    font-family: montserrat;
+    color: white;
+    position: absolute;
+    margin-top: 5em;
+}
+
+.labelcontainer h4 {
+    background: #0c6f3c;
+    width: auto;
+    padding: 0 0.4em 1.3em 0.4em;
+    height: 1.25em;
+    margin-top: 2.5em !important;
+    margin-bottom: 0 !important;
+    position: absolute;
+    border: 0.1em #00de6b solid;
+    border-radius: 10em;
+    font-size: 1.5em;
+    color: white;
+    font-family: montserrat;
+    display: flex;
 }
 
 .onTurn {

@@ -200,7 +200,12 @@ function myConfirmBox(message) {
 // Using the confirm box
 document.getElementById("exitPromptBtn").addEventListener("click", () => {
     myConfirmBox("Wollen sie das Spiel wirklich verlassen?").then(response => {
-        console.log(response); // true or false response from the user
+        console.log("Spieler " + getCookie("userid") + " verlässt das Spiel");
+        connection
+            .invoke("leave", getCookie("userid"))
+            .catch(function (err) {
+                return console.error(err.toString());
+            });
     })
 })
 
@@ -298,6 +303,16 @@ function getCookie(cname) {
     return "";
 }
 
+//document.getElementById("trueButton").addEventListener("click", function (event) {
+//    console.log("Spieler " + getCookie("userid") + " verlässt das Spiel");
+//    connection
+//        .invoke("leave", getCookie("userid"))
+//        .catch(function (err) {
+//            return console.error(err.toString());
+//        });
+//});
+
+
 document.getElementById("startButton").addEventListener("click", function (event) {
     console.log("Game startet ..." + getCookie("userid"));
     closeWinnerScreen();
@@ -338,17 +353,17 @@ function enableBet() {
 }
 
 function setBalance(amount) {    
-    document.getElementById("money").innerHTML = "Guthaben: " + amount + "€";
+    document.getElementById("money").innerHTML = amount + "€";
 }
 
 function setName(name) {
-    document.getElementById("username").innerHTML = "Viel Erfolg " + name;
+    document.getElementById("username").innerHTML = name;
 }
 
 function load(amount, name, gamecode) {
     setBalance(amount);
     setName(name);
-    document.getElementById("code").innerHTML = "Gamecode: "+gamecode;
+    document.getElementById("code").innerHTML = gamecode;
 }
 
 function showResult(headline, result) {
@@ -413,7 +428,7 @@ function setBet(slotid, amount) {
     slotid++;
     var totalAmountPlayerElement = document.getElementById("totalAmountPlayer" + slotid);
 
-    totalAmountPlayerElement.textContent = amount;
+    totalAmountPlayerElement.textContent = amount + "€";
 }
 
 

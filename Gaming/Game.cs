@@ -139,7 +139,7 @@ public class Game
         {
             System.Threading.Thread.Sleep(2000);
             if (dealerDeck.BlackJackSum() >= 17)
-                endGame();
+                endRound();
             else
             {
                 DealerDrawsCard();
@@ -155,7 +155,7 @@ public class Game
 		setBalance(player, player.wallet);
 	}
 
-    private void endGame()
+    private void endRound()
     {
         int dealerPoints = dealerDeck.BlackJackSum();
         Boolean dealerBlackJack = dealerDeck.isBlackJack();
@@ -276,6 +276,46 @@ public class Game
                     player.registerEvent(new FrontendEvent("assignPlayer", i.ToString(), players[slots[i]].username));               
         }
     }
+
+    public void PlayerLeaves(Player player)
+    {
+        if (slots.Contains(player.id))
+        {
+            int slotid = getSlotId(player);
+            unassignPlayer(slotid);
+            slots[slotid] = null;
+            players.Remove(player.id);
+            player.resetBet();
+            player.events.Clear();
+            player.currentGameId = "";
+
+            if(player.id.Equals(hostid))
+            {
+                lookingForNewHost();
+                if (hostid != null) { 
+                    if (phase == GamePhase.WAITING_FOR_PLAYERS)
+                        showStartButton(players[hostid]);
+                } else
+                {
+                    Program.app.gameManager.deleteGame(id);
+                }
+            }
+            
+		}
+	}
+
+    public void lookingForNewHost()
+    {
+        hostid = null;
+		for (int i = 0; i < slots.Length; i++)
+		{
+			if (slots[i] != null)
+			{
+                hostid = slots[i];
+				break;
+			}
+		}
+	}
 
     private int getSlotId(Player player)
     {

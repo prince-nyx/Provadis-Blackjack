@@ -1,4 +1,6 @@
-﻿namespace BlackJack
+﻿using System.Numerics;
+
+namespace BlackJack
 {
     public class GameManger
     {
@@ -34,6 +36,11 @@
             return games.ContainsKey(gameid);
         }
 
+        public void deleteGame(String gameid)
+        {
+			Console.WriteLine("[GAMEMANAGER] " + games[gameid].ToString()+" gelöscht");
+			games.Remove(gameid);
+        }
         public String createGame(String hostid)
         {
             Game game = new Game(hostid);
