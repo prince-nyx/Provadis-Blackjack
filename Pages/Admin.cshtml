@@ -2,7 +2,7 @@
 @model BlackJack.Pages.AdminModel
 @{
 }
-<link rel="stylesheet" href="~/css/Register.css" />
+<link rel="stylesheet" href="~/css/Admin.css" />
 <form id ="msform" method="post">
     <fieldset >
         <h1>Einstellungen</h1>
@@ -17,6 +17,7 @@
         <input asp-for="maxEinzahlung" type="text" id="maxEinzahlung" />
         <p>Startguthaben (In einer Ganzzahl):</p>
         <input asp-for="startguthaben" type="text" id="startguthaben" />
+        <br />
         <input type="submit" id="submit" placeholder="Absenden" />
     </fieldset>   
 </form>
