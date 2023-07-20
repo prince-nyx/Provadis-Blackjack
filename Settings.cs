@@ -28,6 +28,28 @@ namespace BlackJack
         }
 
 
+        public void reload()
+        {
+            string sql = "UPDATE gamesettings SET betTime = @betTime,turnTime = @turnTime,potLimit = @potLimit,maxEinzahlung = @maxEinzahlung,startguthaben = @startguthaben";
+
+            this.conn.Open();
+            this.cmd = new SqlCommand(sql, this.conn);
+
+            this.cmd.Parameters.AddWithValue("@betTime", betTime);
+            this.cmd.Parameters.AddWithValue("@turnTime", turnTime);
+            this.cmd.Parameters.AddWithValue("@potLimit", potLimit);
+            this.cmd.Parameters.AddWithValue("@maxEinzahlung", maxEinzahlung);
+            this.cmd.Parameters.AddWithValue("@startguthaben", startguthaben);
+
+            this.cmd.ExecuteNonQuery();
+
+            this.cmd.Dispose();
+            this.conn.Close();
+
+            load();
+        }
+
+
         public void load()
         {
 

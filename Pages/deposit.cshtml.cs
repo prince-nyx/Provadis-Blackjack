@@ -19,6 +19,7 @@ namespace BlackJack.Pages
             {
                 Response.Redirect("/index");
             }
+
             //END ACCESS CHECK
         }
         public IActionResult OnPost()

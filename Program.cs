@@ -27,7 +27,6 @@ namespace BlackJack
             playerManager = new PlayerManager();
             settings = new Settings();
 
-            Console.WriteLine(settings.ToString());
         }
 
 
