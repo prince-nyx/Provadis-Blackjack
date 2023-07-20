@@ -48,7 +48,7 @@ namespace BlackJack.Pages
 			}
 			else
 			{
-				ModelState.AddModelError("depositAmount", "Einzahlung kann nicht über 100 liegen.");
+				ModelState.AddModelError("depositAmount", "Einzahlung kann nicht über" + Program.app.settings.maxEinzahlung + " liegen.");
 			}
 			
 			return Page();

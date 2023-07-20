@@ -16,6 +16,7 @@ namespace BlackJack.Pages
         public double potLimit { get; set; }
         public double maxEinzahlung { get; set; }
         public double startguthaben { get; set; }
+        public string Username { get; set; }
 
         private SqlCommand? cmd;
         private SqlDataReader? reader;
@@ -69,6 +70,7 @@ namespace BlackJack.Pages
             this.potLimit = Convert.ToDouble(Request.Form["potLimit"]);
             this.maxEinzahlung = Convert.ToDouble(Request.Form["maxEinzahlung"]);
             this.startguthaben = Convert.ToDouble(Request.Form["startguthaben"]);
+            this.Username = Convert.ToString(Request.Form["Username"]);
             Console.WriteLine("Werte wurden eingetragen");
 
             if (
@@ -85,6 +87,7 @@ namespace BlackJack.Pages
                 Program.app.settings.potLimit = this.potLimit;
                 Program.app.settings.maxEinzahlung = this.maxEinzahlung;
                 Program.app.settings.startguthaben = this.startguthaben;
+                Program.app.settings.Username= this.Username;
             Console.WriteLine("Vor Reload");
                 Program.app.settings.reload();
             Console.WriteLine("Reload");
