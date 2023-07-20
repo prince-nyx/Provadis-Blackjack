@@ -14,6 +14,7 @@ using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Timers;
+using static System.Net.Mime.MediaTypeNames;
 
 
 public class Game
@@ -282,11 +283,20 @@ public class Game
         }
     }
 
+    public void resetBet(Player player)
+    {
+        player.AddWallet(player.bet);
+        player.bet = 0;
+        int slotid = getSlotId(player);
+        setBet(slotid, 0);
+        setBalance(player, player.wallet);
+    }
 
 
-	internal void refresh(Player mainplayer)
+	public void refresh(Player mainplayer)
 	{
-        foreach(Card card in dealerDeck.getAlLCards())
+        int mainslot = getSlotId(mainplayer);
+		foreach (Card card in dealerDeck.getAlLCards())
         {
 			if (card.position == 1)
 				mainplayer.registerEvent(new FrontendEvent("addDealerCard", "", card.position.ToString()));
@@ -307,9 +317,21 @@ public class Game
 				mainplayer.registerEvent(new FrontendEvent("setBet", i.ToString(), player.bet.ToString()));
             }
         }
-        if(hostid.Equals(mainplayer.id))
-			mainplayer.registerEvent(new FrontendEvent("showStartButton"));
-		mainplayer.registerEvent(new FrontendEvent("markUserSlot", getSlotId(mainplayer).ToString()));
+        if(phase == GamePhase.WAITING_FOR_PLAYERS)
+            if(hostid.Equals(mainplayer.id))
+			    mainplayer.registerEvent(new FrontendEvent("showStartButton"));
+        else if(phase == GamePhase.BETTING)
+			mainplayer.registerEvent(new FrontendEvent("enableBet"));
+        else if(phase == GamePhase.PLAYING)
+        {
+			mainplayer.registerEvent(new FrontendEvent("markActivePlayer", currentSlotsTurn.ToString(), turnTime.ToString()));
+			if (mainslot == currentSlotsTurn)
+				mainplayer.registerEvent(new FrontendEvent("startTurn"));
+
+        }
+
+		mainplayer.registerEvent(new FrontendEvent("load", mainplayer.wallet.ToString(), mainplayer.username, id));
+		mainplayer.registerEvent(new FrontendEvent("markUserSlot", mainslot.ToString()));
 	}
 
 

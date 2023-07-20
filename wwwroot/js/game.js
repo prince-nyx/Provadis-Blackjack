@@ -346,6 +346,27 @@ document.getElementById("standButton").addEventListener("click", function (event
         });
 });
 
+document.getElementById("btnSubmitBet").addEventListener("click", function (event) {
+
+    console.log("Spieler " + getCookie("userid") + " drückt btnSubmitBet");
+    connection
+        .invoke("submitBet", getCookie("userid"))
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
+});
+
+document.getElementById("btnResetBet").addEventListener("click", function (event) {
+
+    console.log("Spieler " + getCookie("userid") + " drückt btnResetBet");
+    connection
+        .invoke("resetBet", getCookie("userid"))
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
+});
+
+
 function disableBet() {
     document.getElementById("chipsDiv").classList.remove("visible");
 }
@@ -406,6 +427,7 @@ function assignPlayerToSlot(slotid, username) {
 
 function unassignPlayer(slotid) {
     slotid++;
+    console.log("Spieler" + slotid + "-name");
     document.getElementById("Spieler" + slotid + "-name").innerHTML = "...";
     document.getElementById("totalAmountPlayer" + slotid).innerHTML = "...";
     document.getElementById("Spieler" + slotid + "-name").classList.add("invisible");
@@ -416,7 +438,7 @@ function unassignPlayer(slotid) {
 
 function refresh() {
 
-    for (i = 0; i < 8; i++) {
+    for (i = 0; i < 7; i++) {
         unassignPlayer(i);
     }
     resetCards();
@@ -427,11 +449,6 @@ function refresh() {
         });
 
 }
-
-
-
-
-
 
 function hideChipImages() {
     let totalBet = 0;
@@ -456,23 +473,9 @@ function hideChipImages() {
 }
 
 
-function clickChip(amount) {
-    connection
-        .invoke("setBet", getCookie("userid"), amount)
-        .catch(function (err) {
-            return console.error(err.toString());
-        });
-}
-
-
-
-
-
 function setBet(slotid, amount) {
-
     slotid++;
     var totalAmountPlayerElement = document.getElementById("totalAmountPlayer" + slotid);
-
     totalAmountPlayerElement.textContent = amount + "€";
 }
 
@@ -484,18 +487,6 @@ function clickChip(amount) {
         });
 }
 
-
-
-
-
-
-function setBet(slotid, amount) {
-
-    slotid++;
-    var totalAmountPlayerElement = document.getElementById("totalAmountPlayer" + slotid);
-
-    totalAmountPlayerElement.textContent = amount + "€";
-}
 
 function setCardSum(slotid, amount) {
     const sumElement = document.getElementById(`sumPlayer${slotid}`);

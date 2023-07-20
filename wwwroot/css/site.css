@@ -27,7 +27,8 @@
     cursor: pointer;
     margin: 0 auto;
     flex-direction: column;
-    margin-top: 400px;
+    /*margin-top: 2%;*/
+    margin-top: 5em;
     align-items: center;
     border: solid;
     border-color: white;
@@ -51,14 +52,17 @@
     border-width: 5px;
 }
 
+
+
 #Logo {
-    width: 300px;
+    margin-top: 40em;
+    width: 37em;
     font-size: 18px;
     padding-block: 30px;
     align-items: center;
     margin: 0 auto;
     flex-direction: column;
-}
+}   
 
 #Registrieren:hover {
     background: #ddd;
