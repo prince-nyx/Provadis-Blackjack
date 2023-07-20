@@ -343,7 +343,7 @@ function disableBet() {
 
 function enableBet(time) {
     document.getElementById("chipsDiv").classList.add("visible");
-    setTimer(time);
+    setTimer(time, true);
 }
 
 function setBalance(amount) {    
@@ -529,7 +529,7 @@ function closeMenu() {
     document.getElementById("ruleBtn").disabled = false;
 }
 
-function setTimer(timeInMinutes) {
+function setTimer(timeInMinutes, status) {
     $step = 1;
     $loops = Math.round(100 / $step);
     $increment = 360 / $loops;
@@ -545,7 +545,12 @@ function setTimer(timeInMinutes) {
     clock = {
         interval: null,
         init: function () {
-            clock.start(timeInMinutes);
+            if (status) {
+                clock.start(timeInMinutes);
+            }
+            if (!status) {
+                clock.stop();
+            }
         },
         start: function (t) {
             var pie = 0;
@@ -555,7 +560,7 @@ function setTimer(timeInMinutes) {
             var lop = sec;
             $('.count').text(min);
             if (min > 0) {
-                $('.count').addClass('min')
+                $('.count').addClass('sec')
             } else {
                 $('.count').addClass('sec')
             }
@@ -581,6 +586,12 @@ function setTimer(timeInMinutes) {
                     $('.clock').removeAttr('style');
                 }
             }, 1000);
+        },
+        stop: function () {
+            clearInterval(clock.interval);
+            $('.count').text(0);
+            $('.clock').removeAttr('style');
+            document.getElementById("clock_vis").style.visibility = "collapse";
         }
     }
 }
