@@ -13,7 +13,7 @@ body {
 
 #msform {
     width: 35em;
-    margin: 15em auto;
+    margin: 9em auto;
     text-align: center;
     position: relative;
 }
@@ -24,14 +24,14 @@ body {
 
 #msform fieldset {
     background: #21212196;
-    height: 45em;
+    height: 56em;
     border: 0 none;
     border-radius: 1em;
     box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
-    padding: 20px 30px;
+    padding: 15px 30px;
     box-sizing: border-box;
     width: 80%;
-    margin: 18em 4em;
+    margin: 4em;
     position: relative;
     color: white;
 }
