@@ -223,14 +223,6 @@ document.getElementById("exitPromptBtn").addEventListener("click", () => {
     })
 })
 
-document.getElementById("kickPlayer").addEventListener("click", () => {
-        connection
-            .invoke("leave", getCookie("userid"))
-            .catch(function (err) {
-                return console.error(err.toString());
-            });
-    })
-})
 
 function showStartButton() {
     document.getElementById("startbuttons").classList.add("visible");
