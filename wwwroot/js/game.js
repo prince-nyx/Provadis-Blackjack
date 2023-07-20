@@ -234,15 +234,19 @@ function disableStartButton() {
 function resetCards() {
     var cardSlot;
     for (let i = 1; i <= 7; i++) {
-        for (let x = 1; x <= 11; x++) {
-            cardSlot = document.getElementById("Spieler" + i + "-Card" + x);
-            cardSlot.src = `/images/kartenruecken.png`;
-            cardSlot.classList.remove("visible");
-        }
+        resetCardsAtSlot(i);
     }
 
     for (let x = 1; x <= 11; x++) {
         cardSlot = document.getElementById("Dealer-Card" + x);
+        cardSlot.src = `/images/kartenruecken.png`;
+        cardSlot.classList.remove("visible");
+    }
+}
+
+function resetCardsAtSlot(slotid) {
+    for (let x = 1; x <= 11; x++) {
+        cardSlot = document.getElementById("Spieler" + slotid + "-Card" + x);
         cardSlot.src = `/images/kartenruecken.png`;
         cardSlot.classList.remove("visible");
     }
@@ -427,6 +431,7 @@ function assignPlayerToSlot(slotid, username) {
 
 function unassignPlayer(slotid) {
     slotid++;
+    resetCardsAtSlot(slotid);
     console.log("Spieler" + slotid + "-name");
     document.getElementById("Spieler" + slotid + "-name").innerHTML = "...";
     document.getElementById("totalAmountPlayer" + slotid).innerHTML = "...";
@@ -437,7 +442,6 @@ function unassignPlayer(slotid) {
 
 
 function refresh() {
-
     for (i = 0; i < 7; i++) {
         unassignPlayer(i);
     }
