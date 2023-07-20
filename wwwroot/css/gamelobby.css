@@ -20,6 +20,10 @@ body {
     visibility: hidden;
 }
 
+.moneyCodeWhite {
+    color:white;
+}
+
 .greetingmsg {
     color: white;
     text-align: center;
