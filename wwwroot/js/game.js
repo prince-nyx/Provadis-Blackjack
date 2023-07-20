@@ -103,7 +103,7 @@ connection.on("showDealerCards", function (args) {
     try {
         showDealerCards(args[0]);
     } catch (err) {
-        console.log("ERROR(showDealerCards) "+err.message);
+        console.log("ERROR(showDealerCards) " + err.message);
     }
 });
 
@@ -291,7 +291,7 @@ function addDealerCard(card, cardslot) {
 
 function showDealerCards(cardname) {
     var cardSlot = document.getElementById("Dealer-Card1");
-    cardSlot.src = "/images/card/"+cardname+".png";
+    cardSlot.src = "/images/card/" + cardname + ".png";
 }
 
 function submitBet(amount) {
@@ -331,7 +331,7 @@ document.getElementById("startButton").addEventListener("click", function (event
 
 document.getElementById("hitButton").addEventListener("click", function (event) {
 
-    console.log("Spieler " + getCookie("userid") +" drückt hitButton");
+    console.log("Spieler " + getCookie("userid") + " drückt hitButton");
     connection
         .invoke("hit", getCookie("userid"))
         .catch(function (err) {
@@ -378,7 +378,7 @@ function enableBet(time) {
 
     chipImages.forEach(chipImage => {
         const onclickAttr = chipImage.getAttribute('onclick');
-        if (onclickAttr !== null) {      
+        if (onclickAttr !== null) {
             chipImage.style.display = 'inline-block';
         }
     });
@@ -387,7 +387,7 @@ function enableBet(time) {
     setTimer(time);
 }
 
-function setBalance(amount) {    
+function setBalance(amount) {
     document.getElementById("money").innerHTML = amount + "€";
 }
 
@@ -503,19 +503,19 @@ function setCardSum(slotid, amount) {
         addedAmountElement.textContent = `Höhe der gezogenen Karte: +${amount}`;
     }
 
-/*    // Target the dealer slot
-    const dealerSumElement = document.getElementById('sumDealer');
-    if (dealerSumElement) {
-        let dealerSum = parseInt(dealerSumElement.textContent.trim().split(':')[1]);
-        if (isNaN(dealerSum)) {
-            dealerSum = 0;
-        }
-        dealerSum += amount;
-        dealerSumElement.textContent = `Kartensumme: ${dealerSum}`;
-
-        const dealerAddedAmountElement = document.getElementById('addedAmountDealer');
-        dealerAddedAmountElement.textContent = `Höhe der gezogenen Karte: +${amount}`;
-    }*/
+    /*    // Target the dealer slot
+        const dealerSumElement = document.getElementById('sumDealer');
+        if (dealerSumElement) {
+            let dealerSum = parseInt(dealerSumElement.textContent.trim().split(':')[1]);
+            if (isNaN(dealerSum)) {
+                dealerSum = 0;
+            }
+            dealerSum += amount;
+            dealerSumElement.textContent = `Kartensumme: ${dealerSum}`;
+    
+            const dealerAddedAmountElement = document.getElementById('addedAmountDealer');
+            dealerAddedAmountElement.textContent = `Höhe der gezogenen Karte: +${amount}`;
+        }*/
 
     // Target the benutzer slot
     const benutzerSumElement = document.getElementById('sumBenutzer');
@@ -534,7 +534,7 @@ function setCardSum(slotid, amount) {
 
 function markUserSlot(slotid) {
     slotid++;
-    var slot = document.getElementById("Spieler" + slotid +"-container");
+    var slot = document.getElementById("Spieler" + slotid + "-container");
     slot.classList.add("myPlayer");
 }
 
@@ -652,6 +652,6 @@ function setTimer(timeInSeconds) {
             $('.clock').removeAttr('style');
             document.getElementById("clock_vis").style.visibility = "collapse";
         }
-       
+
     }
 }
