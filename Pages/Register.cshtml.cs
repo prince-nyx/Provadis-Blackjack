@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Numerics;
 using System.Text.RegularExpressions;
 using Microsoft.JSInterop;
+using System.Runtime.CompilerServices;
 
 namespace BlackJack.Pages
 {
@@ -61,7 +62,17 @@ namespace BlackJack.Pages
 
         private bool IsBirthValid()
         {
-            return this.Birth.CompareTo(DateTime.Today.AddYears(-18)) <= 0 ? true : false;
+            int age = DateTime.Today.Year - this.Birth.Year;
+
+            if (age >= 18)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
 		}
 
         private bool IsUserNameValid() 
