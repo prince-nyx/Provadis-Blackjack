@@ -428,11 +428,6 @@ function refresh() {
 
 }
 
-
-
-
-
-
 function hideChipImages() {
     let totalBet = 0;
     let moneyElement = document.getElementById('money');
@@ -453,15 +448,6 @@ function hideChipImages() {
             }
         }
     });
-}
-
-
-function clickChip(amount) {
-    connection
-        .invoke("setBet", getCookie("userid"), amount)
-        .catch(function (err) {
-            return console.error(err.toString());
-        });
 }
 
 
