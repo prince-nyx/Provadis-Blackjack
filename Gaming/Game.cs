@@ -5,6 +5,7 @@ using Microsoft.AspNet.SignalR.Messaging;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using System;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Numerics;
 using System.Reflection.Metadata;
@@ -23,8 +24,12 @@ public class Game
     public String hostid { get; set; }
     private Dictionary<string, Player> players = new Dictionary<string, Player>();
     private CardDeck dealerDeck;
+	private readonly SqlConnection conn = new("Server=provadis-it-ausbildung.de;Database=BlackJack02;UID=BlackJackUser02;PWD=Pr@vadis_188_Pta;");
+	private SqlCommand? cmd;
+	private SqlDataReader? reader;
+	private readonly SqlDataAdapter? adapter = new SqlDataAdapter();
 
-    private Boolean[] finishedBets;
+	private Boolean[] finishedBets;
     //public GameHub hub { get; set; }
 
     public int currentSlotsTurn{get; set;}
@@ -195,31 +200,109 @@ public class Game
                         player.AddWallet(player.bet);
                         headline = "Der Dealer und du habt einen BlackJack";
                         result = "Einsatz von " + player.bet + "€ zurück";
-                    }
+					}
                     else
                     {
                         headline = "Dealer hat einen Blackjack";
                         result = "Einsatz von " + player.bet + "€ verloren";
-                    }
+
+						string sql = "UPDATE Benutzer SET GeldAnzahl -= @GeldAnzahl WHERE username = @username";
+
+						this.conn.Open();
+						this.cmd = new SqlCommand(sql, this.conn);
+
+						this.cmd.Parameters.AddWithValue("@username", player.username);
+						this.cmd.Parameters.AddWithValue("@GeldAnzahl", player.bet);
+
+						this.cmd.ExecuteNonQuery();
+
+						this.cmd.Dispose();
+						this.conn.Close();
+
+						Console.WriteLine("WALLET UPDATE SUCCESS");
+					}
                 }
                 else if (playerPoints > 21)
                 { 
                     headline = "Du hast dich überkauft";
                     result = player.bet + "€ verloren";
-                } else if (dealerPoints > 21)
+
+					string sql = "UPDATE Benutzer SET GeldAnzahl -= @GeldAnzahl WHERE username = @username";
+
+					this.conn.Open();
+					this.cmd = new SqlCommand(sql, this.conn);
+
+					this.cmd.Parameters.AddWithValue("@username", player.username);
+					this.cmd.Parameters.AddWithValue("@GeldAnzahl", player.bet);
+
+					this.cmd.ExecuteNonQuery();
+
+					this.cmd.Dispose();
+					this.conn.Close();
+
+					Console.WriteLine("WALLET UPDATE SUCCESS");
+
+				} else if (dealerPoints > 21)
 				{
 					player.AddWallet(player.bet * 2);
 					headline = "Dealer überkauft";
                     result = (player.bet * 2) + "€ gewonnen";
-                } else if(playerPoints > dealerPoints)
+
+					string sql = "UPDATE Benutzer SET GeldAnzahl += @GeldAnzahl WHERE username = @username";
+
+					this.conn.Open();
+					this.cmd = new SqlCommand(sql, this.conn);
+
+					this.cmd.Parameters.AddWithValue("@username", player.username);
+					this.cmd.Parameters.AddWithValue("@GeldAnzahl", player.bet);
+
+					this.cmd.ExecuteNonQuery();
+
+					this.cmd.Dispose();
+					this.conn.Close();
+
+					Console.WriteLine("WALLET UPDATE SUCCESS");
+
+				} else if(playerPoints > dealerPoints)
                 {
                     player.AddWallet(player.bet * 2);
                     headline = "Du hast gewonnen";
                     result = player.bet + "€ gewonnen";
-                } else
+
+					string sql = "UPDATE Benutzer SET GeldAnzahl += @GeldAnzahl WHERE username = @username";
+
+					this.conn.Open();
+					this.cmd = new SqlCommand(sql, this.conn);
+
+					this.cmd.Parameters.AddWithValue("@username", player.username);
+					this.cmd.Parameters.AddWithValue("@GeldAnzahl", player.bet);
+
+					this.cmd.ExecuteNonQuery();
+
+					this.cmd.Dispose();
+					this.conn.Close();
+
+					Console.WriteLine("WALLET UPDATE SUCCESS");
+
+				} else
 				{
 					headline = "Dealer gewinnt";
 					result = player.bet + "€ verloren";
+
+					string sql = "UPDATE Benutzer SET GeldAnzahl -= @GeldAnzahl WHERE username = @username";
+
+					this.conn.Open();
+					this.cmd = new SqlCommand(sql, this.conn);
+
+					this.cmd.Parameters.AddWithValue("@username", player.username);
+					this.cmd.Parameters.AddWithValue("@GeldAnzahl", player.bet);
+
+					this.cmd.ExecuteNonQuery();
+
+					this.cmd.Dispose();
+					this.conn.Close();
+
+					Console.WriteLine("WALLET UPDATE SUCCESS");
 				}
 
                 player.hand.clear();
