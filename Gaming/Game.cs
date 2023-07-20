@@ -12,6 +12,7 @@ using System.Reflection.PortableExecutable;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading;
 using System.Timers;
 
 
@@ -296,14 +297,19 @@ public class Game
 		{
 			if (slots[i] != null && players.ContainsKey(slots[i]))
 			{
+
 				Player player = players[slots[i]];
+				mainplayer.registerEvent(new FrontendEvent("assignPlayer", i.ToString(), player.username));
                 foreach(Card card in player.hand.getAlLCards())
 					mainplayer.registerEvent(new FrontendEvent("addCardToPlayer", i.ToString(), card.getName(), card.position.ToString()));
 
 
 				mainplayer.registerEvent(new FrontendEvent("setBet", i.ToString(), player.bet.ToString()));
-			}
-		}
+            }
+        }
+        if(hostid.Equals(mainplayer.id))
+			mainplayer.registerEvent(new FrontendEvent("showStartButton"));
+		mainplayer.registerEvent(new FrontendEvent("markUserSlot", getSlotId(mainplayer).ToString()));
 	}
 
 
