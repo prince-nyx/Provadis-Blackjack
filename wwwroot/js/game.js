@@ -342,7 +342,21 @@ function disableBet() {
 }
 
 function enableBet(time) {
+    const chipImages = document.querySelectorAll('.pokerchips img'); // Define chipImages here
     document.getElementById("chipsDiv").classList.add("visible");
+
+    chipImages.forEach(chipImage => {
+        const onclickAttr = chipImage.getAttribute('onclick');
+        if (onclickAttr !== null) {
+            const chipValue = parseInt(onclickAttr.match(/\d+/)[0]);
+            if (playerCurrency < chipValue || playerCurrency < totalBet + chipValue) {
+                chipImage.style.display = 'none';
+                chipImage.removeAttribute('onclick');
+            }
+        }
+    });
+
+    hideChipImages();
     setTimer(time);
 }
 
@@ -358,6 +372,7 @@ function load(amount, name, gamecode) {
     setBalance(amount);
     setName(name);
     document.getElementById("code").innerHTML = gamecode;
+    hideChipImages();
 }
 
 function showResult(headline, result) {
@@ -390,31 +405,15 @@ function unassignPlayer(slotid) {
 
 
 
-//Game.cs Code
-/*    public void playerBets(Player player, int amount)
-    {
-		player.AddBet(amount);
-        setBet(getSlotId(player), player.getBet());
-		setBalance(player, player.wallet);
-	}
-    
-     public void setBalance(Player player, double amount)
-    {
-        player.registerEvent(new FrontendEvent("setBalance", amount.ToString()));
-    }
-    
-
-    */
 
 
-/*function setBalance(amount) {
-    document.getElementById("money").innerHTML = amount + "€";
-}
-*/
+
 function hideChipImages() {
     let totalBet = 0;
     let moneyElement = document.getElementById('money');
+    console.log(moneyElement.innerHTML);
     let playerCurrency = parseInt(moneyElement.innerText);
+    console.log(playerCurrency);
     //let playerCurrency = 125;
     const chipImages = document.querySelectorAll('.pokerchips img'); // Define chipImages here
 
@@ -430,7 +429,6 @@ function hideChipImages() {
         }
     });
 }
-hideChipImages();
 
 
 function clickChip(amount) {
@@ -439,7 +437,6 @@ function clickChip(amount) {
         .catch(function (err) {
             return console.error(err.toString());
         });
-    hideChipImages();
 }
 
 
