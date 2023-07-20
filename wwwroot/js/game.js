@@ -85,14 +85,13 @@ connection.on("addDealerCard", function (args) {
 
 connection.on("enableBet", function (args) {
     try {
-        enableBet();
+        enableBet(args[0]);
     } catch (err) {
         console.log("ERROR(enableBet) " + err.message);
     }
 });
 
 connection.on("disableBet", function (args) {
-
     try {
         disableBet();
     } catch (err) {
@@ -118,7 +117,7 @@ connection.on("endTurn", function (args) {
 
 connection.on("startTurn", function (args) {
     try {
-        startTurn(args[0]);
+        startTurn();
     } catch (err) {
         console.log("ERROR(startTurn) " + err.message);
     }
@@ -166,7 +165,7 @@ connection.on("console", function (message) {
 
 connection.on("markActivePlayer", function (args) {
     try {
-        markActivePlayer(args[0]);
+        markActivePlayer(args[0], args[1]);
     } catch (err) {
         console.log("ERROR(markActivePlayer) " + err.message);
     }
@@ -342,9 +341,19 @@ function disableBet() {
     document.getElementById("chipsDiv").classList.remove("visible");
 }
 
-function enableBet() {
+function enableBet(time) {
+    const chipImages = document.querySelectorAll('.pokerchips img'); // Define chipImages here
     document.getElementById("chipsDiv").classList.add("visible");
-    setTimer(0.3);
+
+    chipImages.forEach(chipImage => {
+        const onclickAttr = chipImage.getAttribute('onclick');
+        if (onclickAttr !== null) {      
+            chipImage.style.display = 'inline-block';
+        }
+    });
+
+    hideChipImages();
+    setTimer(time);
 }
 
 function setBalance(amount) {    
@@ -359,6 +368,7 @@ function load(amount, name, gamecode) {
     setBalance(amount);
     setName(name);
     document.getElementById("code").innerHTML = gamecode;
+    hideChipImages();
 }
 
 function showResult(headline, result) {
@@ -384,17 +394,26 @@ function assignPlayerToSlot(slotid, username) {
 
 function unassignPlayer(slotid) {
     slotid++;
-    document.getElementById("Spieler" + slotid + "-name").innerHTML = "";
+    document.getElementById("Spieler" + slotid + "-name").innerHTML = "...";
+    document.getElementById("totalAmountPlayer" + slotid).innerHTML = "...";
     document.getElementById("Spieler" + slotid).classList.remove("activeSlot");
 }
 
-//Einsatz bei drücken der Chips hochzählen und nur die nutzbaren Chip anzeigen lassen.
-let playerCurrency = 1000;
-let totalBet = 0;
-const totalAmountElement = document.getElementById('totalAmount');
-const chipImages = document.querySelectorAll('.pokerchips img');
+
+
+
+
 
 function hideChipImages() {
+    let totalBet = 0;
+    let moneyElement = document.getElementById('money');
+    console.log(moneyElement.innerHTML);
+    let playerCurrency = parseInt(moneyElement.innerText);
+    console.log(playerCurrency);
+    //let playerCurrency = 125;
+    const chipImages = document.querySelectorAll('.pokerchips img'); // Define chipImages here
+
+
     chipImages.forEach(chipImage => {
         const onclickAttr = chipImage.getAttribute('onclick');
         if (onclickAttr !== null) {
@@ -407,7 +426,18 @@ function hideChipImages() {
     });
 }
 
-hideChipImages();
+
+function clickChip(amount) {
+    connection
+        .invoke("setBet", getCookie("userid"), amount)
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
+}
+
+
+
+
 
 function setBet(slotid, amount) {
 
@@ -423,6 +453,19 @@ function clickChip(amount) {
         .catch(function (err) {
             return console.error(err.toString());
         });
+}
+
+
+
+
+
+
+function setBet(slotid, amount) {
+
+    slotid++;
+    var totalAmountPlayerElement = document.getElementById("totalAmountPlayer" + slotid);
+
+    totalAmountPlayerElement.textContent = amount + "€";
 }
 
 function setCardSum(slotid, amount) {
@@ -474,7 +517,7 @@ function markUserSlot(slotid) {
     slot.classList.add("myPlayer");
 }
 
-function markActivePlayer(slotid) {
+function markActivePlayer(slotid, time) {
     for (var i = 1; i <= 7; i++) {
         var slot = document.getElementById("Spieler" + i);
         if (slot.classList.contains("onTurn")) {
@@ -495,6 +538,7 @@ function markActivePlayer(slotid) {
     else {
         console.log("set Spieler" + slotid);
         document.getElementById("Spieler" + slotid).classList.add("onTurn");
+        setTimer(time);
     }
 }
 
@@ -528,7 +572,7 @@ function closeMenu() {
     document.getElementById("ruleBtn").disabled = false;
 }
 
-function setTimer(timeInMinutes) {
+function setTimer(timeInMinutes, status) {
     $step = 1;
     $loops = Math.round(100 / $step);
     $increment = 360 / $loops;
@@ -544,29 +588,26 @@ function setTimer(timeInMinutes) {
     clock = {
         interval: null,
         init: function () {
-            clock.start(timeInMinutes);
+            if (status) {
+                clock.start(timeInMinutes);
+            }
+            if (!status) {
+                clock.stop();
+            }
         },
         start: function (t) {
-            var pie = 0;
             var num = 0;
-            var min = t ? t : 1;
-            var sec = min * 60;
-            var lop = sec;
-            $('.count').text(min);
-            if (min > 0) {
-                $('.count').addClass('min')
+            var sec = t ? t : 1;
+
+            $('.count').text(sec);
+            if (sec > 0) {
+                $('.count').addClass('sec')
             } else {
                 $('.count').addClass('sec')
             }
+
             clock.interval = setInterval(function () {
                 sec = sec - 1;
-                if (min > 1) {
-                    pie = pie + (100 / (lop / min));
-                } else {
-                    pie = pie + (100 / (lop));
-                }
-                if (pie >= 101) { pie = 1; }
-                num = (sec / 60).toFixed(2).slice(0, -3);
                 if (num == 0) {
                     $('.count').removeClass('min').addClass('sec').text(sec);
                 } else {
@@ -580,6 +621,12 @@ function setTimer(timeInMinutes) {
                     $('.clock').removeAttr('style');
                 }
             }, 1000);
+        },
+        stop: function () {
+            clearInterval(clock.interval);
+            $('.count').text(0);
+            $('.clock').removeAttr('style');
+            document.getElementById("clock_vis").style.visibility = "collapse";
         }
     }
 }

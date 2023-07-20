@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
@@ -7,20 +8,22 @@ namespace BlackJack.Pages
 {
     public class Index1Model : PageModel
     {
-        private readonly SqlConnection conn = new("Server=provadis-it-ausbildung.de;Database=BlackJack02;UID=BlackJackUser02;PWD=Pr@vadis_188_Pta;");
-        private SqlCommand? cmd;
-        private SqlDataReader? reader;
-        private readonly SqlDataAdapter? adapter = new SqlDataAdapter();
         public string? code { get; set; }
         public void OnGet()
         {
             //START ACCESS CHECK
             String userid = Request.Cookies["userid"];
             String result = Program.app.checkAccess(userid);
-            if (!result.Equals("/overview"))
+            if (result.Equals("ingame"))
             {
-                //Response.Redirect(result);
+                Response.Redirect("/game");
+            } else if(result.Equals("logout"))
+            {
+                Response.Redirect("/index?info=playernotfound");
             }
+
+
+
             //END ACCESS CHECK
         }
         public IActionResult OnPost()

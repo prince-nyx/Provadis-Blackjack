@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BlackJack.Pages
 {
-    public class BasePageModelModel : PageModel
+    public class AdminModel : PageModel
     {
         public void OnGet()
         {

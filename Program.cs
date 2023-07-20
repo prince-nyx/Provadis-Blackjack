@@ -17,11 +17,17 @@ namespace BlackJack
         public static GameHub gamehub;
         public PlayerManager playerManager;
         public GameManger gameManager;
+        public Settings settings;
         private const string Characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+
         public Program()
         {
             gameManager= new GameManger();
             playerManager = new PlayerManager();
+            settings = new Settings();
+
+            Console.WriteLine(settings.ToString());
         }
 
 
@@ -53,21 +59,21 @@ namespace BlackJack
                     if (player.currentGameId != null && player.currentGameId != "")
                     {
                         Console.WriteLine("[ACCESS] " + player.ToString() + " is in Game " + player.currentGameId);
-                        return "/game";
+                        return "ingame";
 
                     } else
                     {
-                        return "/overview";
+                        return "loggedin";
                     }
                 } else
                 {
                     Console.WriteLine("[ACCESS] (id:" + userid + ") is outdated");
-                    return "/index";
+                    return "logout";
 
                 }
             }
             Console.WriteLine("[ACCESS] (id:" + userid + ") has no access");
-            return "/index";
+            return "logout";
         }
 
         public void start(string[] args)
