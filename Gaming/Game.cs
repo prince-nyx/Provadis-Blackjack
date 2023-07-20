@@ -35,9 +35,9 @@ public class Game
 
     public GamePhase phase { get; set; }
 
-    private int betTime = 20;
-    private int turnTime = 60;
-    private int potLimit = 25;
+    private int betTime;
+    private int turnTime;
+    private double potLimit;
     
 
 
@@ -45,6 +45,7 @@ public class Game
     {
         this.hostid = hostid;
         this.id = Program.app.GenerateRandomString(4).ToUpper();
+        loadSettings();
         Console.WriteLine("Game erstellt mit Code "+id+" und host "+hostid);
         dealerDeck = new CardDeck();
         deck = new CardDeck();
@@ -60,12 +61,15 @@ public class Game
 
     public void loadSettings()
     {
-       
+        betTime = Program.app.settings.betTime;
+        turnTime = Program.app.settings.turnTime;
+        potLimit = Program.app.settings.potLimit;
     }
 
     public void startGame()
 	{
-		gamestarting();
+        loadSettings();
+        gamestarting();
 		enableBet(betTime);
         Console.WriteLine("SPIEL GESTARTET");
         phase = GamePhase.BETTING;

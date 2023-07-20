@@ -30,7 +30,7 @@ namespace BlackJack.Pages
 			Encrypt encrypt = new();
 			string cookie = Request.Cookies["userid"];
 			Player player = Program.app.playerManager.getPlayer(cookie);
-			if (value <= 100)
+			if (value <= Program.app.settings.maxEinzahlung)
 			{
 				if (player != null)
 				{
