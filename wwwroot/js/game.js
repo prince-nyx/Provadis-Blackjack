@@ -343,7 +343,7 @@ function disableBet() {
 
 function enableBet(time) {
     document.getElementById("chipsDiv").classList.add("visible");
-    setTimer(time);
+    setTimer(time, true);
 }
 
 function setBalance(amount) {    
@@ -529,7 +529,7 @@ function closeMenu() {
     document.getElementById("ruleBtn").disabled = false;
 }
 
-function setTimer(timeInMinutes) {
+function setTimer(timeInMinutes, status) {
     $step = 1;
     $loops = Math.round(100 / $step);
     $increment = 360 / $loops;
@@ -545,29 +545,26 @@ function setTimer(timeInMinutes) {
     clock = {
         interval: null,
         init: function () {
-            clock.start(timeInMinutes);
+            if (status) {
+                clock.start(timeInMinutes);
+            }
+            if (!status) {
+                clock.stop();
+            }
         },
         start: function (t) {
-            var pie = 0;
             var num = 0;
-            var min = 0;
-            var sec = t+1;
-            var lop = sec;
-            $('.count').text(min);
-            if (min > 0) {
-                $('.count').addClass('min')
+            var sec = t ? t : 1;
+
+            $('.count').text(sec);
+            if (sec > 0) {
+                $('.count').addClass('sec')
             } else {
                 $('.count').addClass('sec')
             }
+
             clock.interval = setInterval(function () {
                 sec = sec - 1;
-                if (min > 1) {
-                    pie = pie + (100 / (lop / min));
-                } else {
-                    pie = pie + (100 / (lop));
-                }
-                if (pie >= 101) { pie = 1; }
-                num = (sec / 60).toFixed(2).slice(0, -3);
                 if (num == 0) {
                     $('.count').removeClass('min').addClass('sec').text(sec);
                 } else {
@@ -581,6 +578,12 @@ function setTimer(timeInMinutes) {
                     $('.clock').removeAttr('style');
                 }
             }, 1000);
+        },
+        stop: function () {
+            clearInterval(clock.interval);
+            $('.count').text(0);
+            $('.clock').removeAttr('style');
+            document.getElementById("clock_vis").style.visibility = "collapse";
         }
     }
 }
