@@ -52,7 +52,14 @@
 			<h1 class="displayOwnMoney" id="money">@money €</h1>
 		</div>
 	</div>
-	<div class="table"></div>
+
+	<div class="table">
+		<div class="clock-wrap" id="clock_vis">
+			<div class="clock pro-0">
+				<span class="count">0</span>
+			</div>
+		</div>
+	</div>
 	<div class="row m-5 p-5 ">
 		<div class="col-1"></div>
 		<div class="col-3 mt-3">
@@ -292,7 +299,7 @@
 		<h2 class="resultAmount" id="resultAmount"></h2>
 	</div>
 
-	<button class="menuBtn" onclick="openSlidePopup()" id="menuBtn">
+	<button class="menuBtn" onclick="setTimer()" id="menuBtn">
 		<img src="/images/icons/menu-2.png" class="menuicons"/>
 	</button>
 	<div class="slidePopup" id="visible-block">
