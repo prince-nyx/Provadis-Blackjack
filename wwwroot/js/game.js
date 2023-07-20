@@ -339,6 +339,7 @@ document.getElementById("standButton").addEventListener("click", function (event
 
 function disableBet() {
     document.getElementById("chipsDiv").classList.remove("visible");
+    setTimer(0, false);
 }
 
 function enableBet(time) {
@@ -353,7 +354,7 @@ function enableBet(time) {
     });
 
     hideChipImages();
-    setTimer(time);
+    setTimer(time, true);
 }
 
 function setBalance(amount) {    
@@ -518,6 +519,7 @@ function markUserSlot(slotid) {
 }
 
 function markActivePlayer(slotid, time) {
+    setTimer(0, false);
     for (var i = 1; i <= 7; i++) {
         var slot = document.getElementById("Spieler" + i);
         if (slot.classList.contains("onTurn")) {
@@ -538,7 +540,7 @@ function markActivePlayer(slotid, time) {
     else {
         console.log("set Spieler" + slotid);
         document.getElementById("Spieler" + slotid).classList.add("onTurn");
-        setTimer(time);
+        setTimer(time, true);
     }
 }
 
@@ -572,7 +574,7 @@ function closeMenu() {
     document.getElementById("ruleBtn").disabled = false;
 }
 
-function setTimer(timeInMinutes, status) {
+function setTimer(timeInSeconds, status) {
     $step = 1;
     $loops = Math.round(100 / $step);
     $increment = 360 / $loops;
@@ -589,9 +591,11 @@ function setTimer(timeInMinutes, status) {
         interval: null,
         init: function () {
             if (status) {
-                clock.start(timeInMinutes);
+                console.log("starte Timer von " + timeInSeconds);
+                clock.start(timeInSeconds);
             }
             if (!status) {
+                console.log("stoppe Timer");
                 clock.stop();
             }
         },
