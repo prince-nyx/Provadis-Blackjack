@@ -27,6 +27,7 @@ namespace BlackJack
             load();
         }
 
+
         public void load()
         {
 
@@ -51,6 +52,8 @@ namespace BlackJack
             this.cmd.Dispose();
             this.conn.Close();
         }
+
+
 
         public override string ToString()
         {
