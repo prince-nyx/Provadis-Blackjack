@@ -350,7 +350,7 @@ function enableBet(time) {
         if (onclickAttr !== null) {
             const chipValue = parseInt(onclickAttr.match(/\d+/)[0]);
             if (playerCurrency < chipValue || playerCurrency < totalBet + chipValue) {
-                chipImage.style.display = 'none';
+                chipImage.style.display = 'inline-block';
                 chipImage.removeAttribute('onclick');
             }
         }
