@@ -252,6 +252,7 @@ public class Game
 			}
         }
         phase = GamePhase.WAITING_FOR_PLAYERS;
+        Console.WriteLine(hostid);
         showStartButton(players[hostid]);
         dealerDeck.clear();
 		currentSlotsTurn = -1;
