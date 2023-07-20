@@ -82,6 +82,7 @@ body {
     background: #0c6f3c;
     border: 0.2em #00de6b solid;
     border-radius: 15em;
+    cursor:pointer;
 }
 
 .hitbtn {
