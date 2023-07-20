@@ -2,7 +2,17 @@
 @model BlackJack.Pages.AdminModel
 @{
 }
-
+<link rel="stylesheet" href="~/css/Register.css" />
+<form>
+    <fieldset id="msform" method="post">
+        <input type="text" id="betTime" placeholder="Wettzeit (In Sekunden)" />
+        <input type="text" id="turnTime" placeholder="Zugzeit (In Sekunden)" />
+        <input type="text" id="potLimit" placeholder="Pot Limit (In einer Ganzzahl)" />
+        <input type="text" id="maxEinzahlung" placeholder="Maximale Einzahlung (In einer Ganzzahl)" />
+        <input type="text" id="startguthaben" placeholder="Startguthaben (In einer Ganzzahl)" />
+        <input type="submit" id="submit" placeholder="Absenden" />
+    </fieldset>   
+</form>
 
 
 
