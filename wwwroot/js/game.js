@@ -406,6 +406,7 @@ function assignPlayerToSlot(slotid, username) {
 
 function unassignPlayer(slotid) {
     slotid++;
+    console.log("Spieler" + slotid + "-name");
     document.getElementById("Spieler" + slotid + "-name").innerHTML = "...";
     document.getElementById("totalAmountPlayer" + slotid).innerHTML = "...";
     document.getElementById("Spieler" + slotid + "-name").classList.add("invisible");
@@ -416,7 +417,7 @@ function unassignPlayer(slotid) {
 
 function refresh() {
 
-    for (i = 0; i < 8; i++) {
+    for (i = 0; i < 7; i++) {
         unassignPlayer(i);
     }
     resetCards();
