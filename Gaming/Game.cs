@@ -50,11 +50,6 @@ public class Game
         loadSettings();
         Console.WriteLine("Game erstellt mit Code "+id+" und host "+hostid);
         dealerDeck = new CardDeck();
-        deck = new CardDeck();
-        deck.createBlackJackDeck();
-        Console.WriteLine("Deck erstellt");
-        deck.shuffle();
-        Console.WriteLine("Deck gemischt");
         currentSlotsTurn = -1;
         phase = GamePhase.WAITING_FOR_PLAYERS;
         timer = new System.Timers.Timer();
@@ -70,7 +65,10 @@ public class Game
 
     public void startGame()
 	{
-        loadSettings();
+		deck = new CardDeck();
+		deck.createBlackJackDeck();
+		deck.shuffle();
+		loadSettings();
         gamestarting();
 		enableBet(betTime);
         Console.WriteLine("SPIEL GESTARTET");
@@ -122,10 +120,10 @@ public class Game
         if (currentSlotsTurn >= slots.Length)
         {
             showDealerCards(dealerDeck.getCard(0).getName());
-			markActivePlayer(7,30);
-			DealerThinking();
+            markActivePlayer(7, 30);
+            DealerThinking();
         }
-        else if (slots[currentSlotsTurn] != null && players.ContainsKey(slots[currentSlotsTurn]))
+        else if (slots[currentSlotsTurn] != null && players.ContainsKey(slots[currentSlotsTurn]) && players[slots[currentSlotsTurn]].bet > 0)
         {
             markActivePlayer(currentSlotsTurn, turnTime);
             startTurn(players[slots[currentSlotsTurn]]);
@@ -191,68 +189,67 @@ public class Game
             if (slots[i] != null && players.ContainsKey(slots[i]))
             {
                 Player player = players[slots[i]];
-                String headline = "";
-                String result = "";
-                int playerPoints = player.hand.BlackJackSum();
-
-                if (player.hand.isLuckySeven())
-                {
-                    player.AddWallet(player.bet * 3);
-                    headline = "LUCKY 7";
-                    result = (player.bet * 3) + "€ gewonnen";
-                }
-                else if (dealerDeck.isBlackJack())
-                {
-                    if (player.hand.isBlackJack())
-                    {
-                        player.AddWallet(player.bet);
-                        headline = "Der Dealer und du habt einen BlackJack";
-                        result = "Einsatz von " + player.bet + "€ zurück";
-					}
-                    else
-                    {
-                        headline = "Dealer hat einen Blackjack";
-                        result = "Einsatz von " + player.bet + "€ verloren";
-
-						Console.WriteLine("WALLET UPDATE SUCCESS");
-					}
-                }
-                else if (playerPoints > 21)
-                { 
-                    headline = "Du hast dich überkauft";
-                    result = player.bet + "€ verloren";
-					Console.WriteLine("WALLET UPDATE SUCCESS");
-
-				} else if (dealerPoints > 21)
+                if(player.bet > 0 )
 				{
-					player.AddWallet(player.bet * 2);
-					headline = "Dealer überkauft";
-                    result = (player.bet * 2) + "€ gewonnen";
+					String headline = "";
+					String result = "";
+					int playerPoints = player.hand.BlackJackSum();
+					if (player.hand.isLuckySeven())
+                    {
+                        player.AddWallet(player.bet * 3);
+                        headline = "LUCKY 7";
+                        result = (player.bet * 3) + "€ gewonnen";
+                    }
+                    else if (dealerDeck.isBlackJack())
+                    {
+                        if (player.hand.isBlackJack())
+                        {
+                            player.AddWallet(player.bet);
+                            headline = "Der Dealer und du habt einen BlackJack";
+                            result = "Einsatz von " + player.bet + "€ zurück";
+					    }
+                        else
+                        {
+                            headline = "Dealer hat einen Blackjack";
+                            result = "Einsatz von " + player.bet + "€ verloren";
+					    }
+                    }
+                    else if (playerPoints > 21)
+                    { 
+                        headline = "Du hast dich überkauft";
+                        result = player.bet + "€ verloren";
 
-					Console.WriteLine("WALLET UPDATE SUCCESS");
+				    } else if (dealerPoints > 21)
+				    {
+					    player.AddWallet(player.bet * 2);
+					    headline = "Dealer überkauft";
+                        result = (player.bet * 2) + "€ gewonnen";
 
-				} else if(playerPoints > dealerPoints)
-                {
-                    player.AddWallet(player.bet * 2);
-                    headline = "Du hast gewonnen";
-                    result = player.bet + "€ gewonnen";
+				    } else if(playerPoints > dealerPoints)
+                    {
+                        player.AddWallet(player.bet * 2);
+                        headline = "Du hast gewonnen";
+                        result = player.bet + "€ gewonnen";
 
-					
-					Console.WriteLine("WALLET UPDATE SUCCESS");
+				    } else if (playerPoints == dealerPoints)
+				    {
+					    player.AddWallet(player.bet);
+					    headline = "Unentschieden";
+					    result = "Einsatz von " + player.bet + "€ zurück";
 
-				} else
-				{
-					headline = "Dealer gewinnt";
-					result = player.bet + "€ verloren";
-					Console.WriteLine("WALLET UPDATE SUCCESS");
+				    } else
+				    {
+					    headline = "Dealer gewinnt";
+					    result = player.bet + "€ verloren";
+				    }
+
+                    player.hand.clear();
+                    player.resetBet();
+                    setBet(i, 0);
+				    setBalance(player, player.wallet);
+                    showResult(player, headline, result);
 				}
-
-                player.hand.clear();
-                player.resetBet();
-                setBet(i, 0);
-				setBalance(player, player.wallet);
-                showResult(player, headline, result);
-            }
+			}
         }
         phase = GamePhase.WAITING_FOR_PLAYERS;
         showStartButton(players[hostid]);
@@ -276,9 +273,12 @@ public class Game
             if(slots[i] != null && players.ContainsKey(slots[i]))
             {
                 Player player = players[slots[i]];
-                Card card = deck.drawCard();
-                player.addCard(card);
-                addCardToPlayer(i, card);
+                if(player.bet > 0)
+                {
+                    Card card = deck.drawCard();
+                    player.addCard(card);
+                    addCardToPlayer(i, card);
+                }
             }
         }
     }
