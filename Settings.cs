@@ -19,12 +19,8 @@ namespace BlackJack
 
         public Settings()
         {
-            betTime = 20;
-            turnTime = 60;
-            potLimit = 25;
-            maxEinzahlung = 100;
-            startguthaben = 100;
             load();
+            betTime = 10;
         }
 
 
