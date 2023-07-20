@@ -180,7 +180,7 @@ function myConfirmBox(message) {
     element.innerHTML = `<div class="box">
                                     ${message}
                                     <div>
-                                        <button id="trueButton" class="btn green">Ja</button> <!-- Set Id for both buttons -->
+                                        <a id="trueButton" class="btn green" href="overview">Ja</a> <!-- Set Id for both buttons -->
                                         <button id="falseButton" class="btn red">Abbrechen</button>
                                     </div>
                                 </div>`;
