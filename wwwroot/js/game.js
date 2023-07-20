@@ -414,6 +414,25 @@ function unassignPlayer(slotid) {
 }
 
 
+function refresh() {
+
+    for (i = 0; i < 8; i++) {
+        unassignPlayer(i);
+    }
+    resetCards();
+    connection
+        .invoke("refresh", getCookie("userid"))
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
+
+}
+
+
+
+
+
+
 function hideChipImages() {
     let totalBet = 0;
     let moneyElement = document.getElementById('money');
