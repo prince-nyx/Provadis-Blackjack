@@ -22,7 +22,7 @@
 			<h2 class="fs-title">Geld einzahlen</h2>
 			<h3 class="fs-subtitle"></h3>
 			<p>Geben sie hier ihren Betrag, den sie einzahlen möchten an! </p>
-			<input asp-for="depositAmount" type="text" id="depositAmount" value="101" />
+			<input asp-for="depositAmount" type="text" id="depositAmount" placeholder="Bitte Wert eingeben ..." />
 			<span asp-validation-for="depositAmount" class="text-danger"></span>
 			<input type="submit" id="next" value="Einzahlen" />
 

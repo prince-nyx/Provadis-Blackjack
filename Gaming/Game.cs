@@ -283,7 +283,32 @@ public class Game
 
 
 
-    public void addPlayerToGame(Player player)
+	internal void refresh(Player mainplayer)
+	{
+        foreach(Card card in dealerDeck.getAlLCards())
+        {
+			if (card.position == 1)
+				mainplayer.registerEvent(new FrontendEvent("addDealerCard", "", card.position.ToString()));
+			else
+				mainplayer.registerEvent(new FrontendEvent("addDealerCard", card.getName(), card.position.ToString()));
+		}
+		for (int i = 0; i < slots.Length; i++)
+		{
+			if (slots[i] != null && players.ContainsKey(slots[i]))
+			{
+				Player player = players[slots[i]];
+                foreach(Card card in player.hand.getAlLCards())
+					mainplayer.registerEvent(new FrontendEvent("addCardToPlayer", i.ToString(), card.getName(), card.position.ToString()));
+
+
+				mainplayer.registerEvent(new FrontendEvent("setBet", i.ToString(), player.bet.ToString()));
+			}
+		}
+	}
+
+
+
+	public void addPlayerToGame(Player player)
     {
         for(int i = 0; i < slots.Length;i++)
         {
@@ -536,6 +561,4 @@ public class Game
 	{
 		player.registerEvent(new FrontendEvent("markUserSlot", slotid.ToString()));
 	}
-
-
 }

@@ -390,8 +390,8 @@ function assignPlayerToSlot(slotid, username) {
     slotid++;
     document.getElementById("Spieler" + slotid + "-name").innerHTML = username;
     document.getElementById("totalAmountPlayer" + slotid).innerHTML = "...";
-    document.getElementById("Spieler" + slotid + "-name").classList.remove("visible");
-    document.getElementById("totalAmountPlayer" + slotid).classList.remove("visible");
+    document.getElementById("Spieler" + slotid + "-name").classList.remove("invisible");
+    document.getElementById("totalAmountPlayer" + slotid).classList.remove("invisible");
     document.getElementById("Spieler" + slotid).classList.add("activeSlot");
 }
 
@@ -399,8 +399,8 @@ function unassignPlayer(slotid) {
     slotid++;
     document.getElementById("Spieler" + slotid + "-name").innerHTML = "...";
     document.getElementById("totalAmountPlayer" + slotid).innerHTML = "...";
-    document.getElementById("Spieler" + slotid + "-name").classList.remove("visible");
-    document.getElementById("totalAmountPlayer" + slotid).classList.remove("visible");
+    document.getElementById("Spieler" + slotid + "-name").classList.add("invisible");
+    document.getElementById("totalAmountPlayer" + slotid).classList.add("invisible");
     document.getElementById("Spieler" + slotid).classList.remove("activeSlot");
 }
 
