@@ -53,6 +53,11 @@ body {
     background-size: cover;
 }
 
+.myPlayer .rectangle {
+    width: 6.5vw;
+    height: 6.5vw;
+}
+
 .table {
     width: 74em;
     height: 33em;
@@ -64,6 +69,68 @@ body {
     border: 1em #341401 solid;
     background-image: url("https://t3.ftcdn.net/jpg/00/97/46/36/360_F_97463619_ZHqQiR70xv5HRiTJlkfyetkzxrmezDtP.jpg");
     background-size: cover;
+}
+
+.startbtn {
+    width: 11em;
+    height: 3.1em;
+    background: #0c6f3c;
+    border: 0.2em #00de6b solid;
+    border-radius: 15em;
+}
+
+.hitbtn {
+    width: 5em;
+    height: 3.1em;
+    background: #0c6f3c;
+    border: 0.2em #00de6b solid;
+    border-radius: 15em;
+    color: white;
+    font-weight: 600;
+    margin-right: 1em;
+}
+
+.standbtn {
+    width: 5em;
+    height: 3.1em;
+    background: #0c6f3c;
+    border: 0.2em #00de6b solid;
+    border-radius: 15em;
+    color: white;
+    font-weight: 600;
+    margin-left: 1em;
+}
+
+.startbtnIcon::before {
+    height: 1em;
+    width: 1em !important;
+    font: var(--fa-font-solid);
+    font-weight: 600;
+    font-size: 2.6em;
+    text-align: center;
+    display: flex;
+    color: white;
+}
+
+.startbtn .col-md-auto {
+    padding-left: 0.65em;
+    padding-right: 0;
+    padding-top: 0.01em;
+}
+
+.startbtn .col {
+    padding-left: 0em;
+}
+
+#startbuttons .buttons {
+  background: black;
+}
+
+.starttext {
+    text-align: center;
+    font-size: 1.8em;
+    font-weight: 600;
+    color: #f6f6f6
 }
 
 .activeSlot {
@@ -161,6 +228,14 @@ body {
 
 .myPlayer .image-row img {
     margin-right: -30%;
+}
+
+.myPlayer .labelcontainer h4 {
+    margin-top: 4em !important;
+}
+
+.myPlayer .labelcontainer h5 {
+    margin-top: 7em;
 }
 
 .labelcontainer {
@@ -274,7 +349,7 @@ body {
     justify-content: center;
     align-items: flex-end;
     margin-bottom: 20px;
-    background-color: rgba(0, 0, 0, 0.5);
+    
     width: 100vw; /* Extend from the left side to the right side of the screen */
 }
 
