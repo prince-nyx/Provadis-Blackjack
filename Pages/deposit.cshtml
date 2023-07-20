@@ -23,6 +23,7 @@
 			<h3 class="fs-subtitle"></h3>
 			<p>Geben sie hier ihren Betrag, den sie einzahlen möchten an! </p>
 			<input asp-for="depositAmount" type="text" id="depositAmount" value="101" />
+			<span asp-validation-for="depositAmount" class="text-danger"></span>
 			<input type="submit" id="next" value="Einzahlen" />
 
 		</fieldset>
@@ -44,15 +45,6 @@
 			id="backToOverview" onclick="location.href = 'overview';" value="Zurückkehren">
 		Zurückkehren
 	</button>
-
-	@if (Convert.ToDouble(Model.depositAmount) > 100)
-	{
-		<script>alert("Geben sie eine gültige Zahl an!");</script>
-	}
-	else
-	{
-		<script>alert("Das hat geklappt!");</script>
-	}
 </body>
 
 </html>

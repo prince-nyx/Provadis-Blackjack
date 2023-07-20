@@ -19,7 +19,7 @@ namespace BlackJack.Pages
             String result = Program.app.checkAccess(userid);
             if (!result.Equals("/overview"))
             {
-                //Response.Redirect(result);
+                Response.Redirect(result);
             }
             //END ACCESS CHECK
         }
