@@ -29,7 +29,7 @@ namespace BlackJack.Pages
             //END ACCESS CHECK
         }
 
-        public void OnPost()
+        public IActionResult OnPost()
         {
 			this.Username = Request.Form["username"];
 			this.Password = Request.Form["password"];
@@ -39,17 +39,25 @@ namespace BlackJack.Pages
                 Player player = selectPlayer();
                 if (player != null)
                 {
-                    if(Program.app.playerManager.login(player))
+                    if (Program.app.playerManager.login(player))
                     {
                         Console.WriteLine("Valid");
                         Response.Cookies.Append("userid", player.id);
-                        Response.Redirect("/overview");
+                        return RedirectToPage("/overview");
                     }
+                }
+                else
+                {
+
+                    ModelState.AddModelError("Password", "Benutzername und Passwort stimmen nicht überein.");
 				}
-                else { Console.WriteLine("Invalid"); }
             }
-            catch (Exception ex) { Console.WriteLine(ex.Message); }
-        }
+            catch (Exception ex) { 
+                
+                Console.WriteLine(ex.Message);
+			}
+			return Page();
+		}
 
         private Player selectPlayer()
         {

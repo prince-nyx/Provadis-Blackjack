@@ -48,28 +48,42 @@ namespace BlackJack.Pages
             this.Cpass = Request.Form["cpass"];
             this.Birth = Convert.ToDateTime(Request.Form["birth"]);
 
-			if (this.IsUserCharValid() && this.IsPassEQCheckPass() && this.IsBirthValid() && this.IsUserNameValid() && this.IsPasswordValid()) { 
+			if (this.IsUsernameLengthValid() && this.IsUserCharValid() && this.IsPassEQCheckPass() && this.IsBirthValid() && this.IsUserNameValid() && this.IsPasswordValid()) { 
                 this.CreateNewUser();
 				return RedirectToPage("/login");
 
 
 			}
             else {
-				ModelState.AddModelError("", "Invalid username or password."); // Add a model error for displaying the error message on the page
 				return Page();
-				Console.WriteLine("Invalid User");
             }
         }
 
-        private bool IsUserCharValid()
+        private bool IsUsernameLengthValid()
+		{
+			Boolean valid = (this.Username.Length >= 3);
+			if (!valid)
+				ModelState.AddModelError("username", "Benutzername zu kurz");
+			return valid;
+
+		}
+
+
+		private bool IsUserCharValid()
         {
-            return Regex.IsMatch(this.Username, "[*@:=\\/[?\\]|\\\\\"<>+;]") ? false : true;
-        }
+            Boolean valid = Regex.IsMatch(this.Username, "[*@:=\\/[?\\]|\\\\\"<>+;]");
+            if(valid)
+				ModelState.AddModelError("username", "Benutzername enthält ungültige Zeichen.");
+            return !valid;
+		}
 
         private bool IsPassEQCheckPass()
         {
-            return this.Password == this.Cpass ? true : false;
-        }
+			Boolean valid = this.Password == this.Cpass;
+			if (!valid)
+				ModelState.AddModelError("Cpass", "Passwörter stimmen nicht überein");
+			return valid;
+		}
 
         private bool IsBirthValid()
         {
@@ -80,8 +94,9 @@ namespace BlackJack.Pages
                 return true;
             }
             else
-            {
-                return false;
+			{
+				ModelState.AddModelError("birth", "zu jung.");
+				return false;
             }
             
 		}
@@ -101,13 +116,18 @@ namespace BlackJack.Pages
             this.cmd.Dispose();
             this.conn.Close();
             
-            return isValid;
+            if(!isValid)
+				ModelState.AddModelError("username", "Benutzername bereits vergeben.");
+			return isValid;
         }
 
         private bool IsPasswordValid()
         {
-			return this.Password.Length >= 8 ? true : false;
-        }
+            Boolean valid = (this.Password.Length >= 8);
+			if (!valid)
+				ModelState.AddModelError("password", "Passwort zu kurz");
+			return valid;
+		}
 
         private void CreateNewUser()
 		{

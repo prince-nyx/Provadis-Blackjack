@@ -15,19 +15,29 @@ namespace BlackJack
 
         public Boolean join(Player player, String gameid)
         {
+            String result = "";
             if (games.ContainsKey(gameid))
             {
                 Game game = games[gameid];
-                if(!game.containsPlayer(player.id))
+                if (!game.containsPlayer(player.id))
                 {
-                    game.addPlayerToGame(player);
-                    player.currentGameId = gameid;
-                    Console.WriteLine("[GAMEMANAGER] " + player.ToString() + " joined " + game.ToString());
+                    if (game.phase == GamePhase.WAITING_FOR_PLAYERS)
+                    {
+                        game.addPlayerToGame(player);
+                        player.currentGameId = gameid;
+                        Console.WriteLine("[GAMEMANAGER] " + player.ToString() + " joined " + game.ToString());
+                        return true;
+                    }
+                    else
+                        return false;
                 }
                 else
+                {
                     Console.WriteLine("[GAMEMANAGER] " + player.ToString() + " is already in " + game.ToString());
-                return true;
-            } else
+                    return true;
+                }
+            }
+            else
                 return false;
         }
 
