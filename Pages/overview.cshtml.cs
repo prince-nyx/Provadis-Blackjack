@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
@@ -17,9 +18,12 @@ namespace BlackJack.Pages
             //START ACCESS CHECK
             String userid = Request.Cookies["userid"];
             String result = Program.app.checkAccess(userid);
-            if (!result.Equals("/overview"))
+            if (result.Equals("ingame"))
             {
-                Response.Redirect(result);
+                Response.Redirect("/game");
+            } else if(result.Equals("logout"))
+            {
+                Response.Redirect("/index?info=playernotfound");
             }
             //END ACCESS CHECK
         }

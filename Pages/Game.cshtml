@@ -287,11 +287,20 @@
 		<img src="/images/pokerchips/purple_pokerchip_500.png" onclick="clickChip(500)" />
 	</div>
 	<div id="turnbuttons" class="buttons">
-		<button id="hitButton" type="button" class="btn btn-secondary">HIT</button>
-		<button id="standButton" type="button" class="btn btn-secondary">STAND</button>
+		<button id="hitButton" type="button" class="hitbtn">HIT</button>
+		<button id="standButton" type="button" class="standbtn">STAND</button>
 	</div>
 	<div id="startbuttons" class="buttons">
-		<button id="startButton" type="button" class="btn btn-secondary">SPIEL STARTEN</button>
+		<button id="startButton" type="button" class="startbtn">
+			<div class="row">
+				<div class="col-md-auto">
+					<i class="fa-regular fa-circle-play startbtnIcon"></i>
+				</div>
+				<div class="col starttext">
+					START
+				</div>
+			</div>
+		</button>
 	</div>
 	<div class="winnerScreen" id="resultScreen">
 		<a href="#" class="close" id="closeWinnerScreen" onclick="closeWinnerScreen()"></a>

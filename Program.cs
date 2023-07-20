@@ -53,21 +53,21 @@ namespace BlackJack
                     if (player.currentGameId != null && player.currentGameId != "")
                     {
                         Console.WriteLine("[ACCESS] " + player.ToString() + " is in Game " + player.currentGameId);
-                        return "/game";
+                        return "ingame";
 
                     } else
                     {
-                        return "/overview";
+                        return "loggedin";
                     }
                 } else
                 {
                     Console.WriteLine("[ACCESS] (id:" + userid + ") is outdated");
-                    return "/index";
+                    return "logout";
 
                 }
             }
             Console.WriteLine("[ACCESS] (id:" + userid + ") has no access");
-            return "/index";
+            return "logout";
         }
 
         public void start(string[] args)

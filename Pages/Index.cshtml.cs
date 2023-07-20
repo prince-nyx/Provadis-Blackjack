@@ -19,13 +19,13 @@ namespace BlackJack.Pages
             //START ACCESS CHECK
             String userid = Request.Cookies["userid"];
             String result = Program.app.checkAccess(userid);
-            if (result.Equals("/index"))
+            if (result.Equals("logout"))
             {
                 Response.Cookies.Delete("userid");
             }
             else
             {
-                Response.Redirect(result);
+                Response.Redirect("/overview");
             }
             //END ACCESS CHECK
         }

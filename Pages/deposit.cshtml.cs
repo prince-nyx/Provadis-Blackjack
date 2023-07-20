@@ -12,20 +12,16 @@ namespace BlackJack.Pages
 
         public void OnGet()
 		{
-			//START ACCESS CHECK
-			String userid = Request.Cookies["userid"];
-			String result = Program.app.checkAccess(userid);
-			if (result.Equals("/index"))
-			{
-				Response.Cookies.Delete("userid");
-			}
-			else
-			{
-				//Response.Redirect(result);
-			}
-			//END ACCESS CHECK
-		}
-		public IActionResult OnPost()
+            //START ACCESS CHECK
+            String userid = Request.Cookies["userid"];
+            String result = Program.app.checkAccess(userid);
+            if (result.Equals("logout"))
+            {
+                Response.Redirect("/index");
+            }
+            //END ACCESS CHECK
+        }
+        public IActionResult OnPost()
 		{
 			this.depositAmount += Request.Form["depositAmount"];
 
