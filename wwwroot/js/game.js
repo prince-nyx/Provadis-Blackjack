@@ -466,14 +466,9 @@ function clickChip(amount) {
 }
 
 
-
-
-
 function setBet(slotid, amount) {
-
     slotid++;
     var totalAmountPlayerElement = document.getElementById("totalAmountPlayer" + slotid);
-
     totalAmountPlayerElement.textContent = amount + "€";
 }
 
@@ -485,18 +480,6 @@ function clickChip(amount) {
         });
 }
 
-
-
-
-
-
-function setBet(slotid, amount) {
-
-    slotid++;
-    var totalAmountPlayerElement = document.getElementById("totalAmountPlayer" + slotid);
-
-    totalAmountPlayerElement.textContent = amount + "€";
-}
 
 function setCardSum(slotid, amount) {
     const sumElement = document.getElementById(`sumPlayer${slotid}`);
