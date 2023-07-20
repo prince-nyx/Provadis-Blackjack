@@ -293,6 +293,15 @@ function showDealerCards(cardname) {
     cardSlot.src = "/images/card/"+cardname+".png";
 }
 
+function submitBet(amount) {
+
+}
+
+function resetBet() {
+
+}
+
+
 function getCookie(cname) {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);

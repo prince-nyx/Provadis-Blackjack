@@ -17,6 +17,8 @@
         <input asp-for="maxEinzahlung" type="text" id="maxEinzahlung" value="@Program.app.settings.maxEinzahlung" />
         <p>Startguthaben (In einer Ganzzahl):</p>
         <input asp-for="startguthaben" type="text" id="startguthaben" value="@Program.app.settings.startguthaben" />
+        <p>Username um ihn zum Admin zu machen:</p>
+        <input asp-for="Username" type="text" id="isAdmin" value="@Program.app.settings.Username" />
         <input type="submit" id="submit" placeholder="Absenden" />
     </fieldset>   
 </form>
