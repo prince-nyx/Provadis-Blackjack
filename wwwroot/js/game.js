@@ -347,12 +347,8 @@ function enableBet(time) {
 
     chipImages.forEach(chipImage => {
         const onclickAttr = chipImage.getAttribute('onclick');
-        if (onclickAttr !== null) {
-            const chipValue = parseInt(onclickAttr.match(/\d+/)[0]);
-            if (playerCurrency < chipValue || playerCurrency < totalBet + chipValue) {
-                chipImage.style.display = 'inline-block';
-                chipImage.removeAttribute('onclick');
-            }
+        if (onclickAttr !== null) {      
+            chipImage.style.display = 'inline-block';
         }
     });
 
