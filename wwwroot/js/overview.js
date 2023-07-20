@@ -61,3 +61,17 @@ function setBalance(amount) {
 function setName(name) {
     document.getElementById("username").innerHTML = name;
 }
+
+
+$(document).ready(function () {
+    $('.code').keyup(function () {
+        // Convert the value to uppercase and update the input
+        $(this).val($(this).val().toUpperCase());
+
+        // Check if the input's value length has reached the maximum length
+        if ($(this).val().length >= $(this).attr('maxlength')) {
+            // Find the next input element and give it focus
+            $(this).next('.code').focus();
+        }
+    });
+});
