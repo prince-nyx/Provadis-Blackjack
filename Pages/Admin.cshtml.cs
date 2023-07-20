@@ -1,9 +1,16 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+<<<<<<< HEAD
+=======
+using System.Reflection.PortableExecutable;
+using System.Data.SqlClient;
+
+>>>>>>> 33ded14887aa561d866c9cf4fc73df7f3d1a7e7b
 namespace BlackJack.Pages
 {
     public class AdminModel : PageModel
     {
+<<<<<<< HEAD
         public int betTime { get; set; }
         public int turnTime { get; set; }
         public double potLimit { get; set; }
@@ -51,6 +58,49 @@ namespace BlackJack.Pages
             Console.WriteLine("Vor Reload");
                 Program.app.settings.reload();
             Console.WriteLine("Reload");
+=======
+        private SqlCommand? cmd;
+        private SqlDataReader? reader;
+        private readonly SqlDataAdapter? adapter = new SqlDataAdapter();
+        private readonly SqlConnection conn = new("Server=provadis-it-ausbildung.de;Database=BlackJack02;UID=BlackJackUser02;PWD=Pr@vadis_188_Pta;");
+        public void OnGet()
+        {
+            Boolean isAdmin = false;
+            String userid = Request.Cookies["userid"];
+            String result = Program.app.checkAccess(userid);
+            if (result.Equals("ingame") || result.Equals("loggedin"))
+            {
+                Player player = Program.app.playerManager.getPlayer(userid);
+                if(player != null)
+                {
+                    string sql = "SELECT DISTINCT isAdmin FROM Benutzer WHERE Username = @Username";
+
+                    this.conn.Open();
+                    this.cmd = new SqlCommand(sql, this.conn);
+                    this.cmd.Parameters.AddWithValue("@Username", player.username);
+                    this.reader = this.cmd.ExecuteReader();
+                    while (this.reader.Read())
+                    {
+                        isAdmin = reader.GetBoolean(0);
+
+                    }
+                    this.reader.Close();
+                    this.cmd.Dispose();
+                    this.conn.Close();
+                }
+                if(!isAdmin)
+                {
+                    if(result.Equals("ingame"))
+                        Response.Redirect("/game");
+                    else
+                        Response.Redirect("/overview");
+                }
+            }
+            else if (result.Equals("logout"))
+            {
+                Response.Redirect("/index");
+            }
+>>>>>>> 33ded14887aa561d866c9cf4fc73df7f3d1a7e7b
         }
     }
 }
