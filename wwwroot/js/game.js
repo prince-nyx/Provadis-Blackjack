@@ -346,6 +346,27 @@ document.getElementById("standButton").addEventListener("click", function (event
         });
 });
 
+document.getElementById("btnSubmitBet").addEventListener("click", function (event) {
+
+    console.log("Spieler " + getCookie("userid") + " drückt btnSubmitBet");
+    connection
+        .invoke("submitBet", getCookie("userid"))
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
+});
+
+document.getElementById("btnResetBet").addEventListener("click", function (event) {
+
+    console.log("Spieler " + getCookie("userid") + " drückt btnResetBet");
+    connection
+        .invoke("resetBet", getCookie("userid"))
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
+});
+
+
 function disableBet() {
     document.getElementById("chipsDiv").classList.remove("visible");
 }
