@@ -339,7 +339,6 @@ document.getElementById("standButton").addEventListener("click", function (event
 
 function disableBet() {
     document.getElementById("chipsDiv").classList.remove("visible");
-    setTimer(0, false);
 }
 
 function enableBet(time) {
@@ -354,7 +353,7 @@ function enableBet(time) {
     });
 
     hideChipImages();
-    setTimer(time, true);
+    setTimer(time);
 }
 
 function setBalance(amount) {    
@@ -390,6 +389,9 @@ function endTurn() {
 function assignPlayerToSlot(slotid, username) {
     slotid++;
     document.getElementById("Spieler" + slotid + "-name").innerHTML = username;
+    document.getElementById("totalAmountPlayer" + slotid).innerHTML = "...";
+    document.getElementById("Spieler" + slotid + "-name").classList.remove("invisible");
+    document.getElementById("totalAmountPlayer" + slotid).classList.remove("invisible");
     document.getElementById("Spieler" + slotid).classList.add("activeSlot");
 }
 
@@ -397,6 +399,8 @@ function unassignPlayer(slotid) {
     slotid++;
     document.getElementById("Spieler" + slotid + "-name").innerHTML = "...";
     document.getElementById("totalAmountPlayer" + slotid).innerHTML = "...";
+    document.getElementById("Spieler" + slotid + "-name").classList.add("invisible");
+    document.getElementById("totalAmountPlayer" + slotid).classList.add("invisible");
     document.getElementById("Spieler" + slotid).classList.remove("activeSlot");
 }
 
@@ -519,7 +523,7 @@ function markUserSlot(slotid) {
 }
 
 function markActivePlayer(slotid, time) {
-    setTimer(0, false);
+    stopTimer();
     for (var i = 1; i <= 7; i++) {
         var slot = document.getElementById("Spieler" + i);
         if (slot.classList.contains("onTurn")) {
@@ -540,7 +544,7 @@ function markActivePlayer(slotid, time) {
     else {
         console.log("set Spieler" + slotid);
         document.getElementById("Spieler" + slotid).classList.add("onTurn");
-        setTimer(time, true);
+        setTimer(time);
     }
 }
 
@@ -574,7 +578,13 @@ function closeMenu() {
     document.getElementById("ruleBtn").disabled = false;
 }
 
-function setTimer(timeInSeconds, status) {
+var clock;
+function stopTimer() {
+    console.log("[TIMER] stop " + status);
+    clock.stop();
+}
+
+function setTimer(timeInSeconds) {
     $step = 1;
     $loops = Math.round(100 / $step);
     $increment = 360 / $loops;
@@ -590,14 +600,8 @@ function setTimer(timeInSeconds, status) {
     clock = {
         interval: null,
         init: function () {
-            if (status) {
-                console.log("starte Timer von " + timeInSeconds);
-                clock.start(timeInSeconds);
-            }
-            if (!status) {
-                console.log("stoppe Timer");
-                clock.stop();
-            }
+            console.log("[TIMER] starting " + timeInSeconds + "s ");
+            clock.start(timeInSeconds);
         },
         start: function (t) {
             var num = 0;
@@ -632,5 +636,6 @@ function setTimer(timeInSeconds, status) {
             $('.clock').removeAttr('style');
             document.getElementById("clock_vis").style.visibility = "collapse";
         }
+       
     }
 }

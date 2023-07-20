@@ -86,6 +86,8 @@ public class Player
         bet = 0;
     }
 
+    public List<>
+
     public void AddWallet(double amount)
     {
         this.wallet += amount;
