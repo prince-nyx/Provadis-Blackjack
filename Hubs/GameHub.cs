@@ -7,6 +7,23 @@ namespace BlackJack.Hubs
     {
 
 
+        public async Task refresh(String cookie)
+        {
+			String connectionId = Context.ConnectionId;
+			Player player = Program.app.playerManager.getPlayer(cookie);
+            if (player == null)
+                await Clients.Client(connectionId).SendAsync("console", "Kein Login vorhanden");
+            else
+            {
+                Game game = Program.app.gameManager.getGame(player.currentGameId);
+                if (game == null)
+                    await Clients.Client(connectionId).SendAsync("console", "Game nicht gefunden");
+                else
+                {
+                    game.refresh(player);
+                }
+            }
+		}
 
         public async Task update(String cookie)
         {

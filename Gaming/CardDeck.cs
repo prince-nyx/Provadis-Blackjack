@@ -113,4 +113,9 @@ public class CardDeck
 	{
 		return cards.Count == 2 && BlackJackSum() == 21;
 	}
+
+	public List<Card> getAlLCards()
+	{
+		return cards;
+	}
 }
