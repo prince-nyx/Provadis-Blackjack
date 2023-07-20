@@ -73,7 +73,17 @@ namespace BlackJack.Pages
 
         private bool IsBirthValid()
         {
-            return this.Birth.CompareTo(DateTime.Today.AddYears(-18)) <= 0 ? true : false;
+            int age = DateTime.Today.Year - this.Birth.Year;
+
+            if (age >= 18)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
 		}
 
         private bool IsUserNameValid() 

@@ -180,7 +180,7 @@ function myConfirmBox(message) {
     element.innerHTML = `<div class="box">
                                     ${message}
                                     <div>
-                                        <button id="trueButton" class="btn green">Ja</button> <!-- Set Id for both buttons -->
+                                        <a id="trueButton" class="btn green" href="overview">Ja</a> <!-- Set Id for both buttons -->
                                         <button id="falseButton" class="btn red">Abbrechen</button>
                                     </div>
                                 </div>`;
@@ -302,16 +302,6 @@ function getCookie(cname) {
     }
     return "";
 }
-
-//document.getElementById("trueButton").addEventListener("click", function (event) {
-//    console.log("Spieler " + getCookie("userid") + " verlässt das Spiel");
-//    connection
-//        .invoke("leave", getCookie("userid"))
-//        .catch(function (err) {
-//            return console.error(err.toString());
-//        });
-//});
-
 
 document.getElementById("startButton").addEventListener("click", function (event) {
     console.log("Game startet ..." + getCookie("userid"));
