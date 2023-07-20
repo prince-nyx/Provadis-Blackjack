@@ -342,8 +342,22 @@ function disableBet() {
 }
 
 function enableBet(time) {
+    const chipImages = document.querySelectorAll('.pokerchips img'); // Define chipImages here
     document.getElementById("chipsDiv").classList.add("visible");
-    setTimer(time, true);
+
+    chipImages.forEach(chipImage => {
+        const onclickAttr = chipImage.getAttribute('onclick');
+        if (onclickAttr !== null) {
+            const chipValue = parseInt(onclickAttr.match(/\d+/)[0]);
+            if (playerCurrency < chipValue || playerCurrency < totalBet + chipValue) {
+                chipImage.style.display = 'inline-block';
+                chipImage.removeAttribute('onclick');
+            }
+        }
+    });
+
+    hideChipImages();
+    setTimer(time);
 }
 
 function setBalance(amount) {    
@@ -358,6 +372,7 @@ function load(amount, name, gamecode) {
     setBalance(amount);
     setName(name);
     document.getElementById("code").innerHTML = gamecode;
+    hideChipImages();
 }
 
 function showResult(headline, result) {
@@ -388,13 +403,21 @@ function unassignPlayer(slotid) {
     document.getElementById("Spieler" + slotid).classList.remove("activeSlot");
 }
 
-//Einsatz bei drücken der Chips hochzählen und nur die nutzbaren Chip anzeigen lassen.
-let playerCurrency = 1000;
-let totalBet = 0;
-const totalAmountElement = document.getElementById('totalAmount');
-const chipImages = document.querySelectorAll('.pokerchips img');
+
+
+
+
 
 function hideChipImages() {
+    let totalBet = 0;
+    let moneyElement = document.getElementById('money');
+    console.log(moneyElement.innerHTML);
+    let playerCurrency = parseInt(moneyElement.innerText);
+    console.log(playerCurrency);
+    //let playerCurrency = 125;
+    const chipImages = document.querySelectorAll('.pokerchips img'); // Define chipImages here
+
+
     chipImages.forEach(chipImage => {
         const onclickAttr = chipImage.getAttribute('onclick');
         if (onclickAttr !== null) {
@@ -407,7 +430,18 @@ function hideChipImages() {
     });
 }
 
-hideChipImages();
+
+function clickChip(amount) {
+    connection
+        .invoke("setBet", getCookie("userid"), amount)
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
+}
+
+
+
+
 
 function setBet(slotid, amount) {
 
@@ -423,6 +457,19 @@ function clickChip(amount) {
         .catch(function (err) {
             return console.error(err.toString());
         });
+}
+
+
+
+
+
+
+function setBet(slotid, amount) {
+
+    slotid++;
+    var totalAmountPlayerElement = document.getElementById("totalAmountPlayer" + slotid);
+
+    totalAmountPlayerElement.textContent = amount + "€";
 }
 
 function setCardSum(slotid, amount) {
