@@ -64,7 +64,7 @@ function setName(name) {
 
 
 $(document).ready(function () {
-    $('.code').keyup(function () {
+    $('.code').keyup(function (event) {
         // Convert the value to uppercase and update the input
         $(this).val($(this).val().toUpperCase());
 
@@ -72,6 +72,12 @@ $(document).ready(function () {
         if ($(this).val().length >= $(this).attr('maxlength')) {
             // Find the next input element and give it focus
             $(this).next('.code').focus();
+        }
+
+        // Check if the Backspace key was pressed
+        if (event.keyCode === 8) {
+            // Find the previous input element and give it focus
+            $(this).prev('.code').focus();
         }
     });
 });
