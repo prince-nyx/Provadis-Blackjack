@@ -223,6 +223,7 @@ document.getElementById("exitPromptBtn").addEventListener("click", () => {
     })
 })
 
+
 function showStartButton() {
     document.getElementById("startbuttons").classList.add("visible");
 }

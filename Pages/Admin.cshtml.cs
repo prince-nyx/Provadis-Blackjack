@@ -78,12 +78,29 @@ namespace BlackJack.Pages
             this.adminEntziehen = Convert.ToString(Request.Form["adminEntziehen"]);
             Console.WriteLine("Werte wurden eingetragen");
 
+            if(this.kickPlayer != null) {
+                foreach(Player player in Program.app.playerManager.getAllPlayers())
+                {
+                    if(player.username == this.kickPlayer)
+                    {
+                        String gamecode = player.currentGameId;
+                        Game game = Program.app.gameManager.getGame(gamecode);
+                        if(game != null) {
+                            game.PlayerLeaves(player);
+                            break;
+                        }
+
+                    }
+                }
+            }
+
+
             if (
                 Program.app.settings.betTime != this.betTime ^
                 Program.app.settings.turnTime != this.turnTime ^
                 Program.app.settings.potLimit != this.potLimit ^
                 Program.app.settings.maxEinzahlung != this.maxEinzahlung ^
-                Program.app.settings.startguthaben != this.startguthaben
+                Program.app.settings.startguthaben != this.startguthaben 
                 
                 )
                 Console.WriteLine("Überprüfung wurde abgeschlossen");
