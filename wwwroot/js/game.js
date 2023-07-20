@@ -385,9 +385,9 @@ function unassignPlayer(slotid) {
 
 
 //Einsatz bei drücken der Chips hochzählen und nur die nutzbaren Chip anzeigen lassen.
-let playerCurrency = 1000;
+let playerCurrency = 10;
 let totalBet = 0;
-const totalAmountElement = document.getElementById('totalAmount');
+const totalAmountElement = document.getElementById('totalAmountPlayer');
 const chipImages = document.querySelectorAll('.pokerchips img');
 
 
