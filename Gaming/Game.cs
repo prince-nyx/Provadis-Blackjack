@@ -283,9 +283,17 @@ public class Game
         }
     }
 
+    public void resetBet(Player player)
+    {
+        player.AddWallet(player.bet);
+        player.bet = 0;
+        int slotid = getSlotId(player);
+        setBet(slotid, 0);
+        setBalance(player, player.wallet);
+    }
 
 
-	internal void refresh(Player mainplayer)
+	public void refresh(Player mainplayer)
 	{
         int mainslot = getSlotId(mainplayer);
 		foreach (Card card in dealerDeck.getAlLCards())
