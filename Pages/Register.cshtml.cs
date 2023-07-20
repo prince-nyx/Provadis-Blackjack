@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Numerics;
 using System.Text.RegularExpressions;
 using Microsoft.JSInterop;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BlackJack.Pages
 {
@@ -22,7 +23,7 @@ namespace BlackJack.Pages
         private SqlDataReader? reader;
         private readonly SqlDataAdapter? adapter = new SqlDataAdapter();
         private FrontendEvent frontend;
-
+		private static readonly HttpClient client = new HttpClient();
 		public void OnGet()
         {
             //START ACCESS CHECK
@@ -38,15 +39,26 @@ namespace BlackJack.Pages
             }
             //END ACCESS CHECK
         }
-        public async void OnPost()
-        {
+        public IActionResult OnPost()
+		{
+			
+			Console.WriteLine(Request.Cookies["userid"]);
 			this.Username = Request.Form["username"];
 			this.Password = Request.Form["password"];
             this.Cpass = Request.Form["cpass"];
             this.Birth = Convert.ToDateTime(Request.Form["birth"]);
 
-            if(this.IsUserCharValid() && this.IsPassEQCheckPass() && this.IsBirthValid() && this.IsUserNameValid() && this.IsPasswordValid()) { this.CreateNewUser(); }
-            else { Console.WriteLine("Invalid User"); }
+			if (this.IsUserCharValid() && this.IsPassEQCheckPass() && this.IsBirthValid() && this.IsUserNameValid() && this.IsPasswordValid()) { 
+                this.CreateNewUser();
+				return RedirectToPage("/login");
+
+
+			}
+            else {
+				ModelState.AddModelError("", "Invalid username or password."); // Add a model error for displaying the error message on the page
+				return Page();
+				Console.WriteLine("Invalid User");
+            }
         }
 
         private bool IsUserCharValid()

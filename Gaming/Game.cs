@@ -207,9 +207,9 @@ public class Game
                     headline = "Du hast dich überkauft";
                     result = player.bet + "€ verloren";
                 } else if (dealerPoints > 21)
-                {
-                    player.AddWallet(player.bet * 2);
-                    headline = "Dealer überkauft";
+				{
+					player.AddWallet(player.bet * 2);
+					headline = "Dealer überkauft";
                     result = (player.bet * 2) + "€ gewonnen";
                 } else if(playerPoints > dealerPoints)
                 {
@@ -218,7 +218,6 @@ public class Game
                     result = player.bet + "€ gewonnen";
                 } else
 				{
-					player.AddWallet(player.bet * 2);
 					headline = "Dealer gewinnt";
 					result = player.bet + "€ verloren";
 				}
