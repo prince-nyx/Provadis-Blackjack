@@ -36,6 +36,11 @@ body {
     text-align: center;
 }
 
+.dealer {
+    background-image: url("/images/icons/dealer.png") !important;
+    background-size: cover;
+}
+
 .rectangle {
     width: 5vw;
     height: 5vw;
@@ -49,7 +54,7 @@ body {
     margin: auto;
     opacity: 0.6;
     background: black;
-    background-image: url("/images/nutzer.png");
+    background-image: url("/images/icons/plus.png");
     background-size: cover;
 }
 
@@ -134,8 +139,8 @@ body {
 }
 
 .activeSlot {
-    border: 0.2em #a100c1 solid;
     opacity: 1;
+    background-image: url("/images/icons/nutzer.png");
 }
 
 .container {
@@ -278,6 +283,7 @@ body {
 }
 
 .onTurn {
+    border: 0.2em #a100c1 solid;
     -webkit-box-shadow: 0 0 20px blue;
     -moz-box-shadow: 0 0 20px blue;
     box-shadow: 0 0 20px blue;
