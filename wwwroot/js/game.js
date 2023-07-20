@@ -553,26 +553,18 @@ function setTimer(timeInMinutes, status) {
             }
         },
         start: function (t) {
-            var pie = 0;
             var num = 0;
-            var min = 0;
-            var sec = t+1;
-            var lop = sec;
-            $('.count').text(min);
-            if (min > 0) {
+            var sec = t ? t : 1;
+
+            $('.count').text(sec);
+            if (sec > 0) {
                 $('.count').addClass('sec')
             } else {
                 $('.count').addClass('sec')
             }
+
             clock.interval = setInterval(function () {
                 sec = sec - 1;
-                if (min > 1) {
-                    pie = pie + (100 / (lop / min));
-                } else {
-                    pie = pie + (100 / (lop));
-                }
-                if (pie >= 101) { pie = 1; }
-                num = (sec / 60).toFixed(2).slice(0, -3);
                 if (num == 0) {
                     $('.count').removeClass('min').addClass('sec').text(sec);
                 } else {
