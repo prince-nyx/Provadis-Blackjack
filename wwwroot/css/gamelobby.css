@@ -442,6 +442,10 @@ body {
     -webkit-transition: all .2s ease-in-out;
 }
 
+.invisible {
+    visibility: hidden;
+}
+
 .overlay {
     position: absolute;
     top: 0%;
@@ -510,6 +514,19 @@ body {
 
 .exitPromptBtn:hover {
     background-color: forestgreen;
+}
+.refreshButton:hover {
+    background-color: forestgreen;
+}
+.refreshButton {
+    background-color: Green;
+    color: white;
+    border: none;
+    width: 60px;
+    height: 60px;
+    margin: 10px;
+    font-size: 20px;
+    cursor: pointer;
 }
 
 .rulePopup {

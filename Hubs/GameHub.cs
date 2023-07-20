@@ -7,6 +7,23 @@ namespace BlackJack.Hubs
     {
 
 
+        public async Task refresh(String cookie)
+        {
+			String connectionId = Context.ConnectionId;
+			Player player = Program.app.playerManager.getPlayer(cookie);
+            if (player == null)
+                await Clients.Client(connectionId).SendAsync("console", "Kein Login vorhanden");
+            else
+            {
+                Game game = Program.app.gameManager.getGame(player.currentGameId);
+                if (game == null)
+                    await Clients.Client(connectionId).SendAsync("console", "Game nicht gefunden");
+                else
+                {
+                    game.refresh(player);
+                }
+            }
+		}
 
         public async Task update(String cookie)
         {
@@ -71,6 +88,7 @@ namespace BlackJack.Hubs
             }
 			
         }
+
 
         public async Task startGame(String cookie)
         {
@@ -170,7 +188,30 @@ namespace BlackJack.Hubs
 			}
 		}
 
-        public async Task setBet(String cookie, int amount)
+		public async Task resetBet(String cookie)
+		{
+			String connectionId = Context.ConnectionId;
+			Player player = Program.app.playerManager.getPlayer(cookie);
+			if (player == null)
+				await Clients.Client(connectionId).SendAsync("console", "Dieser Account ist kein Spieler.");
+			else
+			{
+				Game game = Program.app.gameManager.getGame(player.currentGameId);
+				if (game == null)
+					await Clients.Client(connectionId).SendAsync("console", "Dieser Spieler ist nicht in diesem Game.");
+				else if (game.phase == GamePhase.BETTING)
+				{
+					game.resetBet(player);
+					await Clients.Client(connectionId).SendAsync("console", "Spieler resetet seinen Einsatz");
+				}
+				else
+					await Clients.Client(connectionId).SendAsync("console", "Derzeit kann man nicht setzen.");
+
+			}
+		}
+
+
+		public async Task setBet(String cookie, int amount)
         {
             String connectionId = Context.ConnectionId;
             Player player = Program.app.playerManager.getPlayer(cookie);

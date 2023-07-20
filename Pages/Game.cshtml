@@ -82,8 +82,8 @@
 				</div>
 				<div id="Spieler7" class="rectangle">
 					<div class="labelcontainer">
-						<h4 id="Spieler7-name" class="name m-auto">...</h4>
-						<h5 id="totalAmountPlayer7">...</h5>
+						<h4 id="Spieler7-name" class="name m-auto invisible">...</h4>
+						<h5 id="totalAmountPlayer7" class="invisible">...</h5>
 					</div>
 				</div>
 			</div>
@@ -132,8 +132,8 @@
 
 				<div id="Spieler1"  class="rectangle">
 					<div class="labelcontainer">
-						<h4 id="Spieler1-name" class="name m-auto">...</h4>
-						<h5 id="totalAmountPlayer1">...</h5>
+						<h4 id="Spieler1-name" class="name m-auto invisible">...</h4>
+						<h5 id="totalAmountPlayer1" class="invisible">...</h5>
 					</div>
 				</div>
 			</div>
@@ -161,8 +161,8 @@
 
 				<div id="Spieler6" class="rectangle">
 					<div class="labelcontainer">
-						<h4 id="Spieler6-name" class="name m-auto">...</h4>
-						<h5 id="totalAmountPlayer6">...</h5>
+						<h4 id="Spieler6-name" class="name m-auto invisible">...</h4>
+						<h5 id="totalAmountPlayer6" class="invisible">...</h5>
 					</div>
 				</div>
 			</div>
@@ -188,8 +188,8 @@
 
 				<div id="Spieler2" class="rectangle">
 					<div class="labelcontainer">
-						<h4 id="Spieler2-name" class="name m-auto">...</h4>
-						<h5 id="totalAmountPlayer2">...</h5>
+						<h4 id="Spieler2-name" class="name m-auto invisible">...</h4>
+						<h5 id="totalAmountPlayer2" class="invisible">...</h5>
 					</div>
 				</div>
 			</div>
@@ -217,8 +217,8 @@
 				</div>
 				<div id="Spieler5" class="rectangle">
 					<div class="labelcontainer">
-						<h4 id="Spieler5-name" class="name m-auto">...</h4>
-						<h5 id="totalAmountPlayer5">...</h5>
+						<h4 id="Spieler5-name" class="name m-auto invisible">...</h4>
+						<h5 id="totalAmountPlayer5" class="invisible">...</h5>
 					</div>
 				</div>
 			</div>
@@ -242,8 +242,8 @@
 				</div>
 				<div id="Spieler4"  class="rectangle">
 					<div class="labelcontainer">
-						<h4 id="Spieler4-name" class="name m-auto">...</h4>
-						<h5 id="totalAmountPlayer4">...</h5>
+						<h4 id="Spieler4-name" class="name m-auto invisible">...</h4>
+						<h5 id="totalAmountPlayer4" class="invisible">...</h5>
 					</div>
 				</div>
 			</div>
@@ -268,8 +268,8 @@
 
 				<div id="Spieler3" class="rectangle">
 					<div class="labelcontainer">
-						<h4 id="Spieler3-name" class="name m-auto">...</h4>
-						<h5 id="totalAmountPlayer3">...</h5>
+						<h4 id="Spieler3-name" class="name m-auto invisible">...</h4>
+						<h5 id="totalAmountPlayer3" class="invisible">...</h5>
 					</div>
 				</div>
 			</div>
@@ -277,6 +277,7 @@
 		<div class="col-1"></div>
 	</div>
 	<div class="pokerchips" id="chipsDiv">
+		<button type="button" id="btnResetBet" onclick="resetBet()">Reset</button>
 		<img src="/images/pokerchips/Pokerchip1.png" onclick="clickChip(1)" />
 		<img src="/images/pokerchips/Pokerchip5.png" onclick="clickChip(5)" />
 		<img src="/images/pokerchips/Pokerchip10.png" onclick="clickChip(10)" />
@@ -322,7 +323,10 @@
             </button> <br />
             <button class="exitPromptBtn" id="exitPromptBtn">
 				<img src="/images/icons/logout.png" class="menuicons" />
-            </button>
+            </button> <br />
+			<button class="refreshBtn" id="refreshBtn">
+				<img src="/images/icons/refreshBtn.png" class="menuicons" />
+			</button>
         </div>
     </div>
 

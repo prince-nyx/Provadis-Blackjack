@@ -27,5 +27,9 @@ namespace BlackJack
         {
             return userid == null ? null : players.ContainsKey(userid) ? players[userid] : null;
         }
+
+        public List<Player> getAllPlayers() {
+            return players.Values.ToList();
+        }
     }
 }

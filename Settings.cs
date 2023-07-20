@@ -16,6 +16,9 @@ namespace BlackJack
         public double potLimit { get; set; }
         public double maxEinzahlung { get; set; }
         public double startguthaben { get; set; }
+        public string Username { get; set; }
+        public string kickPlayer { get; set; }
+        public string adminEntziehen { get; set; }
 
         public Settings()
         {
@@ -27,7 +30,8 @@ namespace BlackJack
         public void reload()
         {
             string sql = "UPDATE gamesettings SET betTime = @betTime,turnTime = @turnTime,potLimit = @potLimit,maxEinzahlung = @maxEinzahlung,startguthaben = @startguthaben";
-
+            string sql2 = "UPDATE Benutzer SET isAdmin = 1 WHERE Username = @Username";
+            string sql3 = "UPDATE Benutzer SET isAdmin = 0 WHERE Username = @adminEntziehen";
             this.conn.Open();
             this.cmd = new SqlCommand(sql, this.conn);
 
@@ -36,6 +40,15 @@ namespace BlackJack
             this.cmd.Parameters.AddWithValue("@potLimit", potLimit);
             this.cmd.Parameters.AddWithValue("@maxEinzahlung", maxEinzahlung);
             this.cmd.Parameters.AddWithValue("@startguthaben", startguthaben);
+            
+
+            this.cmd = new SqlCommand(sql2, this.conn);
+            this.cmd.Parameters.AddWithValue("@Username", Username);
+
+
+            this.cmd = new SqlCommand(sql3, this.conn);
+            this.cmd.Parameters.AddWithValue("@adminEntziehen", adminEntziehen);
+
 
             this.cmd.ExecuteNonQuery();
 

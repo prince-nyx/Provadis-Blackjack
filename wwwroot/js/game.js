@@ -103,7 +103,7 @@ connection.on("showDealerCards", function (args) {
     try {
         showDealerCards(args[0]);
     } catch (err) {
-        console.log("ERROR(showDealerCards) "+err.message);
+        console.log("ERROR(showDealerCards) " + err.message);
     }
 });
 
@@ -223,6 +223,7 @@ document.getElementById("exitPromptBtn").addEventListener("click", () => {
     })
 })
 
+
 function showStartButton() {
     document.getElementById("startbuttons").classList.add("visible");
 }
@@ -234,15 +235,19 @@ function disableStartButton() {
 function resetCards() {
     var cardSlot;
     for (let i = 1; i <= 7; i++) {
-        for (let x = 1; x <= 11; x++) {
-            cardSlot = document.getElementById("Spieler" + i + "-Card" + x);
-            cardSlot.src = `/images/kartenruecken.png`;
-            cardSlot.classList.remove("visible");
-        }
+        resetCardsAtSlot(i);
     }
 
     for (let x = 1; x <= 11; x++) {
         cardSlot = document.getElementById("Dealer-Card" + x);
+        cardSlot.src = `/images/kartenruecken.png`;
+        cardSlot.classList.remove("visible");
+    }
+}
+
+function resetCardsAtSlot(slotid) {
+    for (let x = 1; x <= 11; x++) {
+        cardSlot = document.getElementById("Spieler" + slotid + "-Card" + x);
         cardSlot.src = `/images/kartenruecken.png`;
         cardSlot.classList.remove("visible");
     }
@@ -290,8 +295,17 @@ function addDealerCard(card, cardslot) {
 
 function showDealerCards(cardname) {
     var cardSlot = document.getElementById("Dealer-Card1");
-    cardSlot.src = "/images/card/"+cardname+".png";
+    cardSlot.src = "/images/card/" + cardname + ".png";
 }
+
+function submitBet(amount) {
+
+}
+
+function resetBet() {
+
+}
+
 
 function getCookie(cname) {
     let name = cname + "=";
@@ -321,7 +335,7 @@ document.getElementById("startButton").addEventListener("click", function (event
 
 document.getElementById("hitButton").addEventListener("click", function (event) {
 
-    console.log("Spieler " + getCookie("userid") +" drückt hitButton");
+    console.log("Spieler " + getCookie("userid") + " drückt hitButton");
     connection
         .invoke("hit", getCookie("userid"))
         .catch(function (err) {
@@ -337,6 +351,27 @@ document.getElementById("standButton").addEventListener("click", function (event
         });
 });
 
+document.getElementById("btnSubmitBet").addEventListener("click", function (event) {
+
+    console.log("Spieler " + getCookie("userid") + " drückt btnSubmitBet");
+    connection
+        .invoke("submitBet", getCookie("userid"))
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
+});
+
+document.getElementById("btnResetBet").addEventListener("click", function (event) {
+
+    console.log("Spieler " + getCookie("userid") + " drückt btnResetBet");
+    connection
+        .invoke("resetBet", getCookie("userid"))
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
+});
+
+
 function disableBet() {
     document.getElementById("chipsDiv").classList.remove("visible");
 }
@@ -347,7 +382,7 @@ function enableBet(time) {
 
     chipImages.forEach(chipImage => {
         const onclickAttr = chipImage.getAttribute('onclick');
-        if (onclickAttr !== null) {      
+        if (onclickAttr !== null) {
             chipImage.style.display = 'inline-block';
         }
     });
@@ -356,7 +391,7 @@ function enableBet(time) {
     setTimer(time);
 }
 
-function setBalance(amount) {    
+function setBalance(amount) {
     document.getElementById("money").innerHTML = amount + "€";
 }
 
@@ -390,24 +425,35 @@ function assignPlayerToSlot(slotid, username) {
     slotid++;
     document.getElementById("Spieler" + slotid + "-name").innerHTML = username;
     document.getElementById("totalAmountPlayer" + slotid).innerHTML = "...";
-    document.getElementById("Spieler" + slotid + "-name").classList.remove("visible");
-    document.getElementById("totalAmountPlayer" + slotid).classList.remove("visible");
+    document.getElementById("Spieler" + slotid + "-name").classList.remove("invisible");
+    document.getElementById("totalAmountPlayer" + slotid).classList.remove("invisible");
     document.getElementById("Spieler" + slotid).classList.add("activeSlot");
 }
 
 function unassignPlayer(slotid) {
     slotid++;
+    resetCardsAtSlot(slotid);
+    console.log("Spieler" + slotid + "-name");
     document.getElementById("Spieler" + slotid + "-name").innerHTML = "...";
     document.getElementById("totalAmountPlayer" + slotid).innerHTML = "...";
-    document.getElementById("Spieler" + slotid + "-name").classList.remove("visible");
-    document.getElementById("totalAmountPlayer" + slotid).classList.remove("visible");
+    document.getElementById("Spieler" + slotid + "-name").classList.add("invisible");
+    document.getElementById("totalAmountPlayer" + slotid).classList.add("invisible");
     document.getElementById("Spieler" + slotid).classList.remove("activeSlot");
 }
 
 
+function refresh() {
+    for (i = 0; i < 7; i++) {
+        unassignPlayer(i);
+    }
+    resetCards();
+    connection
+        .invoke("refresh", getCookie("userid"))
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
 
-
-
+}
 
 function hideChipImages() {
     let totalBet = 0;
@@ -432,23 +478,9 @@ function hideChipImages() {
 }
 
 
-function clickChip(amount) {
-    connection
-        .invoke("setBet", getCookie("userid"), amount)
-        .catch(function (err) {
-            return console.error(err.toString());
-        });
-}
-
-
-
-
-
 function setBet(slotid, amount) {
-
     slotid++;
     var totalAmountPlayerElement = document.getElementById("totalAmountPlayer" + slotid);
-
     totalAmountPlayerElement.textContent = amount + "€";
 }
 
@@ -460,18 +492,6 @@ function clickChip(amount) {
         });
 }
 
-
-
-
-
-
-function setBet(slotid, amount) {
-
-    slotid++;
-    var totalAmountPlayerElement = document.getElementById("totalAmountPlayer" + slotid);
-
-    totalAmountPlayerElement.textContent = amount + "€";
-}
 
 function setCardSum(slotid, amount) {
     const sumElement = document.getElementById(`sumPlayer${slotid}`);
@@ -487,19 +507,19 @@ function setCardSum(slotid, amount) {
         addedAmountElement.textContent = `Höhe der gezogenen Karte: +${amount}`;
     }
 
-/*    // Target the dealer slot
-    const dealerSumElement = document.getElementById('sumDealer');
-    if (dealerSumElement) {
-        let dealerSum = parseInt(dealerSumElement.textContent.trim().split(':')[1]);
-        if (isNaN(dealerSum)) {
-            dealerSum = 0;
-        }
-        dealerSum += amount;
-        dealerSumElement.textContent = `Kartensumme: ${dealerSum}`;
-
-        const dealerAddedAmountElement = document.getElementById('addedAmountDealer');
-        dealerAddedAmountElement.textContent = `Höhe der gezogenen Karte: +${amount}`;
-    }*/
+    /*    // Target the dealer slot
+        const dealerSumElement = document.getElementById('sumDealer');
+        if (dealerSumElement) {
+            let dealerSum = parseInt(dealerSumElement.textContent.trim().split(':')[1]);
+            if (isNaN(dealerSum)) {
+                dealerSum = 0;
+            }
+            dealerSum += amount;
+            dealerSumElement.textContent = `Kartensumme: ${dealerSum}`;
+    
+            const dealerAddedAmountElement = document.getElementById('addedAmountDealer');
+            dealerAddedAmountElement.textContent = `Höhe der gezogenen Karte: +${amount}`;
+        }*/
 
     // Target the benutzer slot
     const benutzerSumElement = document.getElementById('sumBenutzer');
@@ -518,7 +538,7 @@ function setCardSum(slotid, amount) {
 
 function markUserSlot(slotid) {
     slotid++;
-    var slot = document.getElementById("Spieler" + slotid +"-container");
+    var slot = document.getElementById("Spieler" + slotid + "-container");
     slot.classList.add("myPlayer");
 }
 
@@ -636,6 +656,6 @@ function setTimer(timeInSeconds) {
             $('.clock').removeAttr('style');
             document.getElementById("clock_vis").style.visibility = "collapse";
         }
-       
+
     }
 }

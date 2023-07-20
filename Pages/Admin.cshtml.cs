@@ -16,6 +16,10 @@ namespace BlackJack.Pages
         public double potLimit { get; set; }
         public double maxEinzahlung { get; set; }
         public double startguthaben { get; set; }
+        public string Username { get; set; }
+        public string kickPlayer { get; set; }
+        public string adminEntziehen { get; set; }
+
 
         private SqlCommand? cmd;
         private SqlDataReader? reader;
@@ -69,14 +73,34 @@ namespace BlackJack.Pages
             this.potLimit = Convert.ToDouble(Request.Form["potLimit"]);
             this.maxEinzahlung = Convert.ToDouble(Request.Form["maxEinzahlung"]);
             this.startguthaben = Convert.ToDouble(Request.Form["startguthaben"]);
+            this.Username = Convert.ToString(Request.Form["Username"]);
+            this.kickPlayer = Convert.ToString(Request.Form["kickPlayer"]);
+            this.adminEntziehen = Convert.ToString(Request.Form["adminEntziehen"]);
             Console.WriteLine("Werte wurden eingetragen");
+
+            if(this.kickPlayer != null) {
+                foreach(Player player in Program.app.playerManager.getAllPlayers())
+                {
+                    if(player.username == this.kickPlayer)
+                    {
+                        String gamecode = player.currentGameId;
+                        Game game = Program.app.gameManager.getGame(gamecode);
+                        if(game != null) {
+                            game.PlayerLeaves(player);
+                            break;
+                        }
+
+                    }
+                }
+            }
+
 
             if (
                 Program.app.settings.betTime != this.betTime ^
                 Program.app.settings.turnTime != this.turnTime ^
                 Program.app.settings.potLimit != this.potLimit ^
                 Program.app.settings.maxEinzahlung != this.maxEinzahlung ^
-                Program.app.settings.startguthaben != this.startguthaben
+                Program.app.settings.startguthaben != this.startguthaben 
                 
                 )
                 Console.WriteLine("Überprüfung wurde abgeschlossen");
@@ -85,6 +109,9 @@ namespace BlackJack.Pages
                 Program.app.settings.potLimit = this.potLimit;
                 Program.app.settings.maxEinzahlung = this.maxEinzahlung;
                 Program.app.settings.startguthaben = this.startguthaben;
+                Program.app.settings.Username= this.Username;
+                Program.app.settings.kickPlayer = this.kickPlayer;
+                Program.app.settings.adminEntziehen = this.adminEntziehen;
             Console.WriteLine("Vor Reload");
                 Program.app.settings.reload();
             Console.WriteLine("Reload");

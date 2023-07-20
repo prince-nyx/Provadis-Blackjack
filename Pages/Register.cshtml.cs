@@ -135,7 +135,7 @@ namespace BlackJack.Pages
             {
                 Encrypt encrypt = new();
 				
-                string sql = "INSERT INTO Benutzer(Username, Passwort, GeldAnzahl, Geburtsdatum, isAdmin) VALUES('" + this.Username + "', '" + encrypt.GetHashedPassword(this.Password) + "', " + this.UserMoney + ", '" + this.Birth.ToShortDateString() + ", 0')";
+                string sql = "INSERT INTO Benutzer(Username, Passwort, GeldAnzahl, Geburtsdatum, isAdmin) VALUES('" + this.Username + "', '" + encrypt.GetHashedPassword(this.Password) + "', " + this.UserMoney + ", '" + this.Birth.ToShortDateString() + "', 0)";
 
                 this.conn.Open();
 				this.cmd = new SqlCommand(sql, this.conn);

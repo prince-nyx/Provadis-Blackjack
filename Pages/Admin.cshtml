@@ -17,9 +17,15 @@
         <input asp-for="maxEinzahlung" type="text" id="maxEinzahlung" value="@Program.app.settings.maxEinzahlung" />
         <p>Startguthaben (In einer Ganzzahl):</p>
         <input asp-for="startguthaben" type="text" id="startguthaben" value="@Program.app.settings.startguthaben" />
-        <input type="submit" id="submit" placeholder="Absenden" />
+        <p>Username um ihn zum Admin zu machen:</p>
+        <input asp-for="Username" type="text" id="isAdmin" value="@Program.app.settings.Username" />
+        <p>Username um ihn aus einem Spiel zu kicken:</p>
+        <input asp-for="kickPlayer" type="text" id="isAdmin" value="@Program.app.settings.Username" />
+        <p>Username um ihm die Admin-Rechte zu entziehen:</p>
+        <input asp-for="adminEntziehen" type="text" id="isAdmin" value="@Program.app.settings.Username" />
+        <input type="submit" id="submitAdmin" placeholder="Absenden" />
     </fieldset>   
 </form>
-
+<script src="/js/game.js"></script>
 
 
