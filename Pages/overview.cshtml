@@ -7,11 +7,12 @@
 <head>
     <meta charset="utf-8" />
     <title>Spiel starten / beitreten</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div class="displayContainer">
-        <h1 class="dispayUsername">Benutzer</h1>
-        <h1 class="displayMoney">0.00€</h1>
+        <h1 class="dispayUsername" id="username"></h1>
+        <h1 class="displayMoney" id="money"></h1>
         <button id="deposit" onclick="location.href = 'deposit'" style="    
         background-color: #4CAF50; /* Green */
         border: none;
@@ -29,13 +30,38 @@
     </div>
     <div class="divFenster">
         <div class="divBox">
-            <h1 style="color: white;">Spiel starten</h1>
+            <h1 style="color: white; text-decoration-line: underline;">Spiel starten</h1>
             <form id="msform" style="padding: 10px" method="post">
-                <input asp-for="code" type="code" action="" type="text" name="code" placeholder="Enter Code" style="color: black;"><br>
+                <div class="code-container">
+                    <h4 style="color: white; margin-right: 10px;">Code:</h4>
+                    <input asp-for="code" type="code" action="" type="text" name="code1" class="code" maxlength='1' style="color: black;">
+                    <input asp-for="code" type="code" action="" type="text" name="code2" class="code" maxlength='1' style="color: black;">
+                    <input asp-for="code" type="code" action="" type="text" name="code3" class="code" maxlength='1' style="color: black;">
+                    <input asp-for="code" type="code" action="" type="text" name="code4" class="code" maxlength='1' style="color: black;">
+                </div>
                 <span asp-validation-for="code" class="text-danger"></span><br>
                 <input type="submit" id="spielbeitreten" style="color: black;" placeholder="Spiel starten" value="Spiel beitreten">
                 <input type="submit" id="spielerstellen" style="color: black;" placeholder="Spiel starten" value="Spiel erstellen">
             </form>
         </div>
     </div>
+
+
+
+
+<script>
+  $(document).ready(function () {
+    $('.code').keyup(function () {
+      // Convert the value to uppercase and update the input
+      $(this).val($(this).val().toUpperCase());
+      
+      // Check if the input's value length has reached the maximum length
+      if ($(this).val().length >= $(this).attr('maxlength')) {
+        // Find the next input element and give it focus
+        $(this).next('.code').focus();
+      }
+    });
+  });
+</script>
+<script src="/js/overview.js"></script>
 </body>
