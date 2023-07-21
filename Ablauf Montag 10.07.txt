@@ -1,0 +1,20 @@
+Wir fingen damit an Vor- und Nachteile von Vorgehensweisen mündlich aufzusagen. Letztlich haben wir uns für das Scrum-Modell entschieden, weil wir schnell erkannten
+wie viele Einzelne kleine Schritte vor uns seien würden. Die Entscheidung wer Scrum-Master und Product-Owner haben wir in einer Minute geklärt indem man sich einfach gemeldet hat, falls man Lust drauf hat.
+Lennard wurde Scrum-Master und Tim wurde Product Owner (Hat sich später nochmal geändert) 
+
+Nachdem wir das alles geklärt hatten Überlegten wir uns erstmal ungefähr 15 Fragen für den Kunden und führten ein Kundengespräch um diese Fragen uns beantworten zu lassen. Dadurch konnten wir uns besser
+darauf einigen welche Programmiersprache am Besten für das Projekt geeignet ist. Wir entschieden uns für .Net.Core 
+
+Währenddessen oder anschließend baute Tim ein GitHub Repository auf zu dem er uns einlud. Wir begannen damit erstmal alle Issues aufzuschreiben die uns zu dem jeweiligen Zeitpunkt einfielen.
+Dadurch, dass wir natürlich den Issue mit der Datenbank hatten mussten wir dies natürlich auch diskutieren. Hierzu habe ich ein ER-Modell erstellt und dies Implementiert. An diesem Tag haben wir uns
+auch die einzelnen Szenen überlegt und diese grafisch dargestellt.  
+
+Wir haben mit Scrum gearbeitet. In der ersten Woche haben wir täglich Stand-Up-Dailys gemacht und am Ende der Woche ein Retro, aber in der zweiten Woche brauchten wir keine mehr, weil jeder wusste
+was er zu tun hat. Wir haben uns immer gegenseitig auf dem Laufenden gehalten was auch die Kernessenz unserer guten Kommunikation war
+
+Die Issues waren erstmal sehr Oberflächlich / eine Überkategorie. Am Mittwoch änderte sich dies. Wir schrieben kleinere Issues zu dem großen Ganzen. 
+
+Am Freitag haben wir unsere Projektstruktur signifikant verbessert indem wir an der Tafel die Methoden aufschrieben und diskutierten die wir für die Kommunikation zwischen Back- und Frontend gebraucht haben. 
+Dadurch konnten wir alle in der folgenden Woche gleichzeitig im Back- und Frontend an den einzelnen Methoden arbeiten, wodurch die grundsätzliche Gamelogik am Dienstag der zweiten Woche nahe zu fertig war. 
+Von Mittwoch bis Freitag arbeiteten wir größtenteils noch an dem Design und an verschiedensten Sachen, welche der Kunde wollte. Ein weiterer großer Punkt für unseren Erfolg war die, aus unserer Sicht, gute Kommunikation
+zum Kunden
