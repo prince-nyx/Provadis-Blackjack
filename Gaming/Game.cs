@@ -1,20 +1,4 @@
 ﻿using BlackJack;
-using BlackJack.Hubs;
-using BlackJack.Pages;
-using Microsoft.AspNet.SignalR.Messaging;
-using Microsoft.EntityFrameworkCore.Internal;
-using Microsoft.EntityFrameworkCore.Query.Internal;
-using System;
-using System.Linq;
-using System.Numerics;
-using System.Reflection.Metadata;
-using System.Reflection.PortableExecutable;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading;
-using System.Timers;
-using static System.Net.Mime.MediaTypeNames;
 
 
 public class Game

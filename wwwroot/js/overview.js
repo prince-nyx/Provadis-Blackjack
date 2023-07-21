@@ -1,4 +1,4 @@
-﻿console.log("Verbindung wird aufgebaut");
+﻿console.log("Verbindung wird aufgebaut ...");
 var connection = new signalR.HubConnectionBuilder().withUrl("/GameHub").build();
 
 //Die Verbindung wurde aufgebaut und ruft nun diese Funktion auf:
@@ -23,6 +23,18 @@ connection.on("load", function (amount, name) {
         console.log("ERROR(load) " + err.message);
     }
 });
+
+document.getElementById("logout").addEventListener("click", function (event) {
+
+    console.log("Spieler " + getCookie("userid") + " drückt logout button");
+    connection
+        .invoke("logout", getCookie("userid"))
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
+    window.location.replace("index");
+});
+
 
 connection.on("console", function (message) {
     try {
