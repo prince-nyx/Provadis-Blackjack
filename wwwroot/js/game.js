@@ -186,6 +186,15 @@ connection.on("setBalance", function (args) {
         console.log("ERROR(setBalance) " + err.message);
     }
 })
+
+
+connection.on("kicked", function (args) {
+    try {
+        window.location.replace("overview");
+    } catch (err) {
+        console.log("ERROR(load) " + err.message);
+    }
+});
 //STOP BACKEND EVENTS
 
 function myConfirmBox(message) {

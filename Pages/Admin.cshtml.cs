@@ -87,6 +87,7 @@ namespace BlackJack.Pages
                         Game game = Program.app.gameManager.getGame(gamecode);
                         if(game != null) {
                             game.PlayerLeaves(player);
+                            player.registerEvent(new FrontendEvent("kicked"));
                             break;
                         }
 
