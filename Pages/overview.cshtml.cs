@@ -59,7 +59,7 @@ namespace BlackJack.Pages
                         return RedirectToPage("/Game");
                     } else
                     {
-                        ModelState.AddModelError("code1", "Spielbeitritt nicht möglich, da Spiel läuft");
+                        ModelState.AddModelError("code1", "Spiel läuft bereits");
                         return Page();
 
                     }

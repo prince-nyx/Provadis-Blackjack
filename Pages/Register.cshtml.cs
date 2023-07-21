@@ -63,7 +63,7 @@ namespace BlackJack.Pages
 		{
 			Boolean valid = (this.Username.Length >= 3);
 			if (!valid)
-				ModelState.AddModelError("username", "Benutzername zu kurz");
+				ModelState.AddModelError("username", "min 3 Zeichen");
 			return valid;
 
 		}
@@ -123,9 +123,9 @@ namespace BlackJack.Pages
 
         private bool IsPasswordValid()
         {
-            Boolean valid = (this.Password.Length >= 8);
+            Boolean valid = (this.Password.Length >= 4);
 			if (!valid)
-				ModelState.AddModelError("password", "Passwort zu kurz");
+				ModelState.AddModelError("password", "Zu kurz: min 4 Zeichen");
 			return valid;
 		}
 
