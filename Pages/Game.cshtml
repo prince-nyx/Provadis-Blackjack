@@ -277,7 +277,16 @@
 		<div class="col-1"></div>
 	</div>
 	<div class="pokerchips" id="chipsDiv">
-		<button type="button" id="btnResetBet" onclick="resetBet()">Reset</button>
+		<button type="button" id="btnResetBet" class="resetbutton" onclick="resetBet()">
+			<div class="row">
+				<div class="col-md-auto">
+					<i class="fas fa-undo startbtnIcon"></i>
+				</div>
+				<div class="col starttext">
+					RESET
+				</div>
+			</div>
+		</button>
 		<img src="/images/pokerchips/Pokerchip1.png" onclick="clickChip(1)" />
 		<img src="/images/pokerchips/Pokerchip5.png" onclick="clickChip(5)" />
 		<img src="/images/pokerchips/Pokerchip10.png" onclick="clickChip(10)" />

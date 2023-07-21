@@ -130,6 +130,16 @@ body {
     padding-left: 0em;
 }
 
+.resetbutton .col-md-auto {
+    padding-left: 0.95em;
+    padding-right: 0;
+    padding-top: 0.1em;
+}
+
+.resetbutton .col {
+    padding-left: 0em;
+}
+
 #startbuttons .buttons {
   background: black;
 }
@@ -139,6 +149,15 @@ body {
     font-size: 1.8em;
     font-weight: 600;
     color: #f6f6f6
+}
+
+.resetbutton {
+    width: 11em;
+    height: 3.1em;
+    background: #0c6f3c;
+    border: 0.2em #00de6b solid;
+    border-radius: 15em;
+    cursor: pointer;
 }
 
 .activeSlot {
