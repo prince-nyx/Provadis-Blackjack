@@ -200,20 +200,38 @@ body {
     overflow: auto;
 }
 
-#player2_cards,
-#player6_cards {
-    left: 25%;
+#player2_cards {
+    left: 45%;
     top: -70%;
+    background: black;
+}
+
+
+#player6_cards {
+    left: 5%;
+    top: -70%;
+    background: black;
+}
+
+#player3_cards {
+    left: 13%;
+    top: -60%;
+    background: black;
+}
+
+#player5_cards {
+    left: 41%;
+    top: -60%;
+    background: black;
 }
 
 #dealer_cards,
 #player1_cards,
-#player3_cards,
 #player4_cards,
-#player5_cards,
 #player7_cards {
     left: 27%;
     top: -60%;
+    background: black;
 }
 
 .image-row .visible {
