@@ -188,6 +188,12 @@ namespace BlackJack.Hubs
 			}
 		}
 
+        public async Task logout(String cookie)
+		{
+			String connectionId = Context.ConnectionId;
+			Program.app.playerManager.logout(cookie);
+			await Clients.Client(connectionId).SendAsync("console", "Spieler wurde ausgeloggt");
+		}
 		public async Task resetBet(String cookie)
 		{
 			String connectionId = Context.ConnectionId;

@@ -371,6 +371,17 @@ document.getElementById("btnResetBet").addEventListener("click", function (event
         });
 });
 
+document.getElementById("logout").addEventListener("click", function (event) {
+
+    console.log("Spieler " + getCookie("userid") + " drückt logout");
+    connection
+        .invoke("logout", getCookie("userid"))
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
+    window.location.replace("index");
+});
+
 
 function disableBet() {
     document.getElementById("chipsDiv").classList.remove("visible");
