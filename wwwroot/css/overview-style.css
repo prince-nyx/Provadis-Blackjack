@@ -111,6 +111,16 @@ input.code {
     padding-left: 0em;
 }
 
+#logout .col-md-auto {
+    padding-left: 0.6em;
+    padding-right: 0;
+    padding-top: 0.05em;
+}
+
+#logout .col {
+    padding-left: 0em;
+}
+
 #spielbeitreten {
     width: 8em;
     height: 2.5em;
@@ -200,6 +210,24 @@ input.code {
     color: white;
     margin-top: 1em;
     padding-top: 0.5em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#logout {
+    width: 9.2em;
+    height: 3em;
+    background: #0c6f3c;
+    border: 0.2em #00de6b solid;
+    border-radius: 15em;
+    color: white;
+    margin-top: 0.5em;
+    padding-top: 0.6em;
     text-align: center;
     text-decoration: none;
     display: inline-block;
