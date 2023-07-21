@@ -40,10 +40,12 @@ namespace BlackJack
             this.cmd.Parameters.AddWithValue("@potLimit", potLimit);
             this.cmd.Parameters.AddWithValue("@maxEinzahlung", maxEinzahlung);
             this.cmd.Parameters.AddWithValue("@startguthaben", startguthaben);
-            
+            this.cmd.ExecuteNonQuery();
+
 
             this.cmd = new SqlCommand(sql2, this.conn);
             this.cmd.Parameters.AddWithValue("@Username", Username);
+            this.cmd.ExecuteNonQuery();
 
 
             this.cmd = new SqlCommand(sql3, this.conn);

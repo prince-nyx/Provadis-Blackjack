@@ -104,17 +104,19 @@ namespace BlackJack.Pages
                 
                 )
                 Console.WriteLine("Überprüfung wurde abgeschlossen");
-                Program.app.settings.betTime = this.betTime;
-                Program.app.settings.turnTime = this.turnTime;
-                Program.app.settings.potLimit = this.potLimit;
-                Program.app.settings.maxEinzahlung = this.maxEinzahlung;
-                Program.app.settings.startguthaben = this.startguthaben;
-                Program.app.settings.Username= this.Username;
-                Program.app.settings.kickPlayer = this.kickPlayer;
-                Program.app.settings.adminEntziehen = this.adminEntziehen;
+            Console.WriteLine(Program.app.settings.ToString());
+            Program.app.settings.betTime = this.betTime;
+            Program.app.settings.turnTime = this.turnTime;
+            Program.app.settings.potLimit = this.potLimit;
+            Program.app.settings.maxEinzahlung = this.maxEinzahlung;
+            Program.app.settings.startguthaben = this.startguthaben;
+            Program.app.settings.Username= this.Username;
+            Program.app.settings.adminEntziehen = this.adminEntziehen;
+            Console.WriteLine(Program.app.settings.ToString());
             Console.WriteLine("Vor Reload");
-                Program.app.settings.reload();
+            Program.app.settings.reload();
             Console.WriteLine("Reload");
+            Console.WriteLine(Program.app.settings.ToString());
 
 
         }

@@ -200,17 +200,30 @@ body {
     overflow: auto;
 }
 
-#player2_cards,
-#player6_cards {
-    left: 25%;
+#player2_cards {
+    left: 45%;
     top: -70%;
+}
+
+
+#player6_cards {
+    left: 5%;
+    top: -70%;
+}
+
+#player3_cards {
+    left: 13%;
+    top: -60%;
+}
+
+#player5_cards {
+    left: 41%;
+    top: -60%;
 }
 
 #dealer_cards,
 #player1_cards,
-#player3_cards,
 #player4_cards,
-#player5_cards,
 #player7_cards {
     left: 27%;
     top: -60%;
@@ -433,14 +446,14 @@ body {
     bottom: 0%;
     right: 0%;
     left: 0%;
-    background-color: Green;
-    border: none;
+    background: #0c6f3c;
+    border: 0.2em #00de6b solid;
+    border-radius: 1.5em;
     color: white;
-    padding: 12px 16px;
-    margin: 20px;
-    width: 60px;
-    height: 60px;
-    font-size: 20px;
+    margin: 1em;
+    width: 2.5em;
+    height: 2.5em;
+    font-size: 1.25em;
     cursor: pointer;
 }
 
@@ -483,21 +496,51 @@ body {
     right: 0%;
     margin: auto;
     width: 80px;
-    height: 240px;
-    background: #808080;
+    height: 18em;
+    background: #42424299;
+    border: 0.2em #5f5f5fcc solid;
+    border-radius: 2em;
     transition: all 0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;
     -webkit-transition: all 0.5s ease-in-out;
 }
 
-.resumeBtn {
-    background-color: Green;
+.menubtnIcons::before {
+    height: 1.5em;
+    width: 1.5em !important;
+    font: var(--fa-font-solid);
+    font-weight: 600;
+    font-size: 1.75em;
+    text-align: center;
+    display: flex;
     color: white;
-    border: none;
-    width: 60px;
-    height: 60px;
-    margin: 10px;
-    font-size: 20px;
+    margin-top: 0.19em;
+    margin-left: 0.06em;
+}
+
+.rulebtnIcons::before {
+    height: 1.5em;
+    width: 1.5em !important;
+    font: var(--fa-font-solid);
+    font-weight: 600;
+    font-size: 1.75em;
+    text-align: center;
+    display: flex;
+    color: white;
+    margin-top: 0.14em;
+    margin-left: 0.35em;
+}
+
+.resumeBtn {
+    background: #0c6f3c;
+    color: white;
+    border: 0.2em #00de6b solid;
+    border-radius: 2em;
+    width: 3em;
+    height: 3em;
+    margin-left: 0.35em;
+    margin-top: 0.55em;
+    font-size: 1.25em;
     cursor: pointer;
 }
 
@@ -506,12 +549,14 @@ body {
 }
 
 .ruleBtn {
-    background-color: Green;
+    background: #0c6f3c;
     color: white;
-    border: none;
-    width: 60px;
-    height: 60px;
-    margin: 10px;
+    border: 0.2em #00de6b solid;
+    border-radius: 2em;
+    width: 3em;
+    height: 3em;
+    margin-left: 0.35em;
+    margin-top: 0.35em;
     font-size: 20px;
     cursor: pointer;
 }
@@ -521,12 +566,14 @@ body {
 }
 
 .exitPromptBtn {
-    background-color: Green;
+    background: #0c6f3c;
     color: white;
-    border: none;
-    width: 60px;
-    height: 60px;
-    margin: 10px;
+    border: 0.2em #00de6b solid;
+    border-radius: 2em;
+    width: 3em;
+    height: 3em;
+    margin-left: 0.35em;
+    margin-top: 0.35em;
     font-size: 20px;
     cursor: pointer;
 }
@@ -537,13 +584,15 @@ body {
 .refreshButton:hover {
     background-color: forestgreen;
 }
-.refreshButton {
-    background-color: Green;
+.refreshBtn {
+    background: #0c6f3c;
     color: white;
-    border: none;
-    width: 60px;
-    height: 60px;
-    margin: 10px;
+    border: 0.2em #00de6b solid;
+    border-radius: 2em;
+    width: 3em;
+    height: 3em;
+    margin-left: 0.35em;
+    margin-top: 0.35em;
     font-size: 20px;
     cursor: pointer;
 }
